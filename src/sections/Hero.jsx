@@ -6,8 +6,24 @@ import HeroExperience from "../components/HeroModels/HeroExperience";
 import { words } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+    const [showScroll, setShowScroll] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShowScroll(false), 5000);
+        const handleScroll = () => setShowScroll(false);
+        window.addEventListener("scroll", handleScroll, {
+            passive: true,
+            once: true,
+        });
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     useGSAP(() => {
         gsap.fromTo(
             ".hero-text h1",
@@ -34,13 +50,7 @@ const Hero = () => {
         gsap.fromTo(
             ".see-button",
             { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.5,
-                delay: 1,
-                ease: "power2.inOut",
-            },
+            { y: 0, opacity: 1, duration: 1.5, delay: 1, ease: "power2.inOut" },
         );
         gsap.fromTo(
             ".hero-3d-layout",
@@ -55,26 +65,45 @@ const Hero = () => {
         );
         gsap.fromTo(
             ".background",
-            { y: 50, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.5,
-                stagger: 0.2,
-                ease: "power2.inOut",
-            },
+            { opacity: 0 },
+            { opacity: 1, duration: 2, ease: "power2.inOut" },
         );
     });
+
     return (
         <section id="hero" className="relative overflow-hidden">
-            <div className="background absolute top-0 left-0 z-10">
-                <img src="/images/bg.png" alt="background" />
+            {/* Dot Grid Pattern */}
+            <div className="hero-dot-grid" aria-hidden="true" />
+
+            {/* Ambient Blobs */}
+            <div className="blob blob-1 gpu-layer" aria-hidden="true" />
+            <div className="blob blob-2 gpu-layer" aria-hidden="true" />
+            <div className="blob blob-3 gpu-layer" aria-hidden="true" />
+
+            {/* Original bg image (kept for 3D model lighting) */}
+            <div className="background absolute top-0 left-0 z-10 opacity-30">
+                <img src="/images/bg.png" alt="" aria-hidden="true" />
             </div>
+
             <div className="hero-layout">
                 {/* LEFT: HERO CONTENT */}
-
                 <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
                     <div className="flex flex-col gap-7">
+                        {/* Availability badge */}
+                        <div className="hero-badge shimmer-badge w-fit flex items-center gap-2">
+                            <span
+                                className="w-2 h-2 rounded-full bg-green-400 inline-block"
+                                style={{
+                                    boxShadow:
+                                        "0 0 8px rgba(74, 222, 128, 0.8)",
+                                    animation: "pulse 2s ease-in-out infinite",
+                                }}
+                            />
+                            <span className="text-white/80 text-sm">
+                                Open to opportunities
+                            </span>
+                        </div>
+
                         <div className="hero-text">
                             <h1>
                                 Shaping
@@ -87,7 +116,7 @@ const Hero = () => {
                                             >
                                                 <img
                                                     src={word.imgPath}
-                                                    alt="person"
+                                                    alt={word.text}
                                                     className="xl:size-12 md:size-10 size-7 md:p-2 p-1 rounded-full bg-white-50"
                                                 />
                                                 <span>{word.text}</span>
@@ -97,15 +126,25 @@ const Hero = () => {
                                 </span>
                             </h1>
                             <h1>into Real Projects</h1>
-                            <h1>that Deliver Results</h1>
+                            <h1
+                                style={{
+                                    background:
+                                        "linear-gradient(135deg, #ffffff 30%, #94a3b8 100%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                }}
+                            >
+                                that Deliver Results
+                            </h1>
                         </div>
+
                         <div className="hero-description">
-                            <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-                                Hi, I am Adi 👋.
-                                <br />
-                                A Computer Science Undergraduate, passionate
-                                <br />
-                                for programming and solving Real-world problems.
+                            <p className="text-white/60 md:text-xl relative z-10 pointer-events-none leading-relaxed">
+                                Hi, I&apos;m Adi 👋 — a Computer Science
+                                undergraduate specializing <br /> in
+                                AI&nbsp;&amp;&nbsp;ML, passionate about building
+                                products that matter.
                             </p>
                         </div>
 
@@ -118,13 +157,21 @@ const Hero = () => {
                 </header>
 
                 {/* RIGHT: 3D MODEL */}
-
                 <figure>
                     <div className="hero-3d-layout">
                         <HeroExperience />
                     </div>
                 </figure>
             </div>
+
+            {/* Scroll Indicator */}
+            {showScroll && (
+                <div className="scroll-indicator" aria-hidden="true">
+                    <div className="chevron" />
+                    <div className="chevron" />
+                </div>
+            )}
+
             <AnimatedCounter />
         </section>
     );

@@ -32,17 +32,14 @@ const ExperienceSection = () => {
                 start: "top center",
                 end: "70% center",
                 onUpdate: (self) => {
-                    gsap.to(".timeline", {
-                        scaleY: 1 - self.progress,
-                    });
+                    gsap.to(".timeline", { scaleY: 1 - self.progress });
                 },
             },
         });
         gsap.utils.toArray(".expText").forEach((text) => {
             gsap.from(text, {
-                xPercent: 0,
                 opacity: 0,
-                // transformOrigin: "left left",
+                x: 30,
                 duration: 1,
                 ease: "power2.inOut",
                 scrollTrigger: {
@@ -92,25 +89,49 @@ const ExperienceSection = () => {
                                                     className="rounded-full lg:mr-3"
                                                 />
                                             </div>
-                                            <div>
-                                                <h1 className="font-semibold text-3xl">
+                                            <div className="flex-1">
+                                                <h1 className="font-bold text-2xl md:text-3xl text-white">
                                                     {card.title}
                                                 </h1>
-                                                <p className="my-15 text-white-50">
-                                                    🗓️ {card.date}
-                                                </p>
-                                                <p className="text-[839CB5] italic">
+
+                                                {/* Date badge */}
+                                                <div className="my-4">
+                                                    <span className="hero-badge shimmer-badge text-sm text-white/60 flex items-center gap-2 w-fit">
+                                                        🗓️ {card.date}
+                                                    </span>
+                                                </div>
+
+                                                <p
+                                                    className="text-sm font-semibold mb-4 uppercase tracking-wider"
+                                                    style={{
+                                                        background:
+                                                            "linear-gradient(90deg, #3b82f6, #8b5cf6)",
+                                                        WebkitBackgroundClip:
+                                                            "text",
+                                                        WebkitTextFillColor:
+                                                            "transparent",
+                                                        backgroundClip: "text",
+                                                    }}
+                                                >
                                                     Responsibilities
                                                 </p>
-                                                <ul className="list-disc ms-5 mt-5 flex flex-col gap-5 text-white-50">
+
+                                                <ul className="list-none flex flex-col gap-4">
                                                     {card.responsibilities.map(
                                                         (responsibility) => (
                                                             <li
                                                                 key={
                                                                     responsibility
                                                                 }
-                                                                className="text-lg"
+                                                                className="flex items-start gap-3 text-white/60 text-base"
                                                             >
+                                                                <span
+                                                                    className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                                                    style={{
+                                                                        background:
+                                                                            "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                                                                    }}
+                                                                />
                                                                 {responsibility}
                                                             </li>
                                                         ),

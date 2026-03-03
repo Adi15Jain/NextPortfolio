@@ -8,11 +8,9 @@ import ContactExperience from "../components/Models/Contact/ContactExperience";
 const Contact = () => {
     const formRef = useRef(null);
     const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({
-        name: "",
-        email: "",
-        message: "",
-    });
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [form, setForm] = useState({ name: "", email: "", message: "" });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,7 +19,9 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Show loading state
+        setLoading(true);
+        setSuccess(false);
+        setError(false);
 
         try {
             await emailjs.sendForm(
@@ -30,13 +30,15 @@ const Contact = () => {
                 formRef.current,
                 process.env.NEXT_PUBLIC_APP_EMAILJS_PUBLIC_KEY,
             );
-
-            // Reset form and stop loading
             setForm({ name: "", email: "", message: "" });
-        } catch (error) {
-            console.error("EmailJS Error:", error); // Optional: show toast
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 5000);
+        } catch (err) {
+            console.error("EmailJS Error:", err);
+            setError(true);
+            setTimeout(() => setError(false), 5000);
         } finally {
-            setLoading(false); // Always stop loading, even on error
+            setLoading(false);
         }
     };
 
@@ -44,26 +46,58 @@ const Contact = () => {
         <section id="contact" className="flex-center section-padding">
             <div className="w-full h-full md:px-10 px-5">
                 <TitleHeader
-                    title="Get in Touch – Let’s Connect"
-                    sub="💬 Have questions or ideas? Let’s talk! 🚀"
+                    title="Get in Touch – Let's Connect"
+                    sub="💬 Have questions or ideas? Let's talk! 🚀"
                 />
                 <div className="grid-12-cols mt-16">
+                    {/* FORM */}
                     <div className="xl:col-span-5">
-                        <div className="flex-center card-border rounded-xl p-10">
+                        <div
+                            className="glass-card rounded-2xl p-8 md:p-10"
+                            style={{
+                                border: "1px solid rgba(255,255,255,0.08)",
+                            }}
+                        >
                             <form
                                 ref={formRef}
                                 onSubmit={handleSubmit}
-                                className="w-full flex flex-col gap-7"
+                                className="w-full flex flex-col gap-6"
                             >
+                                {/* Status feedback */}
+                                {success && (
+                                    <div
+                                        className="w-full py-3 px-4 rounded-xl text-sm font-medium text-green-300 flex items-center gap-2"
+                                        style={{
+                                            background: "rgba(16,185,129,0.1)",
+                                            border: "1px solid rgba(16,185,129,0.3)",
+                                        }}
+                                    >
+                                        ✅ Message sent successfully! I&apos;ll
+                                        get back to you soon.
+                                    </div>
+                                )}
+                                {error && (
+                                    <div
+                                        className="w-full py-3 px-4 rounded-xl text-sm font-medium text-red-300 flex items-center gap-2"
+                                        style={{
+                                            background: "rgba(239,68,68,0.1)",
+                                            border: "1px solid rgba(239,68,68,0.3)",
+                                        }}
+                                    >
+                                        ❌ Something went wrong. Please try
+                                        again.
+                                    </div>
+                                )}
+
                                 <div>
-                                    <label htmlFor="name">Your name</label>
+                                    <label htmlFor="name">Your Name</label>
                                     <input
                                         type="text"
                                         id="name"
                                         name="name"
                                         value={form.name}
                                         onChange={handleChange}
-                                        placeholder="What’s your good name?"
+                                        placeholder="What's your good name?"
                                         required
                                     />
                                 </div>
@@ -76,7 +110,7 @@ const Contact = () => {
                                         name="email"
                                         value={form.email}
                                         onChange={handleChange}
-                                        placeholder="What’s your email address?"
+                                        placeholder="your@email.com"
                                         required
                                     />
                                 </div>
@@ -97,8 +131,12 @@ const Contact = () => {
                                     />
                                 </div>
 
-                                <button type="submit">
-                                    <div className="cta-button group">
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full"
+                                >
+                                    <div className="cta-button group w-full">
                                         <div className="bg-circle" />
                                         <p className="text">
                                             {loading
@@ -116,8 +154,13 @@ const Contact = () => {
                             </form>
                         </div>
                     </div>
+
+                    {/* 3D MODEL */}
                     <div className="xl:col-span-7 min-h-96">
-                        <div className="bg-[#cd7c2e] w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
+                        <div
+                            className="w-full h-full hover:cursor-grab rounded-3xl overflow-hidden"
+                            style={{ background: "#cd7c2e" }}
+                        >
                             <ContactExperience />
                         </div>
                     </div>

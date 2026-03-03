@@ -8,22 +8,54 @@ import TitleHeader from "../components/TitleHeader";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const projectData = [
+    {
+        id: "project1",
+        title: "PneumoAI — Pneumonia Detection",
+        description:
+            "A full-stack deep learning web app that diagnoses pneumonia from chest X-rays using a custom CNN built with PyTorch. React.js frontend, FastAPI backend — bridging AI research and real-world medical diagnostics.",
+        image: "/images/project1.png",
+        alt: "PneumoAI",
+        liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
+        githubUrl: "https://github.com/Adi15Jain",
+        tags: ["React.js", "PyTorch", "FastAPI", "CNN", "Python"],
+        featured: true,
+    },
+    {
+        id: "project2",
+        title: "Brawler: Warrior V/S Wizard",
+        image: "/images/project2.png",
+        alt: "Brawler game",
+        bgColor: "#ffefdb",
+        githubUrl: "https://github.com/Adi15Jain",
+        tags: ["JavaScript", "Canvas API", "Game Dev"],
+        featured: false,
+    },
+    {
+        id: "project3",
+        title: "CoinPush — Crypto Screening App",
+        image: "/images/project3.png",
+        alt: "CoinPush",
+        liveUrl: "https://coin-push.vercel.app/",
+        githubUrl: "https://github.com/Adi15Jain",
+        tags: ["React.js", "REST API", "Vercel"],
+        featured: false,
+    },
+];
+
+const TagBadge = ({ text }) => <span className="tech-badge">{text}</span>;
+
 const ShowcaseSection = () => {
     const sectionRef = useRef(null);
     const project1Ref = useRef(null);
     const project2Ref = useRef(null);
     const project3Ref = useRef(null);
+    const refs = [project1Ref, project2Ref, project3Ref];
 
     useGSAP(() => {
-        const projects = [
-            project1Ref.current,
-            project2Ref.current,
-            project3Ref.current,
-        ];
-
-        projects.forEach((card, index) => {
+        [project1Ref, project2Ref, project3Ref].forEach((ref, index) => {
             gsap.fromTo(
-                card,
+                ref.current,
                 { opacity: 0, y: 50 },
                 {
                     opacity: 1,
@@ -31,13 +63,12 @@ const ShowcaseSection = () => {
                     duration: 1,
                     delay: 0.3 * (index + 1),
                     scrollTrigger: {
-                        trigger: card,
+                        trigger: ref.current,
                         start: "top bottom -=100",
                     },
                 },
             );
         });
-
         gsap.fromTo(
             sectionRef.current,
             { opacity: 0 },
@@ -45,65 +76,140 @@ const ShowcaseSection = () => {
         );
     }, []);
 
+    const featured = projectData[0];
+    const rest = projectData.slice(1);
+
     return (
         <section id="work" ref={sectionRef} className="mt-32">
             <TitleHeader title="Highlighted Projects" sub="🚀 My Projects" />
             <div className="app-showcase">
                 <div className="showcaselayout">
-                    {/* LEFT */}
+                    {/* LEFT: Featured Project */}
                     <div className="first-project-wrapper" ref={project1Ref}>
-                        <div className="image-wrapper">
-                            <a
-                                href="https://www.youtube.com/watch?v=ppJ2CQorY5g"
-                                target="_blank"
+                        <div className="image-wrapper group">
+                            <img src={featured.image} alt={featured.alt} />
+
+                            {/* Hover overlay */}
+                            <div
+                                className="project-overlay"
+                                style={{
+                                    background:
+                                        "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
+                                }}
                             >
-                                <img
-                                    src="/images/project1.png"
-                                    alt="pneumoai"
-                                />
-                            </a>
-                        </div>
-                        <div className="text-content">
-                            <h1>
-                                PneumoAI — Pneumonia Detection from Chest X-rays
-                            </h1>
-                            <p>
-                                PneumoAI is a full-stack deep learning web
-                                application that diagnoses pneumonia from chest
-                                X-ray images using a custom-trained
-                                Convolutional Neural Network (CNN) built with
-                                PyTorch. The app offers a clean, responsive UI
-                                powered by React.js, while the backend is served
-                                via FastAPI, handling real-time image
-                                predictions. With engaging UI animations and a
-                                smooth user experience, PneumoAI bridges AI
-                                research and real-world medical diagnostics.
-                            </p>
-                        </div>
-                    </div>
-                    {/* RIGHT */}
-                    <div className="project-list-wrapper overflow-hidden">
-                        <div className="project" ref={project2Ref}>
-                            <div className="image-wrapper bg-[#ffefdb]">
-                                <img src="/images/project2.png" alt="brawler" />
+                                <div className="flex gap-3">
+                                    {featured.liveUrl && (
+                                        <a
+                                            href={featured.liveUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105"
+                                            style={{
+                                                background:
+                                                    "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                                            }}
+                                        >
+                                            🔗 Live Demo
+                                        </a>
+                                    )}
+                                    <a
+                                        href={featured.githubUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105"
+                                        style={{
+                                            background: "rgba(255,255,255,0.1)",
+                                            border: "1px solid rgba(255,255,255,0.2)",
+                                            backdropFilter: "blur(8px)",
+                                        }}
+                                    >
+                                        ⭐ GitHub
+                                    </a>
+                                </div>
                             </div>
-                            <h2>Brawler: Warrior V/S Wizard</h2>
                         </div>
 
-                        <div className="project" ref={project3Ref}>
-                            <div className=" bg-black">
-                                <a
-                                    href="https://coin-push.vercel.app/"
-                                    target="_blank"
+                        <div className="text-content">
+                            <div className="badges flex flex-wrap gap-2">
+                                {featured.tags.map((tag) => (
+                                    <TagBadge key={tag} text={tag} />
+                                ))}
+                            </div>
+                            <h1>{featured.title}</h1>
+                            <p>{featured.description}</p>
+                        </div>
+                    </div>
+
+                    {/* RIGHT: Other Projects */}
+                    <div className="project-list-wrapper overflow-hidden">
+                        {rest.map((project, idx) => (
+                            <div
+                                key={project.id}
+                                className="project"
+                                ref={refs[idx + 1]}
+                            >
+                                <div
+                                    className="image-wrapper relative overflow-hidden rounded-xl"
+                                    style={{
+                                        background:
+                                            project.bgColor || "#0a0a0f",
+                                    }}
                                 >
                                     <img
-                                        src="/images/project3.png"
-                                        alt="CoinPush"
+                                        src={project.image}
+                                        alt={project.alt}
                                     />
-                                </a>
+
+                                    {/* Hover overlay for smaller cards */}
+                                    <div
+                                        className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end p-4"
+                                        style={{
+                                            background:
+                                                "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)",
+                                        }}
+                                    >
+                                        <div className="flex gap-2">
+                                            {project.liveUrl && (
+                                                <a
+                                                    href={project.liveUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="px-3 py-1.5 rounded-full text-xs font-semibold text-white"
+                                                    style={{
+                                                        background:
+                                                            "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                                                    }}
+                                                >
+                                                    🔗 Live
+                                                </a>
+                                            )}
+                                            <a
+                                                href={project.githubUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="px-3 py-1.5 rounded-full text-xs font-semibold text-white"
+                                                style={{
+                                                    background:
+                                                        "rgba(255,255,255,0.1)",
+                                                    border: "1px solid rgba(255,255,255,0.2)",
+                                                }}
+                                            >
+                                                ⭐ GitHub
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4 space-y-2">
+                                    <h2>{project.title}</h2>
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {project.tags.map((tag) => (
+                                            <TagBadge key={tag} text={tag} />
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                            <h2>CoinPush: CryptoCurrency Screening App</h2>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

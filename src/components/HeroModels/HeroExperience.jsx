@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import Room from "./Room";
 import HeroLights from "./HeroLights";
 import Particles from "./Particles";
+import ResumeBook from "./ResumeBook";
 
 const HeroExperience = () => {
     const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -31,6 +32,12 @@ const HeroExperience = () => {
                     rotation={[0, -Math.PI / 4, 0]}
                 >
                     <Room />
+                    {/*
+                        Resume sits on the desk surface.
+                        Position is in the room-group local space.
+                        x: ~1.6 (right side of desk), y: 0.57 (just above table), z: 0.5
+                    */}
+                    <ResumeBook position={[1.6, 0.57, 0.5]} />
                 </group>
             </Suspense>
         </Canvas>

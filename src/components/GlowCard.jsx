@@ -21,21 +21,29 @@ const GlowCard = ({ card, children, index }) => {
         <div
             ref={(el) => (cardRefs.current[index] = el)}
             onMouseMove={handleMouseMove(index)}
-            className="card card-border timeline-card rounded-xl p-10"
+            className="card timeline-card rounded-2xl p-8"
+            style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                backdropFilter: "blur(16px)",
+            }}
         >
             <div className="glow" />
+            {/* Star rating */}
             <div className="flex items-center gap-1 mb-5">
                 {Array.from({ length: 5 }, (_, i) => (
-                    <img
-                        src="/images/star.png"
-                        alt="star"
+                    <span
                         key={i}
-                        className="size-5"
-                    />
+                        style={{ fontSize: "16px", filter: "hue-rotate(0deg)" }}
+                    >
+                        ⭐
+                    </span>
                 ))}
             </div>
             <div className="mb-5">
-                <p className="text-white-50 text-lg">{card.review}</p>
+                <p className="text-white/60 text-sm leading-relaxed italic">
+                    &ldquo;{card.review}&rdquo;
+                </p>
             </div>
             {children}
         </div>
