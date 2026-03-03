@@ -3,6 +3,7 @@
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import HeroExperience from "../components/HeroModels/HeroExperience";
+import ResumeViewer from "../components/ResumeViewer";
 import { words } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -10,6 +11,7 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
     const [showScroll, setShowScroll] = useState(true);
+    const [showResume, setShowResume] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => setShowScroll(false), 5000);
@@ -159,7 +161,9 @@ const Hero = () => {
                 {/* RIGHT: 3D MODEL */}
                 <figure>
                     <div className="hero-3d-layout">
-                        <HeroExperience />
+                        <HeroExperience
+                            onOpenResume={() => setShowResume(true)}
+                        />
                     </div>
                 </figure>
             </div>
@@ -173,6 +177,11 @@ const Hero = () => {
             )}
 
             <AnimatedCounter />
+
+            {/* Animated Resume Viewer — mounts as full-screen overlay */}
+            {showResume && (
+                <ResumeViewer onClose={() => setShowResume(false)} />
+            )}
         </section>
     );
 };

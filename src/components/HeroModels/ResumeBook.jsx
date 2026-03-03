@@ -3,6 +3,7 @@
 import { useRef, useMemo, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
+import { FileText } from "lucide-react";
 import * as THREE from "three";
 
 /* ─────────────────────────────────────────────────────────────
@@ -190,7 +191,10 @@ function buildCoverTexture() {
    Main ResumeBook component
    Sits on top of the desk at world position passed from parent.
 ───────────────────────────────────────────────────────────── */
-export default function ResumeBook({ position = [1.2, 0.58, 0.3] }) {
+export default function ResumeBook({
+    position = [1.2, 0.58, 0.3],
+    onOpenResume,
+}) {
     const groupRef = useRef();
     const coverPivotRef = useRef();
     const glowRef = useRef();
@@ -205,6 +209,27 @@ export default function ResumeBook({ position = [1.2, 0.58, 0.3] }) {
     }, []);
 
     const [showLabel, setShowLabel] = useState(false);
+
+    /* Inject button emerge keyframe once */
+    useEffect(() => {
+        const id = "rb-btn-styles";
+        if (document.getElementById(id)) return;
+        const s = document.createElement("style");
+        s.id = id;
+        s.textContent = `
+            @keyframes rb-emerge {
+                0%   { opacity:0; transform:translateY(22px) scale(0.55); filter:blur(6px); }
+                60%  { opacity:1; transform:translateY(-4px) scale(1.06); filter:blur(0); }
+                80%  { transform:translateY(2px) scale(0.97); }
+                100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+            }
+            @keyframes rb-pulse-glow {
+                0%,100% { box-shadow:0 0 12px rgba(124,58,237,0.3); }
+                50%     { box-shadow:0 0 22px rgba(124,58,237,0.55), 0 0 40px rgba(124,58,237,0.15); }
+            }
+        `;
+        document.head.appendChild(s);
+    }, []);
 
     /* Animation state */
     const anim = useRef({
@@ -315,7 +340,8 @@ export default function ResumeBook({ position = [1.2, 0.58, 0.3] }) {
                     distanceFactor={8}
                     zIndexRange={[0, 0]}
                 >
-                    <div
+                    <button
+                        onClick={onOpenResume}
                         style={{
                             background: "rgba(15,23,42,0.92)",
                             backdropFilter: "blur(10px)",
@@ -323,17 +349,40 @@ export default function ResumeBook({ position = [1.2, 0.58, 0.3] }) {
                             borderRadius: "20px",
                             padding: "5px 14px",
                             color: "#e2e8f0",
-                            fontSize: "11px",
+                            fontSize: "15px",
                             fontFamily: "Inter, Arial, sans-serif",
                             fontWeight: "600",
                             whiteSpace: "nowrap",
-                            pointerEvents: "none",
+                            pointerEvents: "auto",
                             letterSpacing: "0.04em",
                             boxShadow: "0 0 12px rgba(124,58,237,0.3)",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            /* Emerge-from-book animation on mount */
+                            animation:
+                                "rb-emerge 0.65s cubic-bezier(.16,1,.3,1) both, rb-pulse-glow 2.5s ease-in-out 0.8s infinite",
                         }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background =
+                                "rgba(124,58,237,0.4)";
+                            e.currentTarget.style.boxShadow =
+                                "0 0 20px rgba(124,58,237,0.6)";
+                            e.currentTarget.style.transform = "scale(1.06)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background =
+                                "rgba(15,23,42,0.92)";
+                            e.currentTarget.style.boxShadow =
+                                "0 0 12px rgba(124,58,237,0.3)";
+                            e.currentTarget.style.transform = "scale(1)";
+                        }}
+                        aria-label="Open resume viewer"
                     >
-                        📄 My Resume
-                    </div>
+                        <FileText size={15} style={{ flexShrink: 0 }} />
+                        My Resume
+                    </button>
                 </Html>
             )}
             {/* Dramatic glow above the resume */}

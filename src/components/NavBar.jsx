@@ -85,7 +85,7 @@ const NavBar = () => {
                                         className="relative py-1 block"
                                     >
                                         <span
-                                            className={`transition-colors duration-300 text-sm tracking-wide ${
+                                            className={`transition-colors duration-300 text-md tracking-wide ${
                                                 activeLink === link
                                                     ? "text-white"
                                                     : "text-white/60 hover:text-white"
