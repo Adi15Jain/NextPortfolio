@@ -50,9 +50,16 @@ const Hero = () => {
             },
         );
         gsap.fromTo(
-            ".see-button",
+            ".see-button, .download-btn",
             { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1.5, delay: 1, ease: "power2.inOut" },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.5,
+                delay: 1,
+                stagger: 0.15,
+                ease: "power2.inOut",
+            },
         );
         gsap.fromTo(
             ".hero-3d-layout",
@@ -150,11 +157,13 @@ const Hero = () => {
                             </p>
                         </div>
 
-                        <Button
-                            className="see-button md:w-80 md:h-16 w-60 h-12"
-                            id="button"
-                            text="See my Work"
-                        />
+                        <div className="flex flex-col gap-3">
+                            <Button
+                                className="see-button md:w-80 md:h-16 w-60 h-12"
+                                id="button"
+                                text="See my Work"
+                            />
+                        </div>
                     </div>
                 </header>
 

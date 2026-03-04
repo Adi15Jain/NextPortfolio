@@ -349,7 +349,7 @@ export default function ResumeBook({
                             borderRadius: "20px",
                             padding: "5px 14px",
                             color: "#e2e8f0",
-                            fontSize: "15px",
+                            fontSize: "20px",
                             fontFamily: "Inter, Arial, sans-serif",
                             fontWeight: "600",
                             whiteSpace: "nowrap",
@@ -380,7 +380,7 @@ export default function ResumeBook({
                         }}
                         aria-label="Open resume viewer"
                     >
-                        <FileText size={15} style={{ flexShrink: 0 }} />
+                        <FileText size={30} style={{ flexShrink: 0 }} />
                         My Resume
                     </button>
                 </Html>

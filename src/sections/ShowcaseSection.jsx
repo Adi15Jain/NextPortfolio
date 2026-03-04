@@ -11,24 +11,26 @@ gsap.registerPlugin(ScrollTrigger);
 const projectData = [
     {
         id: "project1",
-        title: "PneumoAI — Pneumonia Detection",
+        title: "InterviewPilot — AI Interview Coach",
         description:
-            "A full-stack deep learning web app that diagnoses pneumonia from chest X-rays using a custom CNN built with PyTorch. React.js frontend, FastAPI backend — bridging AI research and real-world medical diagnostics.",
-        image: "/images/project1.png",
-        alt: "PneumoAI",
-        liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
-        githubUrl: "https://github.com/Adi15Jain",
-        tags: ["React.js", "PyTorch", "FastAPI", "CNN", "Python"],
+            "An AI-powered mock interview platform that simulates real technical and behavioural interviews. Generates role-specific questions using Google Gemini, records video responses, and delivers instant AI feedback on answer quality, confidence, and clarity — helping candidates prep smarter, not harder.",
+        image: "/images/interviewPilot.png",
+        alt: "InterviewPilot",
+        liveUrl: "https://interview-pilot-web.vercel.app/",
+        githubUrl: "https://github.com/Adi15Jain/InterviewPilot",
+        tags: ["Next.Js", "Gemini AI", "Vapi", "Tailwind CSS", "NeonDB"],
         featured: true,
     },
     {
         id: "project2",
-        title: "Brawler: Warrior V/S Wizard",
-        image: "/images/project2.png",
-        alt: "Brawler game",
-        bgColor: "#ffefdb",
-        githubUrl: "https://github.com/Adi15Jain",
-        tags: ["JavaScript", "Canvas API", "Game Dev"],
+        title: "PneumoAI — Pneumonia Detection",
+        description:
+            "Full-stack deep learning app that diagnoses pneumonia from chest X-rays using a custom CNN built with PyTorch.",
+        image: "/images/project1.png",
+        alt: "PneumoAI",
+        liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
+        githubUrl: "https://github.com/Adi15Jain/pneumoAI",
+        tags: ["PyTorch", "FastAPI", "React.js", "CNN"],
         featured: false,
     },
     {
@@ -37,8 +39,8 @@ const projectData = [
         image: "/images/project3.png",
         alt: "CoinPush",
         liveUrl: "https://coin-push.vercel.app/",
-        githubUrl: "https://github.com/Adi15Jain",
-        tags: ["React.js", "REST API", "Vercel"],
+        githubUrl: "https://github.com/Adi15Jain/CoinPush",
+        tags: ["Next.Js", "REST API", "SWC", "CoinGecko API"],
         featured: false,
     },
 ];
@@ -109,7 +111,7 @@ const ShowcaseSection = () => {
                                                     "linear-gradient(135deg, #3b82f6, #8b5cf6)",
                                             }}
                                         >
-                                            🔗 Live Demo
+                                            🔗 Live
                                         </a>
                                     )}
                                     <a

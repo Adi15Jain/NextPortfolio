@@ -7,8 +7,9 @@ import NavBar from "../src/components/NavBar";
 import FeatureCards from "../src/sections/FeatureCards";
 import ShowcaseSection from "../src/sections/ShowcaseSection";
 import ExperienceSection from "../src/sections/ExperienceSection";
+import SkillsSection from "../src/sections/SkillsSection";
+import TestimonialsSection from "../src/sections/TestimonialsSection";
 import Footer from "../src/sections/Footer";
-// import TechStack from "../src/sections/TechStack";
 
 export default function Home() {
     return (
@@ -19,7 +20,8 @@ export default function Home() {
             <LogoSection />
             <FeatureCards />
             <ExperienceSection />
-            {/* <TechStack /> */}
+            <SkillsSection />
+            <TestimonialsSection />
             <Contact />
             <Footer />
         </>
