@@ -18,14 +18,46 @@ const navLinks = [
 ];
 
 const words = [
-    { text: "Ideas", imgPath: "/images/ideas.svg" },
-    { text: "Concepts", imgPath: "/images/concepts.svg" },
-    { text: "Designs", imgPath: "/images/designs.svg" },
-    { text: "Code", imgPath: "/images/code.svg" },
-    { text: "Ideas", imgPath: "/images/ideas.svg" },
-    { text: "Concepts", imgPath: "/images/concepts.svg" },
-    { text: "Designs", imgPath: "/images/designs.svg" },
-    { text: "Code", imgPath: "/images/code.svg" },
+    {
+        text: "Ideas",
+        imgPath: "/images/ideas.svg",
+        gradient: "linear-gradient(135deg, #60a5fa, #22d3ee)",
+    },
+    {
+        text: "Concepts",
+        imgPath: "/images/concepts.svg",
+        gradient: "linear-gradient(135deg, #c084fc, #f472b6)",
+    },
+    {
+        text: "Designs",
+        imgPath: "/images/designs.svg",
+        gradient: "linear-gradient(135deg, #34d399, #059669)",
+    },
+    {
+        text: "Code",
+        imgPath: "/images/code.svg",
+        gradient: "linear-gradient(135deg, #fb923c, #ef4444)",
+    },
+    {
+        text: "Ideas",
+        imgPath: "/images/ideas.svg",
+        gradient: "linear-gradient(135deg, #60a5fa, #22d3ee)",
+    },
+    {
+        text: "Concepts",
+        imgPath: "/images/concepts.svg",
+        gradient: "linear-gradient(135deg, #c084fc, #f472b6)",
+    },
+    {
+        text: "Designs",
+        imgPath: "/images/designs.svg",
+        gradient: "linear-gradient(135deg, #34d399, #059669)",
+    },
+    {
+        text: "Code",
+        imgPath: "/images/code.svg",
+        gradient: "linear-gradient(135deg, #fb923c, #ef4444)",
+    },
 ];
 
 const counterItems = [
@@ -155,15 +187,14 @@ const techStackIcons = [
 
 const expCards = [
     {
-        review: "As a B.Tech student specializing in AI, ML, and DL, I’ve been actively exploring both the theoretical and practical aspects of intelligent technologies. My coursework and hands-on projects have deepened my understanding and fueled my passion for innovation in this field.",
-        imgPath: "/images/download.png",
-        logoPath: "/images/download2.jpeg",
-        title: "B.Tech CSE Student (AI, ML, DL)",
-        date: "August 2022 - Present",
+        review: "My role as a Web Developer at Teerthanker Mahaveer University allowed me to architect and optimize high-traffic flagship digital platforms. I spearheaded homepage redesigns and slashed load times by 35% using Laravel, Tailwind, and custom performance pipelines.",
+        imgPath: "/images/logo.webp",
+        logoPath: "/images/logo.png",
+        title: "Web Developer",
+        date: "February 2026 - May 2026",
         responsibilities: [
-            "Currently pursuing B.Tech in Computer Science and Engineering with a specialization in AI, ML, and DL at Teerthanker Mahaveer University, Moradabad.",
-            "Studying subjects like Machine Learning, Deep Learning, Pattern Recognition, and Natural Language Processing.",
-            "Engaged in self-driven learning and hands-on experimentation with intelligent systems.",
+            "Redesigned and architected the university’s high-traffic flagship homepage using Laravel, Tailwind CSS, and custom responsive modules, serving over 25,000+ monthly visitors.",
+            "Slashed initial page load times by 35% and boosted Google PageSpeed score by 26+ points through adaptive HLS video streaming, dynamic component lazy loading, and deferred GTM/GA payloads.",
         ],
     },
     {
@@ -176,6 +207,18 @@ const expCards = [
             "Worked as a Data Science Intern at EvoAstra Private Ventures Pvt. Ltd. on real-world datasets.",
             "Performed data cleaning, preprocessing, and exploratory data analysis (EDA) using Python.",
             "Collaborated with the team to interpret results and present data-driven recommendations.",
+        ],
+    },
+    {
+        review: "As a B.Tech student specializing in AI, ML, and DL, I’ve been actively exploring both the theoretical and practical aspects of intelligent technologies. My coursework and hands-on projects have deepened my understanding and fueled my passion for innovation in this field.",
+        imgPath: "/images/logo.webp",
+        logoPath: "/images/logo.png",
+        title: "B.Tech CSE Student (AI, ML, DL)",
+        date: "August 2022 - Present",
+        responsibilities: [
+            "Currently pursuing B.Tech in Computer Science and Engineering with a specialization in AI, ML, and DL at Teerthanker Mahaveer University, Moradabad.",
+            "Studying subjects like Machine Learning, Deep Learning, Pattern Recognition, and Natural Language Processing.",
+            "Engaged in self-driven learning and hands-on experimentation with intelligent systems.",
         ],
     },
 ];

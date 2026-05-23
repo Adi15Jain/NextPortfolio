@@ -1,6 +1,7 @@
 "use client";
 
 import TitleHeader from "../components/TitleHeader";
+import { TrendingUp } from "lucide-react";
 import { expCards } from "../constants/index";
 import GlowCard from "../components/GlowCard";
 import gsap from "gsap";
@@ -58,7 +59,7 @@ const ExperienceSection = () => {
             <div className="w-full h-full md:px-20 px-5">
                 <TitleHeader
                     title="Experience and Learning"
-                    sub="📊 My Overview"
+                    sub={<span className="flex items-center gap-1.5"><TrendingUp size={13} className="text-blue-400" /> My Overview</span>}
                 />
                 <div className="mt-32 relative">
                     <div className="relative z-50 xl:space-y-32 space-y-10">

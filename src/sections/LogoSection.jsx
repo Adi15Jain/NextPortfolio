@@ -2,30 +2,23 @@
 
 import { useEffect, useRef } from "react";
 import TitleHeader from "../components/TitleHeader";
+import { Wrench } from "lucide-react";
 
 // ─── Icon Data ────────────────────────────────────────────────────────────────
 // Each icon: { name, slug } — slug matches skillicons.dev
 const ALL_ICONS = [
     { name: "C++", slug: "cpp" },
-    { name: "CodePen", slug: "codepen" },
     { name: "CSS", slug: "css" },
-    { name: "D3.js", slug: "d3" },
     { name: "Express", slug: "express" },
     { name: "FastAPI", slug: "fastapi" },
     { name: "Flask", slug: "flask" },
     { name: "Git", slug: "git" },
     { name: "HTML", slug: "html" },
     { name: "JavaScript", slug: "js" },
-    { name: "LaTeX", slug: "latex" },
     { name: "MySQL", slug: "mysql" },
-    { name: "MongoDB", slug: "mongodb" },
     { name: "Next.js", slug: "nextjs" },
     { name: "Node.js", slug: "nodejs" },
-    { name: "Notion", slug: "notion" },
-    { name: "npm", slug: "npm" },
-    { name: "OpenCV", slug: "opencv" },
     { name: "PostgreSQL", slug: "postgres" },
-    { name: "Postman", slug: "postman" },
     { name: "Prisma", slug: "prisma" },
     { name: "PyTorch", slug: "pytorch" },
     { name: "React", slug: "react" },
@@ -34,8 +27,6 @@ const ALL_ICONS = [
     { name: "TensorFlow", slug: "tensorflow" },
     { name: "Three.js", slug: "threejs" },
     { name: "TypeScript", slug: "ts" },
-    { name: "Vercel", slug: "vercel" },
-    { name: "Vite", slug: "vite" },
 ];
 
 // Split into two balanced rows
@@ -76,19 +67,20 @@ const MARQUEE_CSS = `
   .ag-row {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 24px;
+    padding-right: 24px;
     width: max-content;
-    margin-bottom: 14px;
+    margin-bottom: 24px;
   }
   .ag-row:last-child { margin-bottom: 0; }
 
   /* Row 1 scrolls left → */
   .ag-row-ltr {
-    animation: ag-scroll-left 35s linear infinite;
+    animation: ag-scroll-left 40s linear infinite;
   }
   /* Row 2 scrolls ← right */
   .ag-row-rtl {
-    animation: ag-scroll-right 35s linear infinite;
+    animation: ag-scroll-right 40s linear infinite;
   }
 
   /* Pause on hover over the whole section */
@@ -111,9 +103,9 @@ const MARQUEE_CSS = `
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     cursor: default;
@@ -121,15 +113,15 @@ const MARQUEE_CSS = `
     transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   }
   .ag-icon-chip:hover {
-    transform: translateY(-6px) scale(1.12);
+    transform: translateY(-8px) scale(1.15);
     background: rgba(255,255,255,0.1);
     border-color: rgba(255,255,255,0.22);
     box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.35);
     z-index: 20;
   }
   .ag-icon-chip img {
-    width: 38px;
-    height: 38px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
     display: block;
     pointer-events: none;
@@ -139,17 +131,17 @@ const MARQUEE_CSS = `
   /* ── Name tooltip ── */
   .ag-icon-label {
     position: absolute;
-    bottom: calc(100% + 10px);
+    bottom: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(4px);
-    background: rgba(15,12,30,0.92);
-    border: 1px solid rgba(139,92,246,0.5);
-    color: rgba(255,255,255,0.92);
-    font-size: 0.72rem;
+    background: rgba(15,12,30,0.95);
+    border: 1px solid rgba(139,92,246,0.6);
+    color: rgba(255,255,255,0.95);
+    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     white-space: nowrap;
-    padding: 4px 10px;
+    padding: 6px 14px;
     border-radius: 8px;
     pointer-events: none;
     opacity: 0;
@@ -202,11 +194,11 @@ const LogoSection = () => {
 
     return (
         <div className="md:my-20 my-10">
-            <TitleHeader title="Frequently Used Tools" sub="📌 My Tech Stack" />
+            <TitleHeader title="Frequently Used Tools" sub={<span className="flex items-center gap-1.5"><Wrench size={13} className="text-blue-400" /> My Tech Stack</span>} />
 
             <div
                 className="ag-marquee-section mt-14"
-                style={{ padding: "8px 0" }}
+                style={{ paddingTop: "60px", paddingBottom: "20px" }}
             >
                 <MarqueeRow icons={ROW_1} direction="ltr" />
                 <MarqueeRow icons={ROW_2} direction="rtl" />

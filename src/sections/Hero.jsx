@@ -3,15 +3,18 @@
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import HeroExperience from "../components/HeroModels/HeroExperience";
-import ResumeViewer from "../components/ResumeViewer";
+
 import { words } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useState } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
     const [showScroll, setShowScroll] = useState(true);
-    const [showResume, setShowResume] = useState(false);
+
 
     useEffect(() => {
         const timer = setTimeout(() => setShowScroll(false), 5000);
@@ -77,6 +80,48 @@ const Hero = () => {
             { opacity: 0 },
             { opacity: 1, duration: 2, ease: "power2.inOut" },
         );
+
+        // Parallax effect on scroll
+        gsap.to(".blob-1", {
+            yPercent: 35,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+        gsap.to(".blob-2", {
+            yPercent: -25,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+        gsap.to(".hero-text", {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
+        gsap.to(".hero-3d-layout", {
+            yPercent: 10,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            },
+        });
     });
 
     return (
@@ -128,7 +173,16 @@ const Hero = () => {
                                                     alt={word.text}
                                                     className="xl:size-12 md:size-10 size-7 md:p-2 p-1 rounded-full bg-white-50"
                                                 />
-                                                <span>{word.text}</span>
+                                                <span
+                                                    style={{
+                                                        background: word.gradient || "linear-gradient(135deg, #ffffff 30%, #94a3b8 100%)",
+                                                        WebkitBackgroundClip: "text",
+                                                        WebkitTextFillColor: "transparent",
+                                                        backgroundClip: "text",
+                                                    }}
+                                                >
+                                                    {word.text}
+                                                </span>
                                             </span>
                                         ))}
                                     </span>
@@ -170,9 +224,7 @@ const Hero = () => {
                 {/* RIGHT: 3D MODEL */}
                 <figure>
                     <div className="hero-3d-layout">
-                        <HeroExperience
-                            onOpenResume={() => setShowResume(true)}
-                        />
+                        <HeroExperience />
                     </div>
                 </figure>
             </div>
@@ -187,10 +239,7 @@ const Hero = () => {
 
             <AnimatedCounter />
 
-            {/* Animated Resume Viewer — mounts as full-screen overlay */}
-            {showResume && (
-                <ResumeViewer onClose={() => setShowResume(false)} />
-            )}
+
         </section>
     );
 };

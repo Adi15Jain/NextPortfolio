@@ -1,6 +1,7 @@
 "use client";
 
 import TitleHeader from "../components/TitleHeader";
+import { BrainCircuit } from "lucide-react";
 import { techStackIcons } from "../constants";
 import TechIcon from "../components/Models/TechLogos/TechIcon";
 import { useGSAP } from "@gsap/react";
@@ -18,13 +19,13 @@ const TechCard = ({ icon }) => {
             <div className="tech-card-content">
                 <div className="tech-icon-wrapper" ref={trackRef}>
                     {/* The View component will 'portal' the 3D content into this div's position */}
-                    <View track={trackRef}>
+                    <View track={trackRef} className="tech-icon-canvas">
                         <Suspense fallback={null}>
-                            <TechIcon model={icon} />
+                            <TechIcon icon={icon} />
                         </Suspense>
                     </View>
                 </div>
-                <div className="padding-x w-full animate-gradient-text">
+                <div className="tech-name">
                     <p>{icon.name}</p>
                 </div>
             </div>
@@ -33,25 +34,25 @@ const TechCard = ({ icon }) => {
 };
 
 const TechStack = () => {
-    const containerRef = useRef(null);
+    const containerRef = useRef();
 
     useGSAP(() => {
         gsap.fromTo(
             ".tech-card",
-            { y: 50, opacity: 0 },
+            { scale: 0.8, opacity: 0 },
             {
-                y: 0,
+                scale: 1,
                 opacity: 1,
-                duration: 1,
-                ease: "power2.inOut",
-                stagger: 0.2,
+                stagger: 0.05,
+                duration: 0.5,
+                ease: "back.out(1.7)",
                 scrollTrigger: {
-                    trigger: "#skills",
-                    start: "top center",
+                    trigger: containerRef.current,
+                    start: "top bottom-=100",
                 },
             },
         );
-    });
+    }, []);
 
     return (
         <div
@@ -62,7 +63,7 @@ const TechStack = () => {
             <div className="w-full h-full md:px-10 px-5 relative z-10">
                 <TitleHeader
                     title="My Preffered Tech Stack"
-                    sub="What am I equipped with? 🤔"
+                    sub={<span className="flex items-center gap-1.5"><BrainCircuit size={13} className="text-blue-400" /> What am I equipped with?</span>}
                 />
                 <div className="tech-grid">
                     {techStackIcons.map((icon) => (

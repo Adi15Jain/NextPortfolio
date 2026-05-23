@@ -5,13 +5,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TitleHeader from "../components/TitleHeader";
+import SpotlightCard from "../components/SpotlightCard";
+import { Terminal, Wrench, Bot, Cpu } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const skillGroups = [
     {
         group: "Languages",
-        icon: "💻",
+        icon: Terminal,
         accentStart: "#3b82f6",
         accentEnd: "#06b6d4",
         items: [
@@ -24,7 +26,7 @@ const skillGroups = [
     },
     {
         group: "Frameworks & Tools",
-        icon: "🛠️",
+        icon: Wrench,
         accentStart: "#8b5cf6",
         accentEnd: "#ec4899",
         items: [
@@ -37,7 +39,7 @@ const skillGroups = [
     },
     {
         group: "AI & Data Science",
-        icon: "🤖",
+        icon: Bot,
         accentStart: "#10b981",
         accentEnd: "#06b6d4",
         items: [
@@ -51,61 +53,30 @@ const skillGroups = [
 ];
 
 const SkillBar = ({ name, level, accentStart, accentEnd, barRef, pctRef }) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+    <div className="flex flex-col gap-1.5 w-full">
         {/* Label row */}
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-            }}
-        >
-            <span
-                style={{
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "rgba(255,255,255,0.75)",
-                }}
-            >
-                {name}
-            </span>
+        <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-white/75">{name}</span>
             <span
                 ref={pctRef}
+                className="text-xs font-bold tabular-nums opacity-0"
                 style={{
-                    fontSize: "0.8rem",
-                    fontWeight: 700,
-                    fontVariantNumeric: "tabular-nums",
                     background: `linear-gradient(90deg, ${accentStart}, ${accentEnd})`,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
-                    opacity: 0,
                 }}
             >
                 0%
             </span>
         </div>
         {/* Track */}
-        <div
-            style={{
-                width: "100%",
-                height: "6px",
-                borderRadius: "999px",
-                background: "rgba(255,255,255,0.07)",
-                overflow: "hidden",
-                position: "relative",
-            }}
-        >
+        <div className="w-full h-1.5 rounded-full bg-white/5 overflow-hidden relative">
             {/* Fill bar */}
             <div
                 ref={barRef}
+                className="absolute top-0 left-0 h-full w-0 rounded-full"
                 style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    height: "100%",
-                    width: "0%",
-                    borderRadius: "999px",
                     background: `linear-gradient(90deg, ${accentStart}, ${accentEnd})`,
                     boxShadow: `0 0 12px ${accentStart}66`,
                 }}
@@ -158,7 +129,7 @@ const SkillsSection = () => {
                     {
                         width: `${skill.level}%`,
                         duration: 1.4,
-                        delay: si * 0.1,
+                        delay: si * 0.08,
                         ease: "power2.out",
                         scrollTrigger: {
                             trigger: bar,
@@ -171,7 +142,7 @@ const SkillsSection = () => {
                 gsap.to(proxy, {
                     val: skill.level,
                     duration: 1.4,
-                    delay: si * 0.1,
+                    delay: si * 0.08,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (pct) {
@@ -190,130 +161,58 @@ const SkillsSection = () => {
 
     return (
         <section
-            id="skills"
+            id="skills-detailed"
             ref={sectionRef}
-            style={{ width: "100%", marginTop: "5rem", padding: "0 1.25rem" }}
+            className="w-full mt-20 px-5"
         >
-            {/* Section header */}
-            <div
-                style={{
-                    maxWidth: "80rem",
-                    margin: "0 auto",
-                    padding: "0 1.25rem",
-                }}
-            >
-                <TitleHeader title="Technical Skills" sub="⚙️ My Stack" />
+            <div className="max-w-7xl mx-auto px-5">
+                <TitleHeader title="Technical Skills" sub={<span className="flex items-center gap-1.5"><Cpu size={13} className="text-blue-400" /> My Stack</span>} />
 
                 {/* Cards grid */}
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns:
-                            "repeat(auto-fit, minmax(300px, 1fr))",
-                        gap: "1.5rem",
-                        marginTop: "3.5rem",
-                    }}
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
                     {skillGroups.map((group, gi) => (
-                        <div
+                        <SpotlightCard
                             key={group.group}
                             ref={(el) => {
                                 cardRefs.current[gi] = el;
                             }}
-                            style={{
-                                background: "rgba(255,255,255,0.04)",
-                                border: "1px solid rgba(255,255,255,0.09)",
-                                backdropFilter: "blur(20px)",
-                                WebkitBackdropFilter: "blur(20px)",
-                                borderRadius: "1.25rem",
-                                padding: "1.75rem",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "1.5rem",
-                                position: "relative",
-                                overflow: "hidden",
-                                opacity: 0, // GSAP will animate this in
-                            }}
+                            className="feature-card rounded-2xl p-7 flex flex-col gap-6 relative overflow-hidden opacity-0"
                         >
                             {/* Top accent line */}
                             <div
+                                className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
                                 style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    height: "2px",
                                     background: `linear-gradient(90deg, ${group.accentStart}, ${group.accentEnd})`,
-                                    borderRadius: "1.25rem 1.25rem 0 0",
                                 }}
                             />
 
                             {/* Group header */}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "0.75rem",
-                                    paddingTop: "0.5rem",
-                                }}
-                            >
+                            <div className="flex items-center gap-3.5 pt-2">
                                 {/* Icon bubble */}
                                 <div
+                                    className="w-11 h-11 rounded-full flex items-center justify-center text-xl flex-shrink-0"
                                     style={{
-                                        width: 44,
-                                        height: 44,
-                                        borderRadius: "50%",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        fontSize: "1.3rem",
                                         background: `linear-gradient(135deg, ${group.accentStart}22, ${group.accentEnd}22)`,
                                         border: `1px solid ${group.accentStart}44`,
-                                        flexShrink: 0,
                                     }}
                                 >
-                                    {group.icon}
+                                    <group.icon size={18} style={{ color: group.accentStart }} />
                                 </div>
-                                <div>
-                                    <h3
-                                        style={{
-                                            fontSize: "1.1rem",
-                                            fontWeight: 700,
-                                            color: "rgba(255,255,255,0.95)",
-                                            margin: 0,
-                                        }}
-                                    >
+                                <div className="flex flex-col gap-0.5">
+                                    <h3 className="text-base font-bold text-white/95">
                                         {group.group}
                                     </h3>
-                                    <p
-                                        style={{
-                                            fontSize: "0.75rem",
-                                            color: "rgba(255,255,255,0.4)",
-                                            margin: 0,
-                                            marginTop: 2,
-                                        }}
-                                    >
+                                    <p className="text-xs text-white/40">
                                         {group.items.length} skills
                                     </p>
                                 </div>
                             </div>
 
                             {/* Divider */}
-                            <div
-                                style={{
-                                    height: "1px",
-                                    background: "rgba(255,255,255,0.06)",
-                                }}
-                            />
+                            <div className="h-px bg-white/5" />
 
                             {/* Skill bars */}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "1.1rem",
-                                }}
-                            >
+                            <div className="flex flex-col gap-4">
                                 {group.items.map((skill, si) => (
                                     <SkillBar
                                         key={skill.name}
@@ -330,7 +229,7 @@ const SkillsSection = () => {
                                     />
                                 ))}
                             </div>
-                        </div>
+                        </SpotlightCard>
                     ))}
                 </div>
             </div>

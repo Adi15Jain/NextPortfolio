@@ -5,12 +5,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TitleHeader from "../components/TitleHeader";
+import { MessageSquare } from "lucide-react";
 import { testimonials } from "../constants";
+import SpotlightCard from "../components/SpotlightCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const StarRow = ({ rating = 5 }) => (
-    <div style={{ display: "flex", gap: "3px" }}>
+    <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((i) => (
             <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path
@@ -28,7 +30,7 @@ const QuoteIcon = ({ color }) => (
         height="32"
         viewBox="0 0 40 32"
         fill="none"
-        style={{ position: "absolute", top: 20, right: 20, opacity: 0.15 }}
+        className="absolute top-5 right-5 opacity-15 pointer-events-none"
         aria-hidden="true"
     >
         <path
@@ -70,163 +72,68 @@ const TestimonialsSection = () => {
     }, []);
 
     return (
-        <section
-            id="testimonials"
-            style={{ width: "100%", marginTop: "5rem", padding: "0 1.25rem" }}
-        >
-            <div
-                style={{
-                    maxWidth: "80rem",
-                    margin: "0 auto",
-                    padding: "0 1.25rem",
-                }}
-            >
-                <TitleHeader title="What People Say" sub="💬 Testimonials" />
+        <section id="testimonials" className="w-full mt-20 px-5">
+            <div className="max-w-7xl mx-auto px-5">
+                <TitleHeader title="What People Say" sub={<span className="flex items-center gap-1.5"><MessageSquare size={13} className="text-blue-400" /> Testimonials</span>} />
 
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns:
-                            "repeat(auto-fit, minmax(300px, 1fr))",
-                        gap: "1.5rem",
-                        marginTop: "3.5rem",
-                    }}
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
                     {testimonials.map((t, i) => {
                         const accent = ACCENT_COLORS[i % ACCENT_COLORS.length];
                         return (
-                            <div
+                            <SpotlightCard
                                 key={i}
                                 ref={(el) => {
                                     cardRefs.current[i] = el;
                                 }}
-                                style={{
-                                    position: "relative",
-                                    background: "rgba(255,255,255,0.04)",
-                                    border: "1px solid rgba(255,255,255,0.09)",
-                                    backdropFilter: "blur(24px)",
-                                    WebkitBackdropFilter: "blur(24px)",
-                                    borderRadius: "1.25rem",
-                                    padding: "2rem 1.75rem 1.75rem",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "1.1rem",
-                                    minHeight: 280,
-                                    overflow: "hidden",
-                                    opacity: 0,
-                                    cursor: "default",
-                                    transition:
-                                        "transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease",
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform =
-                                        "translateY(-8px)";
-                                    e.currentTarget.style.boxShadow = `0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px ${accent.start}33`;
-                                    e.currentTarget.style.borderColor = `${accent.start}44`;
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform =
-                                        "translateY(0)";
-                                    e.currentTarget.style.boxShadow = "none";
-                                    e.currentTarget.style.borderColor =
-                                        "rgba(255,255,255,0.09)";
-                                }}
+                                className="feature-card rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 cursor-default group min-h-[300px]"
                             >
                                 {/* Top accent bar */}
                                 <div
+                                    className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
                                     style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        right: 0,
-                                        height: "2px",
                                         background: `linear-gradient(90deg, ${accent.start}, ${accent.end})`,
-                                        borderRadius: "1.25rem 1.25rem 0 0",
                                     }}
                                 />
 
                                 {/* SVG quote mark */}
                                 <QuoteIcon color={accent.start} />
 
-                                {/* Review text */}
-                                <p
-                                    style={{
-                                        fontSize: "0.9rem",
-                                        lineHeight: 1.75,
-                                        color: "rgba(255,255,255,0.72)",
-                                        flex: 1,
-                                        margin: 0,
-                                        paddingRight: "2rem",
-                                    }}
-                                >
-                                    {t.review}
-                                </p>
+                                {/* Content wrapper */}
+                                <div className="flex-1 flex flex-col justify-between gap-5 relative z-10">
+                                    {/* Review text */}
+                                    <p className="text-sm leading-relaxed text-white/70 flex-1 pr-8">
+                                        {t.review}
+                                    </p>
 
-                                {/* Stars */}
-                                <StarRow rating={t.rating || 5} />
+                                    {/* Stars */}
+                                    <StarRow rating={t.rating || 5} />
+                                </div>
 
                                 {/* Author row */}
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "0.85rem",
-                                        borderTop:
-                                            "1px solid rgba(255,255,255,0.07)",
-                                        paddingTop: "1rem",
-                                    }}
-                                >
+                                <div className="flex items-center gap-3.5 border-t border-white/10 pt-4 mt-5 relative z-10">
                                     {/* Avatar */}
                                     <div
+                                        className="w-11 h-11 rounded-full flex items-center justify-center text-xl flex-shrink-0"
                                         style={{
-                                            width: 46,
-                                            height: 46,
-                                            borderRadius: "50%",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            fontSize: "1.4rem",
                                             background: `linear-gradient(135deg, ${accent.start}22, ${accent.end}22)`,
                                             border: `1.5px solid ${accent.start}55`,
-                                            flexShrink: 0,
                                         }}
                                     >
                                         {t.avatar}
                                     </div>
 
                                     {/* Info */}
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            gap: 2,
-                                        }}
-                                    >
-                                        <p
-                                            style={{
-                                                margin: 0,
-                                                fontSize: "0.925rem",
-                                                fontWeight: 700,
-                                                color: "rgba(255,255,255,0.92)",
-                                            }}
-                                        >
+                                    <div className="flex flex-col gap-0.5">
+                                        <p className="text-sm font-bold text-white/90">
                                             {t.name}
                                         </p>
-                                        <p
-                                            style={{
-                                                margin: 0,
-                                                fontSize: "0.8rem",
-                                                color: "rgba(255,255,255,0.45)",
-                                            }}
-                                        >
+                                        <p className="text-xs text-white/50">
                                             {t.role}
                                         </p>
                                         {t.mention && (
                                             <p
+                                                className="text-xs font-semibold"
                                                 style={{
-                                                    margin: 0,
-                                                    fontSize: "0.75rem",
-                                                    fontWeight: 600,
                                                     background: `linear-gradient(90deg, ${accent.start}, ${accent.end})`,
                                                     WebkitBackgroundClip:
                                                         "text",
@@ -240,7 +147,7 @@ const TestimonialsSection = () => {
                                         )}
                                     </div>
                                 </div>
-                            </div>
+                            </SpotlightCard>
                         );
                     })}
                 </div>

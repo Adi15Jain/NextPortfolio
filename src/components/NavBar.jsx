@@ -4,8 +4,11 @@ import React, { useEffect, useState } from "react";
 import { navLinks } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
+    const pathname = usePathname();
+    const isHome = pathname === "/" || pathname === "";
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeLink, setActiveLink] = useState("");
@@ -71,7 +74,7 @@ const NavBar = () => {
             >
                 <div className="inner">
                     {/* Logo */}
-                    <a className="logo" href="#hero">
+                    <a className="logo" href={isHome ? "#hero" : "/"}>
                         Adi Jain
                     </a>
 
@@ -81,7 +84,7 @@ const NavBar = () => {
                             {navLinks.map(({ link, name }) => (
                                 <li key={name} className="group">
                                     <a
-                                        href={link}
+                                        href={isHome ? link : `/${link}`}
                                         className="relative py-1 block"
                                     >
                                         <span
@@ -113,7 +116,7 @@ const NavBar = () => {
                     <div className="flex items-center gap-4">
                         {/* Contact Button */}
                         <a
-                            href="#contact"
+                            href={isHome ? "#contact" : "/#contact"}
                             className="contact-btn group hidden lg:flex"
                         >
                             <div className="inner">
@@ -177,7 +180,7 @@ const NavBar = () => {
                 {navLinks.map(({ link, name }) => (
                     <a
                         key={name}
-                        href={link}
+                        href={isHome ? link : `/${link}`}
                         onClick={handleMobileLinkClick}
                         className="text-2xl font-semibold text-white/80 hover:text-white transition-all duration-200 hover:scale-105"
                     >
@@ -186,7 +189,7 @@ const NavBar = () => {
                 ))}
 
                 <a
-                    href="#contact"
+                    href={isHome ? "#contact" : "/#contact"}
                     onClick={handleMobileLinkClick}
                     className="mt-4 px-8 py-3 rounded-full font-semibold text-white text-lg"
                     style={{

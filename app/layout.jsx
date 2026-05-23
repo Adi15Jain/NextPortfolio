@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Montserrat } from "next/font/google";
 import ClientCursor from "../src/components/ClientCursor";
+import ScrollProgressBar from "../src/components/ScrollProgressBar";
+import SmoothScroll from "../src/components/SmoothScroll";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -32,7 +34,7 @@ export const metadata = {
     openGraph: {
         type: "website",
         locale: "en_US",
-        url: "https://adijain.dev",
+        url: "https://adijainnext-portfolio.vercel.app",
         siteName: "Adi Jain Portfolio",
         title: "Adi Jain — AI & ML Developer",
         description:
@@ -82,6 +84,8 @@ export default function RootLayout({ children }) {
                 />
             </head>
             <body className="antialiased">
+                <SmoothScroll />
+                <ScrollProgressBar />
                 <ClientCursor />
                 {children}
             </body>

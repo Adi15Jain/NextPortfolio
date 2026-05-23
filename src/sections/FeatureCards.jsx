@@ -4,6 +4,7 @@ import { abilities } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SpotlightCard from "../components/SpotlightCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,10 +40,9 @@ const FeatureCards = () => {
         <div className="w-full padding-x-lg">
             <div className="mx-auto grid-4-cols">
                 {abilities.map(({ imgPath, title, desc }, index) => (
-                    <div
+                    <SpotlightCard
                         key={title}
-                        className="feature-card glass-card rounded-2xl p-8 flex flex-col gap-5 transition-all duration-300 hover:-translate-y-2 cursor-default"
-                        style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+                        className="feature-card rounded-2xl p-8 flex flex-col gap-5 transition-all duration-300 hover:-translate-y-2 cursor-default group"
                     >
                         {/* Icon bubble */}
                         <div
@@ -76,7 +76,7 @@ const FeatureCards = () => {
                                     iconGradients[index % iconGradients.length],
                             }}
                         />
-                    </div>
+                    </SpotlightCard>
                 ))}
             </div>
         </div>
