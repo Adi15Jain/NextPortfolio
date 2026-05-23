@@ -3,6 +3,8 @@ import { Montserrat } from "next/font/google";
 import ClientCursor from "../src/components/ClientCursor";
 import ScrollProgressBar from "../src/components/ScrollProgressBar";
 import SmoothScroll from "../src/components/SmoothScroll";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const montserrat = Montserrat({
     subsets: ["latin"],
@@ -113,6 +115,8 @@ export default function RootLayout({ children }) {
                 <ScrollProgressBar />
                 <ClientCursor />
                 {children}
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );
