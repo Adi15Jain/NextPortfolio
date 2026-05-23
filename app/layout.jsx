@@ -11,7 +11,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-    metadataBase: new URL("https://adijain.dev"),
+    metadataBase: new URL("https://adijain.click"),
     title: {
         default: "Adi Jain — AI & ML Developer",
         template: "%s | Adi Jain",
@@ -34,7 +34,7 @@ export const metadata = {
     openGraph: {
         type: "website",
         locale: "en_US",
-        url: "https://adijainnext-portfolio.vercel.app",
+        url: "https://adijain.click",
         siteName: "Adi Jain Portfolio",
         title: "Adi Jain — AI & ML Developer",
         description:
@@ -81,6 +81,31 @@ export default function RootLayout({ children }) {
                 <link
                     rel="stylesheet"
                     href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Person",
+                            name: "Adi Jain",
+                            jobTitle: "AI & Machine Learning Developer",
+                            url: "https://adijain.click",
+                            sameAs: [
+                                "https://www.github.com/Adi15Jain/",
+                                "https://www.linkedin.com/in/adi-jain-73334724b/",
+                            ],
+                            knowsAbout: [
+                                "Artificial Intelligence",
+                                "Machine Learning",
+                                "Deep Learning",
+                                "Next.js",
+                                "React",
+                                "Python",
+                                "Three.js",
+                            ],
+                        }),
+                    }}
                 />
             </head>
             <body className="antialiased">
