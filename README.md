@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Adi Jain — AI, Machine Learning & Deep Learning Specialist
 
-## Getting Started
+A showcase of production-grade engineering, interactive computer vision dashboards, low-latency conversational voice agents, and high-throughput market telemetry visualization.
 
-First, run the development server:
+Live Portfolio: **[https://adijain.click](https://adijain.click)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technical Overview & Focus
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+As an AI and Full-Stack Developer, my core philosophy is to build applications that solve tangible real-world problems through modular, robust software architectures. I specialize in deep learning pipelines, clinical image classification models, real-time data streaming telemetry, and highly animated, modern front-end interfaces.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This portfolio showcases advanced design patterns including:
 
-## Learn More
+- Seamless state-synchronized custom cursor trackers and ScrollTrigger progress timelines.
+- Alternating aesthetic grids and responsive layout systems that adapt fluidly across devices.
+- Comprehensive dynamic SEO sitemaps, crawlers directives, and JSON-LD schema search indexing.
+- Custom retro-themed 404 systems and route-aware navigation configurations.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Featured Application Portfolio
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. InterviewPilot — AI Mock Interview Coach
 
-## Deploy on Vercel
+- **The Challenge**: Candidates experience severe technical interview anxiety and struggle to practice dynamic, role-specific behavioral scenarios under realistic conditions.
+- **The Solution**: An interactive, low-latency voice-driven coaching agent. Using Gemini AI, it generates custom questions based on job description context. Integrated with Vapi WebSockets, it facilitates natural audio dialogues and provides detailed post-session sentiment and performance analytics.
+- **Real-World Value**: Democratizes institutional-grade technical interview prep, builds muscle memory, and reduces prep overhead to zero.
+- **Stack**: Next.js, Gemini AI, Vapi Voice APIs, Tailwind CSS, and NeonDB serverless PostgreSQL.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. PneumoAI — Pulmonary Health Classifier
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **The Challenge**: Diagnostic overload in high-volume public emergency clinics causes dangerous queues, putting tired medical staff under extreme pressure when diagnosing acute pulmonary conditions.
+- **The Solution**: An intelligent clinical decision support portal. Driven by a fine-tuned deep Convolutional Neural Network (CNN), it ingests chest X-rays and instantly highlights consolidation indicators to serve as a fast second opinion.
+- **Real-World Value**: Shrinks triage waiting times from hours to milliseconds, functions as a powerful clinical safety net, and supports rural centers lacking on-site specialists.
+- **Stack**: PyTorch, FastAPI, React.js, and Custom CNN Architectures.
+
+### 3. CoinPush — Telemetry Screening Dashboard
+
+- **The Challenge**: Cryptocurrency markets run continuously, outputting noisy telemetry that retail traders struggle to capture or analyze without expensive terminal licenses.
+- **The Solution**: A unified market telemetry screening terminal that consolidates hundreds of assets into high-signal charts, sorting assets by price velocity, volume breakouts, and category metrics in real-time.
+- **Real-World Value**: Saves individual traders hours of manual scraping across fragmented platforms and delivers high-performance market indicators.
+- **Stack**: Next.js, CoinGecko REST APIs, SWC Compiler, and reactive client dashboards.
+
+---
+
+## Technical Competencies & Specializations
+
+- **Artificial Intelligence**: Computer Vision (CNNs, Object Detection), Conversational Voice Agents, Prompt Engineering, Predictive Telemetry.
+- **Languages & Core Skills**: Python, JavaScript, TypeScript, SQL, Modern C++, Systems Design.
+- **Libraries & Frameworks**: PyTorch, React.js, Next.js, FastAPI, Node.js, Express, Tailwind CSS.
+- **Interactive Visualization**: Three.js, GSAP (GreenSock), SVG Vector Motion.
+
+---
+
+## Connect & Collaborate
+
+I am continuously exploring complex technical challenges and collaborative opportunities at the intersection of AI and scalable product design.
+
+- **Portfolio Website**: [adijain.click](https://adijain.click)
+- **LinkedIn**: [Adi Jain on LinkedIn](https://www.linkedin.com/in/adi-jain-73334724b/)
+- **Email**: Contact pathways are securely integrated directly on my main website contact portal.
