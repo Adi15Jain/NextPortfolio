@@ -86,7 +86,7 @@ const ProjectsPage = () => {
         );
 
         // Project cards entrance on scroll
-        cardRefs.current.forEach((card, index) => {
+        cardRefs.current.forEach((card) => {
             if (card) {
                 gsap.fromTo(
                     card,

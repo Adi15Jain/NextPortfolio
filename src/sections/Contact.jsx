@@ -48,7 +48,7 @@ const Contact = () => {
             <div className="w-full h-full md:px-10 px-5">
                 <TitleHeader
                     title="Get in Touch – Let's Connect"
-                    sub={<span className="flex items-center gap-1.5"><MessageSquare size={13} className="text-blue-400" /> Have questions or ideas? Let's talk!</span>}
+                    sub={<span className="flex items-center gap-1.5"><MessageSquare size={13} className="text-blue-400" /> Have questions or ideas? Let&apos;s talk!</span>}
                 />
                 <div className="grid-12-cols mt-16">
                     {/* FORM */}

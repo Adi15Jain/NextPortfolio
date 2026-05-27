@@ -8,7 +8,8 @@ export default function NotFound() {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const raf = requestAnimationFrame(() => setMounted(true));
+        return () => cancelAnimationFrame(raf);
     }, []);
 
     if (!mounted) return null;
@@ -73,7 +74,7 @@ export default function NotFound() {
                     </h2>
                     <p className="text-white/50 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
                         The coordinates you requested do not exist in this
-                        portfolio dimension. Let's guide you back to the home
+                        portfolio dimension. Let&apos;s guide you back to the home
                         base.
                     </p>
                 </div>

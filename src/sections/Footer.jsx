@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { socialImgs } from "../constants";
 
 const socialColors = {
@@ -35,12 +36,12 @@ const Footer = () => {
                     >
                         Adi Jain
                     </p>
-                    <a
+                    <Link
                         href="/"
                         className="text-xs text-white/40 hover:text-white/60 transition-colors duration-200"
                     >
                         Visit my blog (In Progress)
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Center: Social Icons */}

@@ -52,7 +52,7 @@ const skillGroups = [
     },
 ];
 
-const SkillBar = ({ name, level, accentStart, accentEnd, barRef, pctRef }) => (
+const SkillBar = ({ name, accentStart, accentEnd, barRef, pctRef }) => (
     <div className="flex flex-col gap-1.5 w-full">
         {/* Label row */}
         <div className="flex justify-between items-center">
@@ -217,7 +217,6 @@ const SkillsSection = () => {
                                     <SkillBar
                                         key={skill.name}
                                         name={skill.name}
-                                        level={skill.level}
                                         accentStart={group.accentStart}
                                         accentEnd={group.accentEnd}
                                         barRef={(el) => {

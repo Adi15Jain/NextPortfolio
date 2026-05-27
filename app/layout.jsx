@@ -14,22 +14,28 @@ const montserrat = Montserrat({
 
 export const metadata = {
     metadataBase: new URL("https://adijain.click"),
+    alternates: {
+        canonical: "https://adijain.click",
+    },
     title: {
         default: "Adi Jain — AI & ML Developer",
         template: "%s | Adi Jain",
     },
     description:
-        "Computer Science student specializing in AI, ML & DL. Building impactful products with React, Python, Node.js, and Three.js.",
+        "Adi Jain is an AI & ML Developer specializing in deep learning pipelines, computer vision systems, and modern interactive web architectures.",
     keywords: [
         "Adi Jain",
-        "portfolio",
-        "AI developer",
-        "ML engineer",
-        "React",
-        "Python",
-        "Three.js",
-        "Next.js",
-        "computer science",
+        "Adi Jain Portfolio",
+        "Adi Jain AI & ML Developer",
+        "Adi Jain Developer",
+        "Adi Jain AI ML",
+        "Adi Jain Machine Learning",
+        "Adi Jain Deep Learning",
+        "adijain.click",
+        "AI Developer",
+        "ML Engineer",
+        "Next.js Portfolio",
+        "Teerthanker Mahaveer University",
     ],
     authors: [{ name: "Adi Jain" }],
     creator: "Adi Jain",
@@ -40,7 +46,7 @@ export const metadata = {
         siteName: "Adi Jain Portfolio",
         title: "Adi Jain — AI & ML Developer",
         description:
-            "Computer Science student specializing in AI, ML & DL. Building impactful products with React, Python, Node.js, and Three.js.",
+            "Adi Jain is an AI & ML Developer specializing in deep learning pipelines, computer vision systems, and modern interactive web architectures.",
         images: [
             {
                 url: "/images/og-image.png",
@@ -54,7 +60,7 @@ export const metadata = {
         card: "summary_large_image",
         title: "Adi Jain — AI & ML Developer",
         description:
-            "Computer Science student specializing in AI, ML & DL. Building impactful products with React, Python, Node.js, and Three.js.",
+            "Adi Jain is an AI & ML Developer specializing in deep learning pipelines, computer vision systems, and modern interactive web architectures.",
         images: ["/images/og-image.png"],
         creator: "@adi_jain_aj_",
     },
@@ -87,26 +93,47 @@ export default function RootLayout({ children }) {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "Person",
-                            name: "Adi Jain",
-                            jobTitle: "AI & Machine Learning Developer",
-                            url: "https://adijain.click",
-                            sameAs: [
-                                "https://www.github.com/Adi15Jain/",
-                                "https://www.linkedin.com/in/adi-jain-73334724b/",
-                            ],
-                            knowsAbout: [
-                                "Artificial Intelligence",
-                                "Machine Learning",
-                                "Deep Learning",
-                                "Next.js",
-                                "React",
-                                "Python",
-                                "Three.js",
-                            ],
-                        }),
+                        __html: JSON.stringify([
+                            {
+                                "@context": "https://schema.org",
+                                "@type": "Person",
+                                "@id": "https://adijain.click/#person",
+                                name: "Adi Jain",
+                                jobTitle: "AI & Machine Learning Developer",
+                                url: "https://adijain.click",
+                                image: "https://adijain.click/images/fav.png",
+                                sameAs: [
+                                    "https://www.github.com/Adi15Jain/",
+                                    "https://www.linkedin.com/in/adi-jain-73334724b/",
+                                    "https://www.instagram.com/adi_jain_aj_/",
+                                ],
+                                alumniOf: {
+                                    "@type": "EducationalOrganization",
+                                    name: "Teerthanker Mahaveer University",
+                                    alternateName: "TMU",
+                                },
+                                knowsAbout: [
+                                    "Artificial Intelligence",
+                                    "Machine Learning",
+                                    "Deep Learning",
+                                    "Full-Stack Web Development",
+                                    "Next.js",
+                                    "React.js",
+                                    "Python",
+                                    "Three.js",
+                                ],
+                            },
+                            {
+                                "@context": "https://schema.org",
+                                "@type": "WebSite",
+                                "@id": "https://adijain.click/#website",
+                                url: "https://adijain.click",
+                                name: "Adi Jain Portfolio",
+                                publisher: {
+                                    "@id": "https://adijain.click/#person",
+                                },
+                            },
+                        ]),
                     }}
                 />
             </head>
