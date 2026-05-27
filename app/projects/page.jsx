@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import NavBar from "../../src/components/NavBar";
 import Footer from "../../src/sections/Footer";
 import SpotlightCard from "../../src/components/SpotlightCard";
+import Image from "next/image";
 import { 
     ArrowLeft, 
     ExternalLink, 
@@ -156,9 +157,11 @@ const ProjectsPage = () => {
                                     {/* Column 1: Image Frame */}
                                     <div className="w-full lg:w-[45%] flex flex-col gap-4">
                                         <div className="image-wrapper relative overflow-hidden rounded-2xl w-full aspect-video bg-slate-950/60 border border-white/5 flex items-center justify-center p-2 shadow-2xl group cursor-default">
-                                            <img
+                                            <Image
                                                 src={project.image}
                                                 alt={project.title}
+                                                width={600}
+                                                height={340}
                                                 className="w-full h-full object-contain rounded-xl transition-transform duration-700 group-hover:scale-[1.02]"
                                             />
                                         </div>

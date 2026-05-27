@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import TitleHeader from "../components/TitleHeader";
 import SpotlightCard from "../components/SpotlightCard";
 import { ExternalLink, Github, FolderGit2 } from "lucide-react";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,9 +103,12 @@ const ShowcaseSection = () => {
                                 className="first-project-wrapper p-6 rounded-2xl flex flex-col justify-start gap-4 cursor-default group h-fit"
                             >
                                 <div className="image-wrapper relative overflow-hidden rounded-xl bg-slate-950/40 border border-white/5 w-full">
-                                    <img
+                                    <Image
                                         src={featured.image}
                                         alt={featured.alt}
+                                        width={800}
+                                        height={450}
+                                        priority
                                         className="w-full h-auto block object-contain rounded-xl transition-transform duration-700 group-hover:scale-[1.02]"
                                     />
                                 </div>
@@ -166,9 +170,11 @@ const ShowcaseSection = () => {
                                         className="project p-3 rounded-2xl cursor-default group"
                                     >
                                         <div className="image-wrapper relative overflow-hidden rounded-xl w-full aspect-[16/9] bg-slate-950/80 border border-white/5 flex items-center justify-center">
-                                            <img
+                                            <Image
                                                 src={project.image}
                                                 alt={project.alt}
+                                                width={500}
+                                                height={280}
                                                 className="w-full h-full object-contain rounded-xl transition-transform duration-700 group-hover:scale-[1.03]"
                                             />
 

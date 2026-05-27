@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Mona_Sans } from "next/font/google";
 import ClientCursor from "../src/components/ClientCursor";
 import ScrollProgressBar from "../src/components/ScrollProgressBar";
 import SmoothScroll from "../src/components/SmoothScroll";
@@ -10,6 +10,12 @@ const montserrat = Montserrat({
     subsets: ["latin"],
     display: "swap",
     variable: "--font-montserrat",
+});
+
+const monaSans = Mona_Sans({
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-mona-sans",
 });
 
 export const metadata = {
@@ -84,12 +90,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en" className={montserrat.variable}>
+        <html
+            lang="en"
+            className={`${montserrat.variable} ${monaSans.variable}`}
+        >
             <head>
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
-                />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{

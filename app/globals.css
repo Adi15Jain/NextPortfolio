@@ -30,7 +30,7 @@ body {
     overflow-x: hidden;
     color: white;
     scroll-behavior: smooth;
-    font-family: "Mona Sans", sans-serif;
+    font-family: var(--font-mona-sans), sans-serif;
 }
 
 html {
@@ -60,7 +60,7 @@ section {
    THEME TOKENS (Tailwind v4)
    ============================================= */
 @theme {
-    --font-sans: "Mona Sans", sans-serif;
+    --font-sans: var(--font-mona-sans), sans-serif;
     --color-white-50: #d9ecff;
     --color-black-50: #1c1c21;
     --color-black-100: #0e0e10;
