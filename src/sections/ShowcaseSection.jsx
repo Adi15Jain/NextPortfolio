@@ -15,18 +15,22 @@ const projectData = [
     {
         id: "project1",
         title: "InterviewPilot — AI Interview Coach",
-        description:
-            "An AI-powered mock interview coach simulating technical and behavioural interviews. Generates role-specific questions using Gemini AI, records video responses, and delivers instant, detailed feedback on answer quality, confidence, and clarity.",
-        image: "/images/interviewPilot.png",
+        metric: "< 1s Audio Delay",
+        solution:
+            "A dynamic WebSocket voice coach tracking facial expressions using MediaPipe webcam telemetry.",
+        image: "/images/InterviewPilot.png",
         alt: "InterviewPilot",
         liveUrl: "https://interview-pilot-web.vercel.app/",
         githubUrl: "https://github.com/Adi15Jain/InterviewPilot",
-        tags: ["Next.Js", "Gemini AI", "Vapi", "Tailwind CSS", "NeonDB"],
+        tags: ["Next.js", "Gemini AI", "Vapi Sockets", "MediaPipe", "NeonDB"],
         featured: true,
     },
     {
         id: "project2",
         title: "PneumoAI — Pneumonia Detection",
+        metric: "92% Accuracy Triage",
+        solution:
+            "A deep Convolutional Neural Network triaging high-risk emergency radiology scans in milliseconds.",
         image: "/images/project1.png",
         alt: "PneumoAI",
         liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
@@ -37,11 +41,14 @@ const projectData = [
     {
         id: "project3",
         title: "CoinPush — Crypto Screening App",
+        metric: "90% Faster Discovery",
+        solution:
+            "A high-throughput cryptocurrency terminal piping price velocity over WebSocket streams.",
         image: "/images/project3.png",
         alt: "CoinPush",
         liveUrl: "https://coin-push.vercel.app/",
         githubUrl: "https://github.com/Adi15Jain/CoinPush",
-        tags: ["Next.Js", "REST API", "SWC", "CoinGecko API"],
+        tags: ["Next.js", "WebSockets", "CoinGecko API", "SWR"],
         featured: false,
     },
 ];
@@ -113,17 +120,25 @@ const ShowcaseSection = () => {
                                     />
                                 </div>
 
-                                <div className="text-content mt-2 space-y-3">
-                                    <div className="badges flex flex-wrap gap-2">
-                                        {featured.tags.map((tag) => (
-                                            <TagBadge key={tag} text={tag} />
-                                        ))}
+                                <div className="text-content mt-2 space-y-3.5">
+                                    <div className="flex justify-between items-center gap-2 flex-wrap">
+                                        <div className="badges flex flex-wrap gap-2">
+                                            {featured.tags.map((tag) => (
+                                                <TagBadge
+                                                    key={tag}
+                                                    text={tag}
+                                                />
+                                            ))}
+                                        </div>
+                                        <span className="px-3 py-1 rounded-full text-xs font-black bg-blue-500/10 border border-blue-500/25 text-blue-400">
+                                            {featured.metric}
+                                        </span>
                                     </div>
                                     <h1 className="text-2xl md:text-3xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
                                         {featured.title}
                                     </h1>
-                                    <p className="text-white/60 text-sm md:text-base leading-relaxed">
-                                        {featured.description}
+                                    <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                                        {featured.solution}
                                     </p>
 
                                     {/* Action Buttons Row */}
@@ -133,7 +148,7 @@ const ShowcaseSection = () => {
                                                 href={featured.liveUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer"
+                                                className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer shadow-md hover:shadow-blue-500/10"
                                                 style={{
                                                     background:
                                                         "linear-gradient(135deg, #3b82f6, #8b5cf6)",
@@ -147,13 +162,7 @@ const ShowcaseSection = () => {
                                             href={featured.githubUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer"
-                                            style={{
-                                                background:
-                                                    "rgba(255,255,255,0.06)",
-                                                border: "1px solid rgba(255,255,255,0.15)",
-                                                backdropFilter: "blur(8px)",
-                                            }}
+                                            className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer border border-white/10 hover:border-white/20 bg-white/5 backdrop-blur-md"
                                         >
                                             <Github size={14} /> GitHub
                                         </a>
@@ -180,11 +189,19 @@ const ShowcaseSection = () => {
 
                                             {/* Dynamic Overlay Content: Title & Tags in normal state, Links in hover state */}
                                             <div className="absolute inset-0 rounded-xl z-10 flex flex-col justify-end p-5 transition-all duration-300 bg-gradient-to-t from-black/95 via-black/45 to-transparent group-hover:bg-black/40 group-hover:backdrop-blur-[2px]">
-                                                {/* Normal View: Title & Tags */}
-                                                <div className="normal-content transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-4 pointer-events-none">
-                                                    <h2 className="text-lg md:text-xl font-bold text-white mb-2 leading-tight">
-                                                        {project.title}
-                                                    </h2>
+                                                {/* Normal View: Title, Metric, Solution & Tags */}
+                                                <div className="normal-content transition-all duration-300 group-hover:opacity-0 group-hover:translate-y-4 pointer-events-none w-full">
+                                                    <div className="flex justify-between items-start gap-2.5 flex-wrap">
+                                                        <h2 className="text-base md:text-lg font-bold text-white leading-tight">
+                                                            {project.title}
+                                                        </h2>
+                                                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-purple-500/10 border border-purple-500/25 text-purple-400">
+                                                            {project.metric}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-slate-300 text-xs md:text-sm leading-relaxed mt-2 mb-3.5">
+                                                        {project.solution}
+                                                    </p>
                                                     <div className="flex flex-wrap gap-1.5">
                                                         {project.tags.map(
                                                             (tag) => (
@@ -210,7 +227,7 @@ const ShowcaseSection = () => {
                                                                 }
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
-                                                                className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer"
+                                                                className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer shadow-md hover:shadow-blue-500/10"
                                                                 style={{
                                                                     background:
                                                                         "linear-gradient(135deg, #3b82f6, #8b5cf6)",
@@ -228,14 +245,7 @@ const ShowcaseSection = () => {
                                                             }
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer"
-                                                            style={{
-                                                                background:
-                                                                    "rgba(255,255,255,0.1)",
-                                                                border: "1px solid rgba(255,255,255,0.2)",
-                                                                backdropFilter:
-                                                                    "blur(8px)",
-                                                            }}
+                                                            className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-semibold text-white transition-all duration-200 hover:scale-105 cursor-pointer border border-white/10 hover:border-white/20 bg-white/5 backdrop-blur-md"
                                                         >
                                                             <Github size={12} />{" "}
                                                             GitHub

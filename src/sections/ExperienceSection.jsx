@@ -21,21 +21,28 @@ const ExperienceSection = () => {
                 ease: "power2.inOut",
                 scrollTrigger: {
                     trigger: card,
-                    start: "top 80%",
+                    start: "top 85%",
                 },
             });
         });
-        gsap.to(".timeline", {
-            transformOrigin: "bottom bottom",
-            ease: "power1.inOut",
-            scrollTrigger: {
-                trigger: ".timeline",
-                start: "top center",
-                end: "70% center",
-                onUpdate: (self) => {
-                    gsap.to(".timeline", { scaleY: 1 - self.progress });
-                },
-            },
+        gsap.utils.toArray(".timeline-wrapper").forEach((wrapper) => {
+            const mask = wrapper.querySelector(".timeline");
+            if (!mask) return;
+
+            gsap.fromTo(mask,
+                { scaleY: 1 },
+                {
+                    scaleY: 0,
+                    transformOrigin: "bottom bottom",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: wrapper,
+                        start: "top 85%",
+                        end: "bottom 85%",
+                        scrub: true,
+                    },
+                }
+            );
         });
         gsap.utils.toArray(".expText").forEach((text) => {
             gsap.from(text, {
@@ -45,10 +52,13 @@ const ExperienceSection = () => {
                 ease: "power2.inOut",
                 scrollTrigger: {
                     trigger: text,
-                    start: "top 60%",
+                    start: "top 85%",
                 },
             });
         });
+
+        // Recalculate ScrollTrigger positions on mount
+        ScrollTrigger.refresh();
     }, []);
 
     return (
@@ -78,16 +88,16 @@ const ExperienceSection = () => {
                                 </div>
                                 <div className="xl:w-4/6">
                                     <div className="flex items-start">
-                                        <div className="timeline-wrapper">
+                                        <div className="timeline-wrapper xl:!left-10 md:!left-10 !left-5">
                                             <div className="timeline" />
                                             <div className="gradient-line w-1 h-full" />
                                         </div>
-                                        <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
-                                            <div className="timeline-logo">
+                                        <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-40">
+                                            <div className="timeline-logo relative z-50 p-2.5 md:p-3 overflow-hidden">
                                                 <img
                                                     src={card.logoPath}
                                                     alt="logo"
-                                                    className="rounded-full lg:mr-3"
+                                                    className="object-contain max-h-full max-w-full rounded-lg"
                                                 />
                                             </div>
                                             <div className="flex-1">

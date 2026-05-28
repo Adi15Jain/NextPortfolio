@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+
 import TitleHeader from "../components/TitleHeader";
 import { MessageSquare } from "lucide-react";
 import ContactExperience from "../components/Models/Contact/ContactExperience";
@@ -25,17 +25,25 @@ const Contact = () => {
         setError(false);
 
         try {
-            await emailjs.sendForm(
-                process.env.NEXT_PUBLIC_APP_EMAILJS_SERVICE_ID,
-                process.env.NEXT_PUBLIC_APP_EMAILJS_TEMPLATE_ID,
-                formRef.current,
-                process.env.NEXT_PUBLIC_APP_EMAILJS_PUBLIC_KEY,
-            );
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "Failed to send message.");
+            }
+
             setForm({ name: "", email: "", message: "" });
             setSuccess(true);
             setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
-            console.error("EmailJS Error:", err);
+            console.error("Contact Form Submission Error:", err);
             setError(true);
             setTimeout(() => setError(false), 5000);
         } finally {

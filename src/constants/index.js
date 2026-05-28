@@ -109,23 +109,23 @@ const logoIconsList = [
 const abilities = [
     {
         imgPath: "/images/code2.png",
-        title: "Creative Developer",
-        desc: "From game mechanics to front-end animations, I build interactive projects using vanilla JavaScript and React.",
+        title: "The Problem I Solve",
+        desc: "I eliminate user friction and bridge the gap between high-performance systems and human-centric design. I don't build generic static sites; I build software that solves actual utility bottlenecks.",
     },
     {
         imgPath: "/images/ai.png",
-        title: "AI & ML Enthusiast",
-        desc: "I’ve worked on projects like sentiment analysis and handwriting recognition, combining AI with real-world use cases.",
+        title: "The Products I Ship",
+        desc: "Production-ready platforms designed to handle real scale. I engineer tools that are fast, visually immersive, and functionally complete, from custom dashboard panels to modular developer tools.",
     },
     {
         imgPath: "/images/curious.png",
-        title: "Fast Learner",
-        desc: "I love diving into new frameworks, APIs, and tech stacks — whether it's sprite animation or neural networks.",
+        title: "My Core Standard",
+        desc: "Zero reliance on generic templates. I build full-stack architectures using Next.js and FastAPI, backed by resilient databases mapped securely using modern tools like Drizzle ORM.",
     },
     {
         imgPath: "/images/focus.png",
-        title: "Detail-Oriented",
-        desc: "I pay attention to the polish — clean UI, smooth animations, and consistent logic — for a quality user experience.",
+        title: "Real-World Proof",
+        desc: "From crafting high-end, customized relational e-commerce dashboards to deploying deep learning models in clinic workflows — I build software for active usage.",
     },
 ];
 
@@ -214,7 +214,7 @@ const expCards = [
         imgPath: "/images/logo.webp",
         logoPath: "/images/logo.png",
         title: "B.Tech CSE Student (AI, ML, DL)",
-        date: "August 2022 - Present",
+        date: "August 2022 - May 2026",
         responsibilities: [
             "Currently pursuing B.Tech in Computer Science and Engineering with a specialization in AI, ML, and DL at Teerthanker Mahaveer University, Moradabad.",
             "Studying subjects like Machine Learning, Deep Learning, Pattern Recognition, and Natural Language Processing.",

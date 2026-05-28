@@ -4,22 +4,31 @@ import { useEffect } from "react";
 import TitleHeader from "../components/TitleHeader";
 import { Wrench } from "lucide-react";
 
-// ─── Icon Data ────────────────────────────────────────────────────────────────
+// ─── Expanded Icon Data ────────────────────────────────────────────────────────
 // Each icon: { name, slug } — slug matches skillicons.dev
 const ALL_ICONS = [
     { name: "C++", slug: "cpp" },
     { name: "CSS", slug: "css" },
+    { name: "Docker", slug: "docker" },
     { name: "Express", slug: "express" },
     { name: "FastAPI", slug: "fastapi" },
     { name: "Flask", slug: "flask" },
     { name: "Git", slug: "git" },
+    { name: "GitHub", slug: "github" },
     { name: "HTML", slug: "html" },
     { name: "JavaScript", slug: "js" },
+    { name: "Laravel", slug: "laravel" },
+    { name: "Linux", slug: "linux" },
+    { name: "MongoDB", slug: "mongodb" },
     { name: "MySQL", slug: "mysql" },
     { name: "Next.js", slug: "nextjs" },
     { name: "Node.js", slug: "nodejs" },
+    { name: "npm", slug: "npm" },
+    { name: "pnpm", slug: "pnpm" },
     { name: "PostgreSQL", slug: "postgres" },
+    { name: "Postman", slug: "postman" },
     { name: "Prisma", slug: "prisma" },
+    { name: "Python", slug: "py" },
     { name: "PyTorch", slug: "pytorch" },
     { name: "React", slug: "react" },
     { name: "scikit-learn", slug: "sklearn" },
@@ -27,17 +36,21 @@ const ALL_ICONS = [
     { name: "TensorFlow", slug: "tensorflow" },
     { name: "Three.js", slug: "threejs" },
     { name: "TypeScript", slug: "ts" },
+    { name: "Vercel", slug: "vercel" },
+    { name: "Vite", slug: "vite" },
+    { name: "Vitest", slug: "vitest" },
+    { name: "VS Code", slug: "vscode" },
 ];
 
 // Split into two balanced rows
 const MID = Math.ceil(ALL_ICONS.length / 2);
-const ROW_1 = ALL_ICONS.slice(0, MID); // 15 icons — scrolls LEFT
-const ROW_2 = ALL_ICONS.slice(MID); // 15 icons — scrolls RIGHT
+const ROW_1 = ALL_ICONS.slice(0, MID); // 17 icons — scrolls LEFT
+const ROW_2 = ALL_ICONS.slice(MID); // 16 icons — scrolls RIGHT
 
 // Build skillicons.dev URL for a single icon
 const iconUrl = (slug) => `https://skillicons.dev/icons?i=${slug}`;
 
-// ─── Marquee Styles (injected once) ──────────────────────────────────────────
+// ─── Seamless Marquee Styles (mathematically adjusted loop) ─────────────────
 const MARQUEE_CSS = `
   .ag-marquee-section {
     width: 100%;
@@ -76,11 +89,11 @@ const MARQUEE_CSS = `
 
   /* Row 1 scrolls left → */
   .ag-row-ltr {
-    animation: ag-scroll-left 40s linear infinite;
+    animation: ag-scroll-left 45s linear infinite;
   }
   /* Row 2 scrolls ← right */
   .ag-row-rtl {
-    animation: ag-scroll-right 40s linear infinite;
+    animation: ag-scroll-right 45s linear infinite;
   }
 
   /* Pause on hover over the whole section */
@@ -88,12 +101,13 @@ const MARQUEE_CSS = `
     animation-play-state: paused;
   }
 
+  /* Mathematically seamless infinite translation (accounting for the 24px flex gaps) */
   @keyframes ag-scroll-left {
     0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    100% { transform: translateX(calc(-50% - 12px)); }
   }
   @keyframes ag-scroll-right {
-    0%   { transform: translateX(-50%); }
+    0%   { transform: translateX(calc(-50% - 12px)); }
     100% { transform: translateX(0); }
   }
 
@@ -153,6 +167,10 @@ const MARQUEE_CSS = `
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ag-row { animation: none !important; }
+  }
 `;
 
 // ─── Single icon chip component ────────────────────────────────────────────--
@@ -194,11 +212,19 @@ const LogoSection = () => {
 
     return (
         <div className="md:my-20 my-10">
-            <TitleHeader title="Frequently Used Tools" sub={<span className="flex items-center gap-1.5"><Wrench size={13} className="text-blue-400" /> My Tech Stack</span>} />
+            <TitleHeader
+                title="Frequently Used Tools"
+                sub={
+                    <span className="flex items-center gap-1.5">
+                        <Wrench size={13} className="text-blue-400" /> My Tech
+                        Stack
+                    </span>
+                }
+            />
 
             <div
-                className="ag-marquee-section mt-14"
-                style={{ paddingTop: "60px", paddingBottom: "20px" }}
+                className="ag-marquee-section mt-8"
+                style={{ paddingTop: "70px", paddingBottom: "20px" }}
             >
                 <MarqueeRow icons={ROW_1} direction="ltr" />
                 <MarqueeRow icons={ROW_2} direction="rtl" />
