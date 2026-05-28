@@ -125,7 +125,7 @@ const projectsDetailed = [
         date: "February 2026",
         title: "InterviewPilot — Conversational Coach",
         subtitle: "Interactive mock coaching with voice and behavioral AI.",
-        image: "/images/InterviewPilot.png",
+        image: "/images/interviewPilot.png",
         tags: ["Next.js", "Gemini AI", "Vapi Sockets", "MediaPipe", "NeonDB"],
         liveUrl: "https://interview-pilot-web.vercel.app/",
         githubUrl: "https://github.com/Adi15Jain/InterviewPilot",

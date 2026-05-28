@@ -18,7 +18,7 @@ const projectData = [
         metric: "< 1s Audio Delay",
         solution:
             "A dynamic WebSocket voice coach tracking facial expressions using MediaPipe webcam telemetry.",
-        image: "/images/InterviewPilot.png",
+        image: "/images/interviewPilot.png",
         alt: "InterviewPilot",
         liveUrl: "https://interview-pilot-web.vercel.app/",
         githubUrl: "https://github.com/Adi15Jain/InterviewPilot",
