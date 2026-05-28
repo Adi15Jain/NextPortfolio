@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { socialImgs } from "../constants";
-import { Cpu, Wifi, Activity, ShieldCheck, ShieldAlert, Github, Instagram, Linkedin } from "lucide-react";
+import { Cpu, Wifi, Activity, ShieldCheck, ShieldAlert, Github, Instagram, Linkedin, Eye } from "lucide-react";
 
 const socialColors = {
     insta: "#e1306c",
@@ -24,6 +24,33 @@ const Footer = () => {
     const [currentTime, setCurrentTime] = useState("");
     const [currentPing, setCurrentPing] = useState("---");
     const [isOnline, setIsOnline] = useState(true);
+    const [visitCount, setVisitCount] = useState("---");
+
+    // Setup visitor count tracking
+    useEffect(() => {
+        const incrementAndFetchVisits = async () => {
+            try {
+                // Increment visitor count publicly and retrieve the new value
+                const response = await fetch("https://api.counterapi.dev/v1/adijain-portfolio/visits/up");
+                const data = await response.json();
+                if (data && typeof data.count === "number") {
+                    setVisitCount(data.count.toLocaleString());
+                }
+            } catch (err) {
+                try {
+                    // Fallback to read-only visits value if increment fails
+                    const response = await fetch("https://api.counterapi.dev/v1/adijain-portfolio/visits");
+                    const data = await response.json();
+                    if (data && typeof data.count === "number") {
+                        setVisitCount(data.count.toLocaleString());
+                    }
+                } catch (e) {
+                    setVisitCount("---");
+                }
+            }
+        };
+        incrementAndFetchVisits();
+    }, []);
 
     // Setup current system time ticker
     useEffect(() => {
@@ -361,7 +388,7 @@ const Footer = () => {
 
                 {/* Right Column: Technical Meta-Telemetry Panel */}
                 <div className="flex flex-col items-center md:items-end gap-2.5 text-[11px] font-mono text-white/35 min-w-[240px]">
-                    <div className="flex items-center gap-3 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 backdrop-blur-md">
+                    <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1.5 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 backdrop-blur-md text-center">
                         {isOnline ? (
                             <>
                                 <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
@@ -377,6 +404,11 @@ const Footer = () => {
                                 <span className="flex items-center gap-1 text-purple-400 font-medium">
                                     <ShieldCheck size={12} />
                                     <span className="text-white/50 font-normal">TLS:</span> SECURE
+                                </span>
+                                <span className="text-white/15">|</span>
+                                <span className="flex items-center gap-1 text-amber-400 font-medium">
+                                    <Eye size={12} />
+                                    <span className="text-white/50 font-normal">VISITS:</span> {visitCount}
                                 </span>
                             </>
                         ) : (
@@ -394,6 +426,11 @@ const Footer = () => {
                                 <span className="flex items-center gap-1 text-rose-400/50 font-medium">
                                     <ShieldAlert size={12} className="opacity-50" />
                                     <span className="text-white/30 font-normal">TLS:</span> INACTIVE
+                                </span>
+                                <span className="text-white/15">|</span>
+                                <span className="flex items-center gap-1 text-white/20 font-normal">
+                                    <Eye size={12} className="opacity-30" />
+                                    <span className="text-white/30 font-normal">VISITS:</span> ---
                                 </span>
                             </>
                         )}

@@ -13,23 +13,28 @@ gsap.registerPlugin(ScrollTrigger);
 const ExperienceSection = () => {
     useGSAP(() => {
         gsap.utils.toArray(".timeline-card").forEach((card) => {
-            gsap.from(card, {
-                xPercent: -100,
-                opacity: 0,
-                transformOrigin: "left left",
-                duration: 1,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 85%",
+            gsap.fromTo(
+                card,
+                { xPercent: -100, opacity: 0 },
+                {
+                    xPercent: 0,
+                    opacity: 1,
+                    transformOrigin: "left left",
+                    duration: 1,
+                    ease: "power2.inOut",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                    },
                 },
-            });
+            );
         });
         gsap.utils.toArray(".timeline-wrapper").forEach((wrapper) => {
             const mask = wrapper.querySelector(".timeline");
             if (!mask) return;
 
-            gsap.fromTo(mask,
+            gsap.fromTo(
+                mask,
                 { scaleY: 1 },
                 {
                     scaleY: 0,
@@ -41,20 +46,24 @@ const ExperienceSection = () => {
                         end: "bottom 85%",
                         scrub: true,
                     },
-                }
+                },
             );
         });
         gsap.utils.toArray(".expText").forEach((text) => {
-            gsap.from(text, {
-                opacity: 0,
-                x: 30,
-                duration: 1,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: text,
-                    start: "top 85%",
+            gsap.fromTo(
+                text,
+                { opacity: 0, x: 30 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    scrollTrigger: {
+                        trigger: text,
+                        start: "top 85%",
+                    },
                 },
-            });
+            );
         });
 
         // Recalculate ScrollTrigger positions on mount
@@ -69,7 +78,12 @@ const ExperienceSection = () => {
             <div className="w-full h-full md:px-20 px-5">
                 <TitleHeader
                     title="Experience and Learning"
-                    sub={<span className="flex items-center gap-1.5"><TrendingUp size={13} className="text-blue-400" /> My Overview</span>}
+                    sub={
+                        <span className="flex items-center gap-1.5">
+                            <TrendingUp size={13} className="text-blue-400" />{" "}
+                            My Overview
+                        </span>
+                    }
                 />
                 <div className="mt-32 relative">
                     <div className="relative z-50 xl:space-y-32 space-y-10">
@@ -87,8 +101,8 @@ const ExperienceSection = () => {
                                     </GlowCard>
                                 </div>
                                 <div className="xl:w-4/6">
-                                    <div className="flex items-start">
-                                        <div className="timeline-wrapper xl:!left-10 md:!left-10 !left-5">
+                                    <div className="flex items-start relative">
+                                        <div className="timeline-wrapper xl:left-10 md:left-10 left-5">
                                             <div className="timeline" />
                                             <div className="gradient-line w-1 h-full" />
                                         </div>
