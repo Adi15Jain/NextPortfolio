@@ -5,6 +5,7 @@ import { navLinks } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const NavBar = () => {
     const pathname = usePathname();
@@ -74,8 +75,18 @@ const NavBar = () => {
             >
                 <div className="inner">
                     {/* Logo */}
-                    <a className="logo" href={isHome ? "#hero" : "/"}>
-                        Adi Jain
+                    <a
+                        className="logo flex items-center gap-2.5"
+                        href={isHome ? "#hero" : "/"}
+                    >
+                        <Image
+                            src="/images/avatar_noBg.png"
+                            alt="Adi Jain"
+                            width={64}
+                            height={64}
+                            className="rounded-full"
+                        />
+                        <span>Adi Jain</span>
                     </a>
 
                     {/* Desktop Nav */}
@@ -154,19 +165,27 @@ const NavBar = () => {
                 </div>
 
                 {/* Brand in mobile menu */}
-                <p
-                    className="text-4xl font-bold mb-4"
-                    style={{
-                        background:
-                            "linear-gradient(135deg, #ffffff 0%, #94a3b8 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                    }}
-                >
-                    Adi Jain
-                </p>
-
+                <div className="flex items-center gap-3 mb-4">
+                    <Image
+                        src="/images/avatar_noBg.png"
+                        alt="Adi Jain"
+                        width={40}
+                        height={40}
+                        className="rounded-full bg-white/5 border border-white/10"
+                    />
+                    <p
+                        className="text-4xl font-bold"
+                        style={{
+                            background:
+                                "linear-gradient(135deg, #ffffff 0%, #94a3b8 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                        }}
+                    >
+                        Adi Jain
+                    </p>
+                </div>
                 <div
                     style={{
                         width: "40px",

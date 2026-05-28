@@ -82,9 +82,9 @@ export const metadata = {
         },
     },
     icons: {
-        icon: "/images/fav.png",
-        shortcut: "/images/fav.png",
-        apple: "/images/fav.png",
+        icon: "/images/avatar_noBg.png",
+        shortcut: "/images/avatar_noBg.png",
+        apple: "/images/avatar_noBg.png",
     },
 };
 
