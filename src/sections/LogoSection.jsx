@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TitleHeader from "../components/TitleHeader";
 import { Wrench } from "lucide-react";
 
@@ -201,6 +201,8 @@ const MarqueeRow = ({ icons, direction }) => {
 
 // ─── Section ──────────────────────────────────────────────────────────────--
 const LogoSection = () => {
+    const [activeTool, setActiveTool] = useState(null);
+
     useEffect(() => {
         if (document.getElementById("ag-marquee-styles")) return;
         const style = document.createElement("style");
@@ -222,12 +224,43 @@ const LogoSection = () => {
                 }
             />
 
+            {/* Desktop View: Infinite Marquee */}
             <div
-                className="ag-marquee-section mt-2"
+                className="hidden md:block ag-marquee-section mt-2"
                 style={{ paddingTop: "70px", paddingBottom: "20px" }}
             >
                 <MarqueeRow icons={ROW_1} direction="ltr" />
                 <MarqueeRow icons={ROW_2} direction="rtl" />
+            </div>
+
+            {/* Mobile View: High-Density Interactive Grid */}
+            <div className="block md:hidden mt-8 px-4">
+                <div className="grid grid-cols-6 gap-3 justify-items-center max-w-[340px] mx-auto">
+                    {ALL_ICONS.map((icon) => (
+                        <div
+                            key={icon.slug}
+                            onClick={() => setActiveTool(icon)}
+                            className={`w-11 h-11 flex items-center justify-center rounded-xl bg-white/[0.02] border border-white/5 transition-all duration-200 active:scale-90 active:bg-blue-500/10 active:border-blue-500/30 cursor-pointer ${
+                                activeTool?.slug === icon.slug
+                                    ? "bg-blue-500/10 border-blue-500/40 shadow-[0_0_12px_rgba(59,130,246,0.2)] scale-105"
+                                    : ""
+                            }`}
+                        >
+                            <img
+                                src={iconUrl(icon.slug)}
+                                alt={icon.name}
+                                className="w-6 h-6 object-contain pointer-events-none filter drop-shadow(0 2px 4px rgba(0,0,0,0.4))"
+                                loading="lazy"
+                            />
+                        </div>
+                    ))}
+                </div>
+                <div className="text-center text-xs font-semibold text-slate-400 mt-5 h-8 flex items-center justify-center gap-1.5 bg-white/[0.01] border border-white/[0.03] py-1 px-4 rounded-full w-fit mx-auto backdrop-blur-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                    <span>
+                        {activeTool ? activeTool.name : "Tap a tool to identify it"}
+                    </span>
+                </div>
             </div>
         </div>
     );

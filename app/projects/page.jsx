@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -161,6 +161,28 @@ const projectsDetailed = [
             "Prompt Injection Guard: Scans variables to stop payload overrides.",
             "Local Ollama: Resilient local adapter failover system."
         ]
+    },
+    {
+        id: "archlens",
+        phase: "Project 7",
+        timelineTitle: "Architecture Intelligence & Governance",
+        date: "June 2026",
+        title: "ArchLens — Architecture Intelligence",
+        subtitle: "Continuous, evidence-based structural governance and dependency graph analysis for software repositories.",
+        image: null,
+        tags: ["TypeScript", "Turborepo", "Graph Theory", "AST Parsing", "CI/CD Gates"],
+        liveUrl: null,
+        githubUrl: "https://github.com/Adi15Jain/archLens",
+        metricValue: "0 Cycle",
+        metricLabel: "Circular Dependencies",
+        metricSub: "Enforces strict module decoupling and layer boundaries on every pull request.",
+        problem: "Software architecture degrades silently, leading to build-time bloat, circular dependency paths, and architectural debt that linters cannot detect.",
+        solution: "A monorepo-based AST parser and dependency graph builder that enforces module rules and calculates explainable structural health scores.",
+        specs: [
+            "Dependency Cycles: Deterministic cycle detection across multi-package codebases.",
+            "Structural Parsing: Multi-stage AST parser resolving module-level import/export graphs.",
+            "Governance Rules: Enforces layer restrictions and score thresholds directly in CI/CD quality gates."
+        ]
     }
 ];
 
@@ -265,6 +287,39 @@ const RenderVisualCard = ({ id }) => {
             </div>
         );
     }
+    if (id === "archlens") {
+        return (
+            <div className="w-full h-full min-h-[200px] bg-slate-950/80 rounded-xl border border-white/5 relative p-4 flex flex-col font-mono text-xs overflow-hidden select-none">
+                <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                    <span className="text-[10px] text-white/40">archlens analyze .</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-medium">L7 Governance</span>
+                </div>
+                <div className="flex-grow flex flex-col justify-between py-2.5 relative gap-2">
+                    <div className="flex flex-col gap-1 text-[9px] z-10">
+                        <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded text-emerald-400">
+                           <span>L7: Governance / CI Gate</span>
+                           <span className="font-bold">✔ PASSED</span>
+                       </div>
+                       <div className="flex items-center justify-between bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded text-blue-400">
+                           <span>L5: Scoring (Aggregate)</span>
+                           <span className="font-bold">94/100 (A)</span>
+                       </div>
+                       <div className="flex items-center justify-between bg-purple-500/5 border border-purple-500/10 px-2 py-1 rounded text-purple-300">
+                           <span>L4: Rules Evaluation</span>
+                           <span className="font-bold">0 Violations</span>
+                       </div>
+                       <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 px-2 py-1 rounded text-white/60">
+                           <span>L2: Dependency Graph</span>
+                           <span className="font-bold text-emerald-400">0 Cycles</span>
+                       </div>
+                    </div>
+                    <div className="z-10 text-[9px] text-white/30 text-center font-sans">
+                        Static dependency cycle checks completed in <span className="text-purple-400 font-bold">142ms</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return null;
 };
@@ -275,10 +330,36 @@ const ProjectsPage = () => {
     const timelineRef = useRef(null);
     const lineRef = useRef(null);
     
+    // State for interactive mobile accordion and sub-tabs
+    const [expandedProjectId, setExpandedProjectId] = useState("pneumoai");
+    const [activeMobileTabs, setActiveMobileTabs] = useState({});
+
+    const toggleProject = (projectId) => {
+        setExpandedProjectId(prev => prev === projectId ? null : projectId);
+        setTimeout(() => {
+            if (typeof window !== "undefined") {
+                ScrollTrigger.refresh();
+            }
+        }, 150);
+    };
+
+    const setMobileTab = (projectId, tab) => {
+        setActiveMobileTabs(prev => ({
+            ...prev,
+            [projectId]: tab
+        }));
+        setTimeout(() => {
+            if (typeof window !== "undefined") {
+                ScrollTrigger.refresh();
+            }
+        }, 150);
+    };
+    
     // Arrays of refs for animations
     const infoCardRefs = useRef([]);
     const specCardRefs = useRef([]);
     const nodeRefs = useRef([]);
+    const mobileCardRefs = useRef([]);
 
     useGSAP(
         () => {
@@ -382,6 +463,26 @@ const ProjectsPage = () => {
                             scrollTrigger: {
                                 trigger: node,
                                 start: "top bottom-=180",
+                                toggleActions: "play none none none",
+                            },
+                        },
+                    );
+                }
+            });
+
+            mobileCardRefs.current.forEach((card) => {
+                if (card) {
+                    gsap.fromTo(
+                        card,
+                        { opacity: 0, y: 30 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top bottom-=120",
                                 toggleActions: "play none none none",
                             },
                         },
@@ -662,10 +763,239 @@ const ProjectsPage = () => {
                                         </div>
                                     </div>
 
-                                    {/* Mobile: Stacked view layout */}
-                                    <div className="lg:hidden flex flex-col gap-6 pl-16 w-full">
-                                        {infoCardComponent}
-                                        {specCardComponent}
+                                    {/* Mobile: Interactive Collapsible Timeline Card */}
+                                    <div 
+                                        ref={(el) => (mobileCardRefs.current[index] = el)}
+                                        className="lg:hidden pl-12 md:pl-16 w-full"
+                                    >
+                                        <SpotlightCard
+                                            className={`w-full p-5 rounded-[2rem] bg-slate-950/20 border border-white/5 backdrop-blur-xl transition-all duration-300 relative flex flex-col gap-4 shadow-2xl hover:border-blue-500/20 ${expandedProjectId === project.id ? "border-white/10 shadow-blue-900/5" : ""}`}
+                                        >
+                                            {/* Clickable Header for Collapsing/Expanding */}
+                                            <div 
+                                                onClick={() => toggleProject(project.id)}
+                                                className="flex flex-col gap-2 cursor-pointer select-none"
+                                            >
+                                                <div className="flex justify-between items-center w-full">
+                                                    <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-blue-400/90">
+                                                        {project.phase} &bull; {project.date}
+                                                    </span>
+                                                    
+                                                    {/* Expand / Collapse Chevron Indicator */}
+                                                    <div className="text-white/60 hover:text-white transition-colors duration-200">
+                                                        {expandedProjectId === project.id ? (
+                                                            <svg className="w-4 h-4 transform rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
+                                                            </svg>
+                                                        ) : (
+                                                            <svg className="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex justify-between items-start gap-3">
+                                                    <h2 className="text-lg md:text-xl font-black text-white tracking-tight leading-snug">
+                                                        {project.title}
+                                                    </h2>
+                                                    
+                                                    {/* Metric pill (compact preview) when collapsed */}
+                                                    {expandedProjectId !== project.id && (
+                                                        <span className="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono">
+                                                            {project.metricValue}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                
+                                                {/* Short subtitle preview when collapsed */}
+                                                {expandedProjectId !== project.id && (
+                                                    <p className="text-xs text-slate-400 font-medium line-clamp-1 italic pl-2 border-l border-blue-500/30">
+                                                        {project.subtitle}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            {/* Expanded Body Content */}
+                                            {expandedProjectId === project.id && (
+                                                <div className="flex flex-col gap-4 animate-fade-in pt-2 border-t border-white/5">
+                                                    {/* Tab Switcher */}
+                                                    <div className="flex bg-slate-950/60 rounded-xl p-1 border border-white/[0.04]">
+                                                        <button
+                                                            onClick={() => setMobileTab(project.id, "overview")}
+                                                            className={`flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all duration-300 cursor-pointer ${
+                                                                (activeMobileTabs[project.id] || "overview") === "overview"
+                                                                    ? "bg-white/10 text-white shadow-sm"
+                                                                    : "text-slate-400 hover:text-white"
+                                                            }`}
+                                                        >
+                                                            Overview
+                                                        </button>
+                                                        <button
+                                                            onClick={() => setMobileTab(project.id, "specs")}
+                                                            className={`flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all duration-300 cursor-pointer ${
+                                                                (activeMobileTabs[project.id] || "overview") === "specs"
+                                                                    ? "bg-white/10 text-white shadow-sm"
+                                                                    : "text-slate-400 hover:text-white"
+                                                            }`}
+                                                        >
+                                                            System Specs
+                                                        </button>
+                                                    </div>
+
+                                                    {/* Subtitle (fully visible when expanded) */}
+                                                    <p className="text-xs md:text-sm text-slate-300 font-medium italic border-l-2 border-blue-500/60 pl-3 leading-relaxed">
+                                                        {project.subtitle}
+                                                    </p>
+
+                                                    {/* TAB 1: Overview */}
+                                                    {(activeMobileTabs[project.id] || "overview") === "overview" && (
+                                                        <div className="flex flex-col gap-4 animate-fade-in">
+                                                            {/* High-visibility Metrics Panel */}
+                                                            <div
+                                                                className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.04] backdrop-blur-md"
+                                                                style={{ background: "rgba(255, 255, 255, 0.01)" }}
+                                                            >
+                                                                <div className="text-2xl md:text-3xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tracking-tight font-mono">
+                                                                    {project.metricValue}
+                                                                </div>
+                                                                <div className="flex-grow">
+                                                                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-200">
+                                                                        {project.metricLabel}
+                                                                    </div>
+                                                                    <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
+                                                                        {project.metricSub}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {/* Problem & Solution copy */}
+                                                            <div className="flex flex-col gap-3.5 text-xs text-slate-300 leading-relaxed">
+                                                                <div className="flex items-start gap-2.5">
+                                                                    <ShieldAlert className="text-red-400 flex-shrink-0 mt-0.5" size={15} />
+                                                                    <div>
+                                                                        <span className="font-bold text-white text-[10px] block uppercase tracking-wider text-red-300/90 mb-0.5">
+                                                                            The Real-World Problem
+                                                                        </span>
+                                                                        <p className="text-slate-400 leading-relaxed">
+                                                                            {project.problem}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="flex items-start gap-2.5">
+                                                                    <Flame className="text-emerald-400 flex-shrink-0 mt-0.5" size={15} />
+                                                                    <div>
+                                                                        <span className="font-bold text-white text-[10px] block uppercase tracking-wider text-emerald-300/90 mb-0.5">
+                                                                            The Engineering Solution
+                                                                        </span>
+                                                                        <p className="text-slate-400 leading-relaxed">
+                                                                            {project.solution}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {/* Tech tags */}
+                                                            <div className="flex flex-wrap gap-1.5 pt-1.5">
+                                                                {project.tags.map((tag) => (
+                                                                    <span
+                                                                        key={tag}
+                                                                        className="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 border border-white/5 text-blue-300/80 uppercase tracking-wider"
+                                                                    >
+                                                                        {tag}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+
+                                                            {/* Action buttons */}
+                                                            <div className="flex gap-2.5 pt-2">
+                                                                {project.liveUrl && (
+                                                                    <a
+                                                                        href={project.liveUrl}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold text-white transition-all duration-200 hover:scale-[1.02] cursor-pointer shadow-md"
+                                                                        style={{ background: "linear-gradient(135deg, #3b82f6, #8b5cf6)" }}
+                                                                    >
+                                                                        {project.id === "vectrion" ? <BookOpen size={12} /> : <ExternalLink size={12} />}
+                                                                        <span>
+                                                                            {project.id === "vectrion" ? "Docs" : "Live Demo"}
+                                                                        </span>
+                                                                    </a>
+                                                                )}
+                                                                {project.githubUrl && (
+                                                                    <a
+                                                                        href={project.githubUrl}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold text-white transition-all duration-200 hover:scale-[1.02] cursor-pointer border border-white/10 hover:border-white/20 bg-white/5 backdrop-blur-md"
+                                                                    >
+                                                                        <Github size={12} />
+                                                                        <span>Source Code</span>
+                                                                    </a>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    {/* TAB 2: System Specs */}
+                                                    {(activeMobileTabs[project.id] || "overview") === "specs" && (
+                                                        <div className="flex flex-col gap-4 animate-fade-in">
+                                                            {/* System Specs Header */}
+                                                            <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-purple-400">
+                                                                <CpuIcon size={12} className="text-purple-400" />
+                                                                <span>System Architecture & Specs</span>
+                                                            </div>
+
+                                                            {/* Visual Frame */}
+                                                            <div className="w-full">
+                                                                {project.image ? (
+                                                                    <div className="image-wrapper relative overflow-hidden rounded-xl w-full aspect-[16/9] bg-slate-950/60 border border-white/5 flex items-center justify-center p-1 shadow-inner">
+                                                                        <Image
+                                                                            src={project.image}
+                                                                            alt={project.title}
+                                                                            width={400}
+                                                                            height={225}
+                                                                            className="w-full h-full object-contain rounded-lg"
+                                                                        />
+                                                                    </div>
+                                                                ) : (
+                                                                    <RenderVisualCard id={project.id} />
+                                                                )}
+                                                            </div>
+
+                                                            {/* Milestones list */}
+                                                            <div className="space-y-2 pt-1">
+                                                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
+                                                                    Technical Milestones
+                                                                </span>
+                                                                <ul className="space-y-2 text-xs text-slate-300">
+                                                                    {project.specs.map((spec, sIdx) => {
+                                                                        const [specTitle, specDesc] = spec.split(": ");
+                                                                        return (
+                                                                            <li
+                                                                                key={sIdx}
+                                                                                className="flex items-start gap-2 bg-white/[0.01] border border-white/[0.02] p-2.5 rounded-xl"
+                                                                            >
+                                                                                <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 flex-shrink-0" />
+                                                                                <div>
+                                                                                    <span className="font-bold text-white block text-[11px] tracking-wide">
+                                                                                        {specTitle}
+                                                                                    </span>
+                                                                                    <span className="text-slate-400 text-[11px] leading-normal mt-0.5 block">
+                                                                                        {specDesc}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </li>
+                                                                        );
+                                                                    })}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </SpotlightCard>
                                     </div>
                                 </div>
                             );
