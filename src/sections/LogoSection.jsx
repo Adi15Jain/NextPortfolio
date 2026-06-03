@@ -223,7 +223,7 @@ const LogoSection = () => {
             />
 
             <div
-                className="ag-marquee-section mt-8"
+                className="ag-marquee-section mt-2"
                 style={{ paddingTop: "70px", paddingBottom: "20px" }}
             >
                 <MarqueeRow icons={ROW_1} direction="ltr" />

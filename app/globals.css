@@ -143,7 +143,9 @@ section {
     .counter-card:hover {
         background: rgba(12, 12, 28, 0.75);
         border-color: rgba(var(--card-color-rgb), 0.45);
-        box-shadow: 0 20px 40px rgba(var(--card-color-rgb), 0.22), inset 0 0 12px rgba(var(--card-color-rgb), 0.1);
+        box-shadow:
+            0 20px 40px rgba(var(--card-color-rgb), 0.22),
+            inset 0 0 12px rgba(var(--card-color-rgb), 0.1);
         transform: translateY(-6px) scale(1.02);
     }
 
@@ -162,7 +164,11 @@ section {
     .counter-card:hover .counter-card-accent {
         height: 3px;
         opacity: 1;
-        background: linear-gradient(90deg, var(--card-color), var(--card-color));
+        background: linear-gradient(
+            90deg,
+            var(--card-color),
+            var(--card-color)
+        );
     }
 
     .counter-card-glow {
@@ -172,7 +178,11 @@ section {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(var(--card-color-rgb), 0.12) 0%, transparent 70%);
+        background: radial-gradient(
+            circle,
+            rgba(var(--card-color-rgb), 0.12) 0%,
+            transparent 70%
+        );
         pointer-events: none;
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -182,7 +192,11 @@ section {
         left: -40px;
         width: 220px;
         height: 220px;
-        background: radial-gradient(circle, rgba(var(--card-color-rgb), 0.28) 0%, transparent 70%);
+        background: radial-gradient(
+            circle,
+            rgba(var(--card-color-rgb), 0.28) 0%,
+            transparent 70%
+        );
     }
 
     .counter-card-icon-container {
@@ -232,7 +246,11 @@ section {
         width: 28px;
         height: 2px;
         border-radius: 2px;
-        background: linear-gradient(90deg, rgba(var(--card-color-rgb), 0.7), transparent);
+        background: linear-gradient(
+            90deg,
+            rgba(var(--card-color-rgb), 0.7),
+            transparent
+        );
         margin-bottom: 10px;
         transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -245,7 +263,11 @@ section {
         width: 2px;
         height: 32px;
         border-radius: 2px;
-        background: linear-gradient(180deg, rgba(var(--card-color-rgb), 0.7), transparent);
+        background: linear-gradient(
+            180deg,
+            rgba(var(--card-color-rgb), 0.7),
+            transparent
+        );
         transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -264,6 +286,14 @@ section {
 
     .counter-card:hover .counter-card-label {
         color: rgba(255, 255, 255, 0.85);
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
     }
 
     /* ---------- Hero Layout ---------- */
@@ -453,7 +483,7 @@ section {
 
     /* ---------- App Showcase ---------- */
     .app-showcase {
-        @apply w-full mt-10 px-0 py-5 flex items-center justify-center;
+        @apply w-full mt-5 px-0 py-5 flex items-center justify-center;
 
         .showcaselayout {
             @apply flex xl:flex-row flex-col gap-10 justify-between w-full;
