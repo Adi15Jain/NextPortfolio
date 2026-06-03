@@ -12,62 +12,62 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ExperienceSection = () => {
     useGSAP(() => {
+        // Use set() to apply initial states explicitly, then animate with to()
+        // This avoids the fromTo + immediateRender issue in Next.js where
+        // the "from" values get applied but ScrollTrigger never fires.
+
         gsap.utils.toArray(".timeline-card").forEach((card) => {
-            gsap.fromTo(
-                card,
-                { xPercent: -100, opacity: 0 },
-                {
-                    xPercent: 0,
-                    opacity: 1,
-                    transformOrigin: "left left",
-                    duration: 1,
-                    ease: "power2.inOut",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                    },
+            gsap.set(card, { xPercent: -100, opacity: 0 });
+            gsap.to(card, {
+                xPercent: 0,
+                opacity: 1,
+                transformOrigin: "left left",
+                duration: 1,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
                 },
-            );
+            });
         });
+
         gsap.utils.toArray(".timeline-wrapper").forEach((wrapper) => {
             const mask = wrapper.querySelector(".timeline");
             if (!mask) return;
 
-            gsap.fromTo(
-                mask,
-                { scaleY: 1 },
-                {
-                    scaleY: 0,
-                    transformOrigin: "bottom bottom",
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: wrapper,
-                        start: "top 85%",
-                        end: "bottom 85%",
-                        scrub: true,
-                    },
+            gsap.set(mask, { scaleY: 1 });
+            gsap.to(mask, {
+                scaleY: 0,
+                transformOrigin: "bottom bottom",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: wrapper,
+                    start: "top 85%",
+                    end: "bottom 85%",
+                    scrub: true,
                 },
-            );
-        });
-        gsap.utils.toArray(".expText").forEach((text) => {
-            gsap.fromTo(
-                text,
-                { opacity: 0, x: 30 },
-                {
-                    opacity: 1,
-                    x: 0,
-                    duration: 1,
-                    ease: "power2.inOut",
-                    scrollTrigger: {
-                        trigger: text,
-                        start: "top 85%",
-                    },
-                },
-            );
+            });
         });
 
-        // Recalculate ScrollTrigger positions on mount
+        gsap.utils.toArray(".expText").forEach((text) => {
+            gsap.set(text, { opacity: 0, x: 30 });
+            gsap.to(text, {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top 85%",
+                },
+            });
+        });
+
+        // Recalculate ScrollTrigger positions after a short delay
+        // to ensure layout and images have settled
         ScrollTrigger.refresh();
+        const refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 500);
+        return () => clearTimeout(refreshTimeout);
     }, []);
 
     return (

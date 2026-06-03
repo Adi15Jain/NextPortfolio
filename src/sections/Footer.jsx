@@ -3,7 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { socialImgs } from "../constants";
-import { Cpu, Wifi, Activity, ShieldCheck, ShieldAlert, Github, Instagram, Linkedin, Eye } from "lucide-react";
+import {
+    Cpu,
+    Wifi,
+    Activity,
+    ShieldCheck,
+    ShieldAlert,
+    Github,
+    Instagram,
+    Linkedin,
+    Eye,
+} from "lucide-react";
 
 const socialColors = {
     insta: "#e1306c",
@@ -31,7 +41,9 @@ const Footer = () => {
         const incrementAndFetchVisits = async () => {
             try {
                 // Increment visitor count publicly and retrieve the new value
-                const response = await fetch("https://api.counterapi.dev/v1/adijain-portfolio/visits/up");
+                const response = await fetch(
+                    "https://api.counterapi.dev/v1/adijain-portfolio/visits/up",
+                );
                 const data = await response.json();
                 if (data && typeof data.count === "number") {
                     setVisitCount(data.count.toLocaleString());
@@ -39,7 +51,9 @@ const Footer = () => {
             } catch (err) {
                 try {
                     // Fallback to read-only visits value if increment fails
-                    const response = await fetch("https://api.counterapi.dev/v1/adijain-portfolio/visits");
+                    const response = await fetch(
+                        "https://api.counterapi.dev/v1/adijain-portfolio/visits",
+                    );
                     const data = await response.json();
                     if (data && typeof data.count === "number") {
                         setVisitCount(data.count.toLocaleString());
@@ -96,7 +110,7 @@ const Footer = () => {
                 await fetch(`/robots.txt?t=${Date.now()}`, {
                     method: "HEAD",
                     cache: "no-store",
-                    headers: { "Cache-Control": "no-cache" }
+                    headers: { "Cache-Control": "no-cache" },
                 });
                 const endTime = performance.now();
                 const rtt = Math.round(endTime - startTime);
@@ -129,14 +143,50 @@ const Footer = () => {
         window.addEventListener("resize", resizeCanvas);
 
         // Particle configuration
+        const isMobileDevice =
+            typeof window !== "undefined" && window.innerWidth < 768;
+        const maxParticles = isMobileDevice ? 12 : 36;
         const particles = [];
-        const maxParticles = 36;
         const colors = [
             "rgba(59, 130, 246, ",
             "rgba(139, 92, 246, ",
             "rgba(6, 182, 212, ",
             "rgba(16, 185, 129, ",
         ];
+
+        // Pre-render firefly glow textures onto offscreen canvases once to avoid creating radial gradients in the loop
+        const textureSize = 64;
+        const halfTexture = textureSize / 2;
+        const offscreenCanvases = colors.map((colorPrefix) => {
+            const offscreen = document.createElement("canvas");
+            offscreen.width = textureSize;
+            offscreen.height = textureSize;
+            const oCtx = offscreen.getContext("2d");
+
+            const gradient = oCtx.createRadialGradient(
+                halfTexture,
+                halfTexture,
+                0,
+                halfTexture,
+                halfTexture,
+                halfTexture,
+            );
+            gradient.addColorStop(0, colorPrefix + "1.0)");
+            gradient.addColorStop(0.3, colorPrefix + "0.4)");
+            gradient.addColorStop(1.0, "transparent");
+
+            oCtx.fillStyle = gradient;
+            oCtx.beginPath();
+            oCtx.arc(halfTexture, halfTexture, halfTexture, 0, Math.PI * 2);
+            oCtx.fill();
+
+            oCtx.beginPath();
+            oCtx.arc(halfTexture, halfTexture, 2, 0, Math.PI * 2);
+            oCtx.fillStyle = "#ffffff";
+            oCtx.fill();
+
+            return offscreen;
+        });
 
         class Firefly3D {
             constructor() {
@@ -184,9 +234,8 @@ const Footer = () => {
                 this.fadeSpeed =
                     (Math.random() * 0.003 + 0.001) * (1 / this.scale);
 
-                // Neon glow color
-                this.colorTemplate =
-                    colors[Math.floor(Math.random() * colors.length)];
+                // Neon glow color index
+                this.colorIndex = Math.floor(Math.random() * colors.length);
             }
 
             update() {
@@ -214,42 +263,18 @@ const Footer = () => {
             }
 
             draw() {
-                if (this.alpha <= 0) return;
+                if (this.alpha <= 0.02) return;
 
-                ctx.save();
-
-                // 1. Draw soft volumetric neon glow halo (radial gradient)
+                // Blitting pre-rendered canvases using fast, hardware-accelerated drawImage
                 const glowRadius = this.size * 5;
-                const gradient = ctx.createRadialGradient(
-                    this.x,
-                    this.y,
-                    0,
-                    this.x,
-                    this.y,
-                    glowRadius,
+                ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
+                ctx.drawImage(
+                    offscreenCanvases[this.colorIndex],
+                    this.x - glowRadius,
+                    this.y - glowRadius,
+                    glowRadius * 2,
+                    glowRadius * 2,
                 );
-
-                const alphaVal = Math.max(0, Math.min(1, this.alpha));
-                gradient.addColorStop(0, this.colorTemplate + alphaVal + ")");
-                gradient.addColorStop(
-                    0.3,
-                    this.colorTemplate + alphaVal * 0.4 + ")",
-                );
-                gradient.addColorStop(1, "transparent");
-
-                ctx.fillStyle = gradient;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, glowRadius, 0, Math.PI * 2);
-                ctx.fill();
-
-                // 2. Draw high-intensity glowing white core
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 0.4, 0, Math.PI * 2);
-                ctx.fillStyle = "#ffffff";
-                ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha * 1.2));
-                ctx.fill();
-
-                ctx.restore();
             }
         }
 
@@ -321,144 +346,182 @@ const Footer = () => {
                 }}
             />
 
-            {/* Futuristic Spread Out HUD Container (Bypasses globals.css layout grid constraint) */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-6 flex md:flex-row flex-col justify-between items-center gap-10">
-                {/* Left Column: Futuristic Branding & Navigation Meta */}
-                <div className="flex flex-col items-center md:items-start gap-2.5 min-w-[240px]">
-                    <div className="flex items-center gap-2.5 group">
-                        <div className="p-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] group-hover:border-cyan-500/50 transition-colors duration-300">
-                            <Cpu
-                                size={15}
-                                className="text-cyan-400 group-hover:rotate-90 transition-transform duration-500"
-                            />
+            {/* Main Footer Grid — 3-column on desktop, stacked on mobile */}
+            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 pb-8 md:pt-8 md:pb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 items-center">
+                    {/* Left Column: Branding & Navigation */}
+                    <div className="flex flex-col items-center md:items-start gap-2.5">
+                        <div className="flex items-center gap-2.5 group">
+                            <div className="p-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] group-hover:border-cyan-500/50 transition-colors duration-300">
+                                <Cpu
+                                    size={15}
+                                    className="text-cyan-400 group-hover:rotate-90 transition-transform duration-500"
+                                />
+                            </div>
+                            <span className="text-sm font-mono font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                                Adi Jain
+                            </span>
                         </div>
-                        <span className="text-sm font-mono font-bold tracking-[0.2em] uppercase bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                            Adi Jain
-                        </span>
-                    </div>
-                    <p className="text-[11px] font-mono tracking-wider text-white/40 text-center md:text-start">
-                        SYSTEM DESIGN & PRODUCT ENGINEERING
-                    </p>
-                    <Link
-                        href="/"
-                        className="text-xs font-mono tracking-wide text-cyan-400/50 hover:text-cyan-400/80 transition-colors duration-300 mt-1 flex items-center gap-1.5 justify-center md:justify-start"
-                    >
-                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                        Visit my blog (In Progress)
-                    </Link>
-                </div>
-
-                {/* Center Column: Social Icons in Sleek Glass Nodes */}
-                <div className="socials flex items-center justify-center gap-4">
-                    {socialImgs.map((img) => (
-                        <a
-                            key={img.url}
-                            className="icon group relative flex justify-center items-center rounded-xl size-10 md:size-11 cursor-pointer transition-all duration-300 border border-white/[0.08] bg-white/[0.04] backdrop-blur-md"
-                            href={img.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={img.name}
-                            style={{
-                                "--hover-color":
-                                    socialColors[img.name] || "#ffffff",
-                            }}
+                        <p className="text-[11px] font-mono tracking-wider text-white/40 text-center md:text-left">
+                            SYSTEM DESIGN & PRODUCT ENGINEERING
+                        </p>
+                        <Link
+                            href="/"
+                            className="text-xs font-mono tracking-wide text-cyan-400/50 hover:text-cyan-400/80 transition-colors duration-300 mt-1 flex items-center gap-1.5 justify-center md:justify-start"
                         >
-                            {(() => {
-                                const IconComponent = socialIcons[img.name];
-                                return IconComponent ? (
-                                    <IconComponent
-                                        size={18}
-                                        className="w-4.5 h-4.5 transition-all duration-300 group-hover:scale-110 z-10 opacity-60 group-hover:opacity-100 text-white group-hover:text-white"
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                            Visit my blog (In Progress)
+                        </Link>
+                    </div>
+
+                    {/* Center Column: Social Icons */}
+                    <div className="flex justify-center">
+                        <div className="socials flex items-center justify-center gap-4">
+                            {socialImgs.map((img) => (
+                                <a
+                                    key={img.url}
+                                    className="icon group relative flex justify-center items-center rounded-xl size-10 md:size-11 cursor-pointer transition-all duration-300 border border-white/[0.08] bg-white/[0.04] backdrop-blur-md"
+                                    href={img.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={img.name}
+                                    style={{
+                                        "--hover-color":
+                                            socialColors[img.name] || "#ffffff",
+                                    }}
+                                >
+                                    {(() => {
+                                        const IconComponent =
+                                            socialIcons[img.name];
+                                        return IconComponent ? (
+                                            <IconComponent
+                                                size={18}
+                                                className="w-4.5 h-4.5 transition-all duration-300 group-hover:scale-110 z-10 opacity-60 group-hover:opacity-100 text-white group-hover:text-white"
+                                            />
+                                        ) : null;
+                                    })()}
+                                    {/* Cybernetic hover backlight halo */}
+                                    <div
+                                        className="absolute inset-0 rounded-xl filter blur-[12px] opacity-0 group-hover:opacity-30 transition-all duration-300 -z-0"
+                                        style={{
+                                            background:
+                                                socialColors[img.name] ||
+                                                "#ffffff",
+                                        }}
                                     />
-                                ) : null;
-                            })()}
-                            {/* Cybernetic hover backlight halo */}
-                            <div
-                                className="absolute inset-0 rounded-xl filter blur-[12px] opacity-0 group-hover:opacity-30 transition-all duration-300 -z-0"
-                                style={{
-                                    background:
-                                        socialColors[img.name] || "#ffffff",
-                                }}
-                            />
-                            {/* Outer futuristic corner bracket indicator */}
-                            <div className="absolute inset-0 border border-transparent group-hover:border-white/10 rounded-xl transition-all duration-300 scale-90 group-hover:scale-105" />
-                        </a>
-                    ))}
-                </div>
-
-                {/* Right Column: Technical Meta-Telemetry Panel */}
-                <div className="flex flex-col items-center md:items-end gap-2.5 text-[11px] font-mono text-white/35 min-w-[240px]">
-                    <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1.5 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2 backdrop-blur-md text-center">
-                        {isOnline ? (
-                            <>
-                                <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-                                    <Activity size={12} className="animate-pulse" />
-                                    <span className="text-white/50 font-normal">SYS:</span> ACTIVE
-                                </span>
-                                <span className="text-white/15">|</span>
-                                <span className="flex items-center gap-1 text-cyan-400 font-medium">
-                                    <Wifi size={12} />
-                                    <span className="text-white/50 font-normal">PING:</span> {currentPing === "---" ? currentPing : `${currentPing}MS`}
-                                </span>
-                                <span className="text-white/15">|</span>
-                                <span className="flex items-center gap-1 text-purple-400 font-medium">
-                                    <ShieldCheck size={12} />
-                                    <span className="text-white/50 font-normal">TLS:</span> SECURE
-                                </span>
-                                <span className="text-white/15">|</span>
-                                <span className="flex items-center gap-1 text-amber-400 font-medium">
-                                    <Eye size={12} />
-                                    <span className="text-white/50 font-normal">VISITS:</span> {visitCount}
-                                </span>
-                            </>
-                        ) : (
-                            <>
-                                <span className="flex items-center gap-1.5 text-rose-500 font-medium animate-pulse">
-                                    <ShieldAlert size={12} />
-                                    <span className="text-white/30 font-normal">SYS:</span> OFFLINE
-                                </span>
-                                <span className="text-white/15">|</span>
-                                <span className="flex items-center gap-1 text-white/20 font-normal">
-                                    <Wifi size={12} className="opacity-30" />
-                                    <span className="text-white/30 font-normal">PING:</span> ---
-                                </span>
-                                <span className="text-white/15">|</span>
-                                <span className="flex items-center gap-1 text-rose-400/50 font-medium">
-                                    <ShieldAlert size={12} className="opacity-50" />
-                                    <span className="text-white/30 font-normal">TLS:</span> INACTIVE
-                                </span>
-                                <span className="text-white/15">|</span>
-                                <span className="flex items-center gap-1 text-white/20 font-normal">
-                                    <Eye size={12} className="opacity-30" />
-                                    <span className="text-white/30 font-normal">VISITS:</span> ---
-                                </span>
-                            </>
-                        )}
+                                    {/* Outer futuristic corner bracket indicator */}
+                                    <div className="absolute inset-0 border border-transparent group-hover:border-white/10 rounded-xl transition-all duration-300 scale-90 group-hover:scale-105" />
+                                </a>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="flex items-center md:justify-end gap-2 mt-1">
-                        <span className="text-white/35 font-mono">
-                            TIME UPTIME:
-                        </span>
-                        <span className="text-white/70 bg-white/[0.03] px-1.5 py-0.5 rounded border border-white/[0.08]">
-                            {currentTime || "00:00:00"}
-                        </span>
-                    </div>
+                    {/* Right Column: Telemetry Panel */}
+                    <div className="flex flex-col items-center md:items-end gap-2 text-[10.5px] sm:text-[11px] font-mono text-white/35 w-full md:w-auto">
+                        <div className="flex flex-nowrap items-center gap-x-1.5 sm:gap-x-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg px-2 sm:px-3 py-1.5 backdrop-blur-md whitespace-nowrap w-max max-w-full md:max-w-none">
+                            {isOnline ? (
+                                <>
+                                    <span className="flex items-center gap-1 text-emerald-400 font-medium">
+                                        <Activity
+                                            size={12}
+                                            className="animate-pulse"
+                                        />
+                                        <span className="text-white/50 font-normal">
+                                            SYS:
+                                        </span>{" "}
+                                        ACTIVE
+                                    </span>
+                                    <span className="text-white/15">|</span>
+                                    <span className="flex items-center gap-1 text-cyan-400 font-medium">
+                                        <Wifi size={12} />
+                                        <span className="text-white/50 font-normal">
+                                            PING:
+                                        </span>{" "}
+                                        {currentPing === "---"
+                                            ? currentPing
+                                            : `${currentPing}MS`}
+                                    </span>
+                                    <span className="text-white/15">|</span>
+                                    <span className="flex items-center gap-1 text-purple-400 font-medium">
+                                        <ShieldCheck size={12} />
+                                        <span className="text-white/50 font-normal">
+                                            TLS:
+                                        </span>{" "}
+                                        SECURE
+                                    </span>
+                                    <span className="text-white/15">|</span>
+                                    <span className="flex items-center gap-1 text-amber-400 font-medium">
+                                        <Eye size={12} />
+                                        <span className="text-white/50 font-normal">
+                                            VISITS:
+                                        </span>{" "}
+                                        {visitCount}
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    <span className="flex items-center gap-1 text-rose-500 font-medium animate-pulse">
+                                        <ShieldAlert size={12} />
+                                        <span className="text-white/30 font-normal">
+                                            SYS:
+                                        </span>{" "}
+                                        OFFLINE
+                                    </span>
+                                    <span className="text-white/15">|</span>
+                                    <span className="flex items-center gap-1 text-white/20 font-normal">
+                                        <Wifi
+                                            size={12}
+                                            className="opacity-30"
+                                        />
+                                        <span className="text-white/30 font-normal">
+                                            PING:
+                                        </span>{" "}
+                                        ---
+                                    </span>
+                                    <span className="text-white/15">|</span>
+                                    <span className="flex items-center gap-1 text-rose-400/50 font-medium">
+                                        <ShieldAlert
+                                            size={12}
+                                            className="opacity-50"
+                                        />
+                                        <span className="text-white/30 font-normal">
+                                            TLS:
+                                        </span>{" "}
+                                        INACTIVE
+                                    </span>
+                                    <span className="text-white/15">|</span>
+                                    <span className="flex items-center gap-1 text-white/20 font-normal">
+                                        <Eye size={12} className="opacity-30" />
+                                        <span className="text-white/30 font-normal">
+                                            VISITS:
+                                        </span>{" "}
+                                        ---
+                                    </span>
+                                </>
+                            )}
+                        </div>
 
-                    <p className="text-white/35 text-[10px] mt-1 tracking-wider text-center md:text-right">
-                        © {new Date().getFullYear()} ADI JAIN • ALL CHANNELS
-                        SECURED
-                    </p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                            <span className="text-white/35 font-mono">
+                                TIME UPTIME:
+                            </span>
+                            <span className="text-white/70 bg-white/[0.03] px-1.5 py-0.5 rounded border border-white/[0.08]">
+                                {currentTime || "00:00:00"}
+                            </span>
+                        </div>
+
+                        <p className="text-white/35 text-[10px] mt-0.5 tracking-wider text-center md:text-right">
+                            © {new Date().getFullYear()} ADI JAIN • ALL CHANNELS
+                            SECURED
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            {/* Custom Interactive Hover Scopes & Bottom Margin Override */}
+            {/* Custom Interactive Hover Scopes */}
             <style
                 dangerouslySetInnerHTML={{
                     __html: `
-                .footer {
-                    margin-bottom: 0 !important;
-                }
                 .footer .icon:hover {
                     border-color: var(--hover-color) !important;
                     box-shadow: 0 0 20px var(--hover-color)55 !important;

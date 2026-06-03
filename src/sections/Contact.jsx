@@ -1,10 +1,58 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import TitleHeader from "../components/TitleHeader";
 import { MessageSquare } from "lucide-react";
 import ContactExperience from "../components/Models/Contact/ContactExperience";
+
+const ContactFallback = ({ onLoad }) => {
+    return (
+        <div className="relative w-full h-full min-h-[350px] flex flex-col items-center justify-center rounded-3xl p-6 overflow-hidden select-none">
+            {/* Pulsing glow highlights matching the copper background */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-amber-200/10 filter blur-[40px] animate-pulse pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-amber-300/5 filter blur-[25px] animate-pulse delay-700 pointer-events-none" />
+            
+            {/* Tech grid aesthetic overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:20px_20px] opacity-40 pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col items-center text-center gap-4">
+                {/* Visual Graphic Representation: A beautifully styled glowing computer display */}
+                <div className="relative w-20 h-20 flex items-center justify-center rounded-2xl bg-black/15 border border-white/10 shadow-2xl text-amber-100">
+                    <div className="absolute inset-0 border border-white/10 rounded-2xl scale-105" />
+                    <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-white/45 rounded-tl-md" />
+                    <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-white/45 rounded-tr-md" />
+                    <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-white/45 rounded-bl-md" />
+                    <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-white/45 rounded-br-md" />
+                    
+                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                        <svg className="w-6 h-6 animate-pulse text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5 mt-2">
+                    <h3 className="text-white text-sm font-semibold tracking-wider font-mono uppercase">
+                        Interactive Workstation
+                    </h3>
+                    <p className="text-white/60 text-[10px] tracking-wide font-mono leading-relaxed max-w-[280px]">
+                        WebGL model paused to maximize mobile responsive scrolling speeds.
+                    </p>
+                </div>
+
+                <button
+                    onClick={onLoad}
+                    className="mt-3 px-5 py-2 rounded-xl text-[10px] font-bold tracking-widest font-mono text-white bg-white/10 hover:bg-white/15 border border-white/20 active:scale-95 transition-all duration-300 shadow-md"
+                >
+                    TAP TO LOAD 3D MODEL
+                </button>
+            </div>
+        </div>
+    );
+};
 
 const Contact = () => {
     const formRef = useRef(null);
@@ -12,6 +60,19 @@ const Contact = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [form, setForm] = useState({ name: "", email: "", message: "" });
+    const [isMobile, setIsMobile] = useState(false);
+    const [load3D, setLoad3D] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setIsMobile(window.innerWidth < 768);
+            const checkMobile = () => {
+                setIsMobile(window.innerWidth < 768);
+            };
+            window.addEventListener("resize", checkMobile);
+            return () => window.removeEventListener("resize", checkMobile);
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -170,7 +231,11 @@ const Contact = () => {
                             className="w-full h-full hover:cursor-grab rounded-3xl overflow-hidden"
                             style={{ background: "#cd7c2e" }}
                         >
-                            <ContactExperience />
+                            {!isMobile || load3D ? (
+                                <ContactExperience />
+                            ) : (
+                                <ContactFallback onLoad={() => setLoad3D(true)} />
+                            )}
                         </div>
                     </div>
                 </div>
