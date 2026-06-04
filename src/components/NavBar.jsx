@@ -5,6 +5,7 @@ import { navLinks, socialImgs } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import { Activity, Wifi, Instagram, Github, Linkedin } from "lucide-react";
 
@@ -49,9 +50,16 @@ const NavBar = () => {
             },
         );
         gsap.fromTo(
-            ".navbar .contact-btn",
+            ".navbar .contact-btn, .navbar .resume-btn",
             { y: -20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.5 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power2.out",
+                delay: 0.5,
+                stagger: 0.1,
+            },
         );
     });
 
@@ -178,7 +186,7 @@ const NavBar = () => {
             >
                 <div className="inner">
                     {/* Logo */}
-                    <a
+                    <Link
                         className={`logo flex items-center gap-2.5 transition-all duration-300 ${
                             menuOpen
                                 ? "opacity-0 pointer-events-none -translate-x-3"
@@ -194,20 +202,21 @@ const NavBar = () => {
                             className="rounded-full"
                         />
                         <span>Adi Jain</span>
-                    </a>
+                    </Link>
 
                     {/* Desktop Nav */}
                     <nav className="desktop">
                         <ul>
                             {navLinks.map(({ link, name }) => (
                                 <li key={name} className="group">
-                                    <a
+                                    <Link
                                         href={getHref(link)}
                                         className="relative py-1 block"
                                     >
                                         <span
                                             className={`transition-colors duration-300 text-md tracking-wide ${
-                                                activeLink === link
+                                                activeLink === link ||
+                                                pathname === link
                                                     ? "text-white"
                                                     : "text-white/60 hover:text-white"
                                             }`}
@@ -216,7 +225,8 @@ const NavBar = () => {
                                         </span>
                                         <span
                                             className={`absolute -bottom-0.5 left-0 h-0.5 transition-all duration-300 rounded-full ${
-                                                activeLink === link
+                                                activeLink === link ||
+                                                pathname === link
                                                     ? "w-full"
                                                     : "w-0 group-hover:w-full"
                                             }`}
@@ -225,22 +235,33 @@ const NavBar = () => {
                                                     "linear-gradient(90deg, #3b82f6, #8b5cf6)",
                                             }}
                                         />
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </nav>
 
                     <div className="flex items-center gap-4">
-                        {/* Contact Button */}
+                        {/* Resume Download Button */}
                         <a
+                            href="/AdiJainResumeNew.pdf"
+                            download="Adi_Jain_Resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="resume-btn group hidden lg:flex items-center justify-center px-5 py-2 rounded-full font-medium text-sm transition-all duration-300 border border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 text-white cursor-pointer active:scale-95 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+                        >
+                            <span>Resume</span>
+                        </a>
+
+                        {/* Contact Button */}
+                        <Link
                             href={isHome ? "#contact" : "/#contact"}
                             className="contact-btn group hidden lg:flex"
                         >
                             <div className="inner">
                                 <span>Contact me</span>
                             </div>
-                        </a>
+                        </Link>
 
                         {/* Hamburger Button */}
                         <button
@@ -300,31 +321,47 @@ const NavBar = () => {
                 {/* Links list */}
                 <nav className="flex flex-col items-center gap-4.5">
                     {navLinks.map(({ link, name }) => (
-                        <a
+                        <Link
                             key={name}
                             href={getHref(link)}
                             onClick={handleMobileLinkClick}
-                            className="relative text-xl font-semibold tracking-wide font-mono text-white/70 hover:text-white transition-all duration-300 flex items-center hover:scale-105"
+                            className={`relative text-xl font-semibold tracking-wide font-mono transition-all duration-300 flex items-center hover:scale-105 ${
+                                activeLink === link || pathname === link
+                                    ? "text-white"
+                                    : "text-white/70 hover:text-white"
+                            }`}
                         >
                             {name}
                             {name === "Projects" && (
                                 <span className="nav-projects-badge">HOT</span>
                             )}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 
                 {/* Styled Mobile Contact Button */}
-                <a
+                <Link
                     href={isHome ? "#contact" : "/#contact"}
                     onClick={handleMobileLinkClick}
-                    className="mt-3 px-8 py-2.5 rounded-xl font-bold font-mono text-white text-[13px] tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] border border-blue-500/20"
+                    className="mt-3 px-8 py-2.5 rounded-xl font-bold font-mono text-white text-[13px] tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] border border-blue-500/20 w-[200px] text-center"
                     style={{
                         background:
                             "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
                     }}
                 >
                     CONTACT ME
+                </Link>
+
+                {/* Styled Mobile Resume Button */}
+                <a
+                    href="/AdiJainResumeNew.pdf"
+                    download="Adi_Jain_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={handleMobileLinkClick}
+                    className="mt-2.5 px-8 py-2.5 rounded-xl font-bold font-mono text-white/90 text-[13px] tracking-widest transition-all duration-300 hover:scale-105 border border-white/10 bg-white/5 w-[200px] text-center flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                    <span>DOWNLOAD RESUME</span>
                 </a>
 
                 {/* Mobile Telemetry & Contact Info at Bottom */}

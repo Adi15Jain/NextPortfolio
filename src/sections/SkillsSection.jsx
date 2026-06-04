@@ -244,7 +244,7 @@ const SkillsSection = () => {
             ref={sectionRef}
             className="w-full md:my-32 my-16 px-5"
         >
-            <div className="max-w-7xl mx-auto px-5">
+            <div className="max-w-7xl mx-auto md:px-5 px-0">
                 <TitleHeader
                     title="Technical Skills"
                     sub={
@@ -255,8 +255,8 @@ const SkillsSection = () => {
                     }
                 />
 
-                {/* Cards grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+                {/* Desktop View: original cards grid */}
+                <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
                     {skillGroups.map((group, gi) => (
                         <SpotlightCard
                             key={group.group}
@@ -317,6 +317,78 @@ const SkillsSection = () => {
                             </div>
                         </SpotlightCard>
                     ))}
+                </div>
+
+                {/* Mobile View: Compact Single Card Layout */}
+                <div className="md:hidden block mt-8">
+                    <SpotlightCard
+                        ref={(el) => {
+                            cardRefs.current[skillGroups.length] = el;
+                        }}
+                        className="feature-card rounded-2xl p-6 flex flex-col gap-5 relative overflow-hidden opacity-0"
+                    >
+                        {/* Top decorative gradient bar */}
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#10b981]" />
+
+                        {skillGroups.map((group, gi) => (
+                            <div key={group.group} className="flex flex-col gap-3">
+                                {/* Group Category Header */}
+                                <div className="flex items-center gap-2.5">
+                                    <div
+                                        className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                                        style={{
+                                            background: `linear-gradient(135deg, ${group.accentStart}15, ${group.accentEnd}15)`,
+                                            border: `1px solid ${group.accentStart}33`,
+                                        }}
+                                    >
+                                        <group.icon
+                                            size={13}
+                                            style={{ color: group.accentStart }}
+                                        />
+                                    </div>
+                                    <h4 className="text-[12px] font-bold text-white/90 uppercase tracking-wider font-mono">
+                                        {group.group}
+                                    </h4>
+                                    <span className="text-[10px] text-white/40 font-mono font-medium">
+                                        ({group.items.length})
+                                    </span>
+                                </div>
+
+                                {/* Skills wrapping pills */}
+                                <div className="flex flex-wrap gap-2">
+                                    {group.items.map((skill) => (
+                                        <div
+                                            key={skill.name}
+                                            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border border-white/[0.04] bg-white/[0.02]"
+                                            style={{
+                                                borderColor: `${group.accentStart}22`,
+                                                boxShadow: `inset 0 1px 0 rgba(255, 255, 255, 0.05)`,
+                                            }}
+                                        >
+                                            <span className="text-white/80 font-medium">
+                                                {skill.name}
+                                            </span>
+                                            <span
+                                                className="text-[9px] font-mono font-bold px-1.5 py-0.25 rounded-full"
+                                                style={{
+                                                    background: `linear-gradient(135deg, ${group.accentStart}22, ${group.accentEnd}22)`,
+                                                    border: `1px solid ${group.accentStart}33`,
+                                                    color: group.accentStart,
+                                                }}
+                                            >
+                                                {skill.projectCount}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Separator line between categories */}
+                                {gi < skillGroups.length - 1 && (
+                                    <div className="h-px bg-white/[0.06] mt-1" />
+                                )}
+                            </div>
+                        ))}
+                    </SpotlightCard>
                 </div>
             </div>
         </section>

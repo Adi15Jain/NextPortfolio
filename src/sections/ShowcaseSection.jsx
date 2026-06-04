@@ -101,7 +101,7 @@ const ShowcaseSection = () => {
     const rest = projectData.slice(1);
 
     return (
-        <section id="work" ref={sectionRef} className="mt-32 w-full">
+        <section id="work" ref={sectionRef} className="md:mt-32 mt-16 w-full">
             <div className="max-w-[1550px] mx-auto px-5 w-full">
                 <TitleHeader
                     title="Highlighted Projects"

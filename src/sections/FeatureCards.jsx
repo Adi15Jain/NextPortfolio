@@ -832,67 +832,88 @@ const FeatureCards = () => {
                         {abilities.map(({ imgPath, title, desc }, index) => {
                             const isActive = activeIndex === index;
                             return (
-                                <button
-                                    key={title}
-                                    onClick={() => setActiveIndex(index)}
-                                    className={`text-left rounded-2xl p-6 border transition-all duration-300 cursor-pointer flex gap-5 group relative overflow-hidden ${
-                                        isActive
-                                            ? "bg-white/[0.06] border-white/15 shadow-xl shadow-black/40 scale-[1.01]"
-                                            : "bg-white/[0.02] border-white/5 hover:bg-white/[0.04] hover:border-white/10"
-                                    }`}
-                                >
-                                    {/* Active Left Indicator Line */}
+                                <div key={title} className="flex flex-col gap-4">
                                     <div
-                                        className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => setActiveIndex(index)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                setActiveIndex(index);
+                                            }
+                                        }}
+                                        className={`text-left rounded-2xl p-6 border transition-all duration-300 cursor-pointer flex gap-5 group relative overflow-hidden ${
                                             isActive
-                                                ? "opacity-100"
-                                                : "opacity-0"
+                                                ? "bg-white/[0.06] border-white/15 shadow-xl shadow-black/40 scale-[1.01]"
+                                                : "bg-white/[0.02] border-white/5 hover:bg-white/[0.04] hover:border-white/10"
                                         }`}
-                                        style={{
-                                            background:
-                                                iconGradients[
-                                                    index % iconGradients.length
-                                                ],
-                                        }}
-                                    />
-
-                                    {/* Icon container */}
-                                    <div
-                                        className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
-                                        style={{
-                                            background:
-                                                iconGradients[
-                                                    index % iconGradients.length
-                                                ],
-                                        }}
                                     >
-                                        <img
-                                            src={imgPath}
-                                            alt={title}
-                                            className="w-6 h-6 object-contain"
+                                        {/* Active Left Indicator Line */}
+                                        <div
+                                            className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                                                isActive
+                                                    ? "opacity-100"
+                                                    : "opacity-0"
+                                            }`}
+                                            style={{
+                                                background:
+                                                    iconGradients[
+                                                        index % iconGradients.length
+                                                    ],
+                                            }}
                                         />
+
+                                        {/* Icon container */}
+                                        <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+                                            <img
+                                                src={imgPath}
+                                                alt={title}
+                                                className="w-12 h-12 object-contain"
+                                            />
+                                        </div>
+
+                                        {/* Content fields */}
+                                        <div className="flex flex-col gap-1.5 flex-1">
+                                            <h3
+                                                className={`text-lg font-bold transition-colors duration-200 ${isActive ? "text-white" : "text-white/70"}`}
+                                            >
+                                                {title}
+                                            </h3>
+                                            <p
+                                                className={`text-xs leading-relaxed transition-colors duration-200 ${isActive ? "text-white/60" : "text-white/40 line-clamp-2 group-hover:text-white/50"}`}
+                                            >
+                                                {desc}
+                                            </p>
+                                        </div>
                                     </div>
 
-                                    {/* Content fields */}
-                                    <div className="flex flex-col gap-1.5 flex-1">
-                                        <h3
-                                            className={`text-lg font-bold transition-colors duration-200 ${isActive ? "text-white" : "text-white/70"}`}
-                                        >
-                                            {title}
-                                        </h3>
-                                        <p
-                                            className={`text-xs leading-relaxed transition-colors duration-200 ${isActive ? "text-white/60" : "text-white/40 line-clamp-2 group-hover:text-white/50"}`}
-                                        >
-                                            {desc}
-                                        </p>
-                                    </div>
-                                </button>
+                                    {/* Mobile visual details view - displayed inline on screens below lg */}
+                                    {isActive && (
+                                        <div className="block lg:hidden w-full transition-all duration-300">
+                                            <SpotlightCard className="w-full rounded-2xl p-5 sm:p-6 bg-slate-900/40 border border-white/5 flex flex-col justify-between backdrop-blur-xl relative min-h-[320px] overflow-hidden">
+                                                {/* Neon visual halo wrapper */}
+                                                <div
+                                                    className="absolute -top-12 -right-12 w-48 h-48 rounded-full filter blur-[80px] opacity-15 pointer-events-none"
+                                                    style={{
+                                                        background:
+                                                            iconGradients[
+                                                                index % iconGradients.length
+                                                            ],
+                                                    }}
+                                                />
+                                                <div className="w-full h-full flex flex-col justify-between flex-grow">
+                                                    {renderInteractiveVisual(index)}
+                                                </div>
+                                            </SpotlightCard>
+                                        </div>
+                                    )}
+                                </div>
                             );
                         })}
                     </div>
 
                     {/* Right Column: High-fidelity interactive visual preview sandbox panel */}
-                    <div className="lg:col-span-7 flex">
+                    <div className="hidden lg:flex lg:col-span-7">
                         <SpotlightCard className="w-full rounded-2xl p-8 bg-slate-900/40 border border-white/5 flex flex-col justify-between backdrop-blur-xl relative min-h-[360px]">
                             {/* Neon visual halo wrapper */}
                             <div

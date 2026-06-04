@@ -60,6 +60,8 @@ const Contact = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [form, setForm] = useState({ name: "", email: "", message: "" });
+    const [lastSubmittedEmail, setLastSubmittedEmail] = useState("");
+    const [errors, setErrors] = useState({ name: "", email: "", message: "" });
     const [isMobile, setIsMobile] = useState(false);
     const [load3D, setLoad3D] = useState(false);
 
@@ -74,13 +76,48 @@ const Contact = () => {
         }
     }, []);
 
+    const validate = () => {
+        let tempErrors = { name: "", email: "", message: "" };
+        let isValid = true;
+
+        if (!form.name.trim()) {
+            tempErrors.name = "Please compile your name signature.";
+            isValid = false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!form.email.trim()) {
+            tempErrors.email = "Uplink destination (email) is required.";
+            isValid = false;
+        } else if (!emailRegex.test(form.email)) {
+            tempErrors.email = "Invalid email format. Telemetry check failed.";
+            isValid = false;
+        }
+
+        if (!form.message.trim()) {
+            tempErrors.message = "Message payload cannot be empty.";
+            isValid = false;
+        }
+
+        setErrors(tempErrors);
+        return isValid;
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+        if (errors[name]) {
+            setErrors((prev) => ({ ...prev, [name]: "" }));
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validate()) {
+            return;
+        }
+
         setLoading(true);
         setSuccess(false);
         setError(false);
@@ -100,13 +137,13 @@ const Contact = () => {
                 throw new Error(result.error || "Failed to send message.");
             }
 
+            const submittedEmail = form.email;
+            setLastSubmittedEmail(submittedEmail);
             setForm({ name: "", email: "", message: "" });
             setSuccess(true);
-            setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
             console.error("Contact Form Submission Error:", err);
             setError(true);
-            setTimeout(() => setError(false), 5000);
         } finally {
             setLoading(false);
         }
@@ -114,7 +151,7 @@ const Contact = () => {
 
     return (
         <section id="contact" className="flex-center section-padding">
-            <div className="w-full h-full md:px-10 px-5">
+            <div className="w-full h-full md:px-10 px-0">
                 <TitleHeader
                     title="Get in Touch – Let's Connect"
                     sub={<span className="flex items-center gap-1.5"><MessageSquare size={13} className="text-blue-400" /> Have questions or ideas? Let&apos;s talk!</span>}
@@ -128,100 +165,156 @@ const Contact = () => {
                                 border: "1px solid rgba(255,255,255,0.08)",
                             }}
                         >
-                            <form
-                                ref={formRef}
-                                onSubmit={handleSubmit}
-                                className="w-full flex flex-col gap-6"
-                            >
-                                {/* Status feedback */}
-                                {success && (
-                                    <div
-                                        className="w-full py-3 px-4 rounded-xl text-sm font-medium text-green-300 flex items-center gap-2"
-                                        style={{
-                                            background: "rgba(16,185,129,0.1)",
-                                            border: "1px solid rgba(16,185,129,0.3)",
-                                        }}
-                                    >
-                                        ✅ Message sent successfully! I&apos;ll
-                                        get back to you soon.
+                            {success ? (
+                                <div className="flex flex-col items-center justify-center text-center py-6 px-4 animate-contact-scale-up">
+                                    {/* Glowing Success Icon */}
+                                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 relative">
+                                        <div className="absolute inset-0 rounded-full bg-emerald-500/20 filter blur-[8px] animate-pulse" />
+                                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
                                     </div>
-                                )}
-                                {error && (
-                                    <div
-                                        className="w-full py-3 px-4 rounded-xl text-sm font-medium text-red-300 flex items-center gap-2"
-                                        style={{
-                                            background: "rgba(239,68,68,0.1)",
-                                            border: "1px solid rgba(239,68,68,0.3)",
-                                        }}
+                                    
+                                    <h3 className="text-lg font-bold text-white mb-2 tracking-widest font-mono uppercase text-emerald-400">
+                                        SIGNAL TRANSMITTED
+                                    </h3>
+                                    <p className="text-white/60 text-xs font-mono leading-relaxed max-w-[280px] mb-8">
+                                        Your packet was successfully routed. I will establish contact via <span className="text-blue-400 font-semibold">{lastSubmittedEmail}</span> within 24 hours.
+                                    </p>
+
+                                    <button
+                                        onClick={() => setSuccess(false)}
+                                        className="px-6 py-2.5 rounded-full text-[10px] font-bold tracking-widest font-mono text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 active:scale-95 transition-all duration-300 shadow-md cursor-pointer"
                                     >
-                                        ❌ Something went wrong. Please try
-                                        again.
+                                        DISMISS SIGNAL
+                                    </button>
+                                </div>
+                            ) : error ? (
+                                <div className="flex flex-col items-center justify-center text-center py-6 px-4 animate-contact-scale-up">
+                                    {/* Glowing Error Icon */}
+                                    <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-6 relative">
+                                        <div className="absolute inset-0 rounded-full bg-red-500/20 filter blur-[8px] animate-pulse" />
+                                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
                                     </div>
-                                )}
+                                    
+                                    <h3 className="text-lg font-bold text-red-400 mb-2 tracking-widest font-mono uppercase">
+                                        TRANSMISSION ERROR
+                                    </h3>
+                                    <p className="text-white/60 text-xs font-mono leading-relaxed max-w-[280px] mb-8">
+                                        An uplink exception occurred. Please verify your network interface and retry routing the transmission.
+                                    </p>
 
-                                <div>
-                                    <label htmlFor="name">Your Name</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        value={form.name}
-                                        onChange={handleChange}
-                                        placeholder="What's your good name?"
-                                        required
-                                    />
+                                    <button
+                                        onClick={() => setError(false)}
+                                        className="px-6 py-2.5 rounded-full text-[10px] font-bold tracking-widest font-mono text-white bg-red-500/15 border border-red-500/30 hover:bg-red-500/25 active:scale-95 transition-all duration-300 shadow-md cursor-pointer"
+                                    >
+                                        RETRY UPLINK
+                                    </button>
                                 </div>
-
-                                <div>
-                                    <label htmlFor="email">Your Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={form.email}
-                                        onChange={handleChange}
-                                        placeholder="your@email.com"
-                                        required
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="message">
-                                        Your Message
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        value={form.message}
-                                        onChange={handleChange}
-                                        placeholder="How can I help you?"
-                                        rows="5"
-                                        required
-                                        className="resize-none"
-                                    />
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="w-full"
+                            ) : (
+                                <form
+                                    ref={formRef}
+                                    onSubmit={handleSubmit}
+                                    noValidate
+                                    className="w-full flex flex-col gap-6 animate-contact-fade-in"
                                 >
-                                    <div className="cta-button group w-full">
-                                        <div className="bg-circle" />
-                                        <p className="text">
-                                            {loading
-                                                ? "Sending..."
-                                                : "Send Message"}
-                                        </p>
-                                        <div className="arrow-wrapper">
-                                            <img
-                                                src="/images/arrow-down.svg"
-                                                alt="arrow"
-                                            />
-                                        </div>
+                                    <div>
+                                        <label htmlFor="name">Your Name</label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            value={form.name}
+                                            onChange={handleChange}
+                                            placeholder="What's your good name?"
+                                            className={errors.name ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60" : ""}
+                                        />
+                                        {errors.name && (
+                                            <div className="mt-1.5 px-3 py-1 rounded-lg border border-red-500/15 bg-red-500/5 text-red-400/90 text-[10px] font-mono flex items-center gap-1.5 animate-contact-fade-in shadow-[0_2px_10px_rgba(239,68,68,0.05)]">
+                                                <span className="text-[11px] animate-pulse">⚠️</span>
+                                                {errors.name}
+                                            </div>
+                                        )}
                                     </div>
-                                </button>
-                            </form>
+
+                                    <div>
+                                        <label htmlFor="email">Your Email</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            value={form.email}
+                                            onChange={handleChange}
+                                            placeholder="your@email.com"
+                                            className={errors.email ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60" : ""}
+                                        />
+                                        {errors.email && (
+                                            <div className="mt-1.5 px-3 py-1 rounded-lg border border-red-500/15 bg-red-500/5 text-red-400/90 text-[10px] font-mono flex items-center gap-1.5 animate-contact-fade-in shadow-[0_2px_10px_rgba(239,68,68,0.05)]">
+                                                <span className="text-[11px] animate-pulse">⚠️</span>
+                                                {errors.email}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="message">
+                                            Your Message
+                                        </label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            value={form.message}
+                                            onChange={handleChange}
+                                            placeholder="How can I help you?"
+                                            rows="5"
+                                            className={`resize-none ${errors.message ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60" : ""}`}
+                                        />
+                                        {errors.message && (
+                                            <div className="mt-1.5 px-3 py-1 rounded-lg border border-red-500/15 bg-red-500/5 text-red-400/90 text-[10px] font-mono flex items-center gap-1.5 animate-contact-fade-in shadow-[0_2px_10px_rgba(239,68,68,0.05)]">
+                                                <span className="text-[11px] animate-pulse">⚠️</span>
+                                                {errors.message}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full"
+                                    >
+                                        <div className={`cta-button group w-full relative overflow-hidden transition-all duration-300 ${loading ? 'border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.3)]' : ''}`}>
+                                            {loading ? (
+                                                <>
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-emerald-500/20 animate-pulse" />
+                                                    <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 animate-loading-shimmer" style={{ width: "100%" }} />
+                                                    
+                                                    <div className="flex items-center justify-center gap-2 z-10 py-1.5">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce delay-100" />
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce delay-200" />
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce delay-300" />
+                                                        <span className="text-[11px] font-semibold text-white/80 font-mono tracking-wider ml-1 uppercase">
+                                                            Transmitting Signal...
+                                                        </span>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className="bg-circle" />
+                                                    <p className="text">Send Message</p>
+                                                    <div className="arrow-wrapper">
+                                                        <img
+                                                            src="/images/arrow-down.svg"
+                                                            alt="arrow"
+                                                        />
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    </button>
+                                </form>
+                            )}
                         </div>
                     </div>
 

@@ -258,7 +258,9 @@ const LogoSection = () => {
                 <div className="text-center text-xs font-semibold text-slate-400 mt-5 h-8 flex items-center justify-center gap-1.5 bg-white/[0.01] border border-white/[0.03] py-1 px-4 rounded-full w-fit mx-auto backdrop-blur-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
                     <span>
-                        {activeTool ? activeTool.name : "Tap a tool to identify it"}
+                        {activeTool
+                            ? activeTool.name
+                            : "Tap a tool to identify it"}
                     </span>
                 </div>
             </div>

@@ -418,7 +418,8 @@ const Footer = () => {
 
                     {/* Right Column: Telemetry Panel */}
                     <div className="flex flex-col items-center md:items-end gap-2 text-[10.5px] sm:text-[11px] font-mono text-white/35 w-full md:w-auto">
-                        <div className="flex flex-nowrap items-center gap-x-1.5 sm:gap-x-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg px-2 sm:px-3 py-1.5 backdrop-blur-md whitespace-nowrap w-max max-w-full md:max-w-none">
+                        {/* On Desktop: single horizontal bar */}
+                        <div className="hidden md:flex flex-nowrap items-center gap-x-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-1.5 backdrop-blur-md whitespace-nowrap">
                             {isOnline ? (
                                 <>
                                     <span className="flex items-center gap-1 text-emerald-400 font-medium">
@@ -497,6 +498,71 @@ const Footer = () => {
                                         </span>{" "}
                                         ---
                                     </span>
+                                </>
+                            )}
+                        </div>
+
+                        {/* On Mobile: 2x2 Grid Capsule Badges */}
+                        <div className="grid grid-cols-2 gap-2 w-full md:hidden bg-white/[0.02] border border-white/[0.06] rounded-xl p-2.5 backdrop-blur-md">
+                            {isOnline ? (
+                                <>
+                                    {/* Item 1: SYS */}
+                                    <div className="flex items-center gap-1.5 text-emerald-400 font-medium bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <Activity size={11} className="animate-pulse" />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">SYS:</span>
+                                        <span className="text-[10px]">ACTIVE</span>
+                                    </div>
+                                    
+                                    {/* Item 2: PING */}
+                                    <div className="flex items-center gap-1.5 text-cyan-400 font-medium bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <Wifi size={11} />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">PING:</span>
+                                        <span className="text-[10px]">{currentPing === "---" ? currentPing : `${currentPing}MS`}</span>
+                                    </div>
+
+                                    {/* Item 3: TLS */}
+                                    <div className="flex items-center gap-1.5 text-purple-400 font-medium bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <ShieldCheck size={11} />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">TLS:</span>
+                                        <span className="text-[10px]">SECURE</span>
+                                    </div>
+
+                                    {/* Item 4: VISITS */}
+                                    <div className="flex items-center gap-1.5 text-amber-400 font-medium bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <Eye size={11} />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">VISITS:</span>
+                                        <span className="text-[10px]">{visitCount}</span>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {/* Item 1: SYS OFFLINE */}
+                                    <div className="flex items-center gap-1.5 text-rose-500 font-medium bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center animate-pulse">
+                                        <ShieldAlert size={11} />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">SYS:</span>
+                                        <span className="text-[10px]">OFFLINE</span>
+                                    </div>
+                                    
+                                    {/* Item 2: PING OFFLINE */}
+                                    <div className="flex items-center gap-1.5 text-white/20 font-normal bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <Wifi size={11} className="opacity-30" />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">PING:</span>
+                                        <span className="text-[10px]">---</span>
+                                    </div>
+
+                                    {/* Item 3: TLS INACTIVE */}
+                                    <div className="flex items-center gap-1.5 text-rose-400/50 font-medium bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <ShieldAlert size={11} className="opacity-50" />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">TLS:</span>
+                                        <span className="text-[10px]">INACTIVE</span>
+                                    </div>
+
+                                    {/* Item 4: VISITS OFFLINE */}
+                                    <div className="flex items-center gap-1.5 text-white/20 font-normal bg-white/[0.03] border border-white/[0.04] rounded-lg px-2 py-1.5 justify-center">
+                                        <Eye size={11} className="opacity-30" />
+                                        <span className="text-white/40 font-normal text-[9px] tracking-wider">VISITS:</span>
+                                        <span className="text-[10px]">---</span>
+                                    </div>
                                 </>
                             )}
                         </div>
