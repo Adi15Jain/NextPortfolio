@@ -116,7 +116,9 @@ const AnimatedCounter = () => {
                                             className="counter-card-icon"
                                             style={{
                                                 color,
-                                                strokeWidth: isHovered ? 2 : 1.75,
+                                                strokeWidth: isHovered
+                                                    ? 2
+                                                    : 1.75,
                                             }}
                                         />
                                     </div>
@@ -155,4 +157,3 @@ const AnimatedCounter = () => {
 };
 
 export default AnimatedCounter;
-

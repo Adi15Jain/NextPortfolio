@@ -8,14 +8,14 @@ import NavBar from "../../src/components/NavBar";
 import Footer from "../../src/sections/Footer";
 import SpotlightCard from "../../src/components/SpotlightCard";
 import Image from "next/image";
-import { 
-    ArrowLeft, 
-    ExternalLink, 
-    Github, 
-    Flame, 
-    Cpu, 
-    Sparkles, 
-    CheckCircle2, 
+import {
+    ArrowLeft,
+    ExternalLink,
+    Github,
+    Flame,
+    Cpu,
+    Sparkles,
+    CheckCircle2,
     ShieldAlert,
     Terminal,
     TrendingUp,
@@ -24,7 +24,7 @@ import {
     Zap,
     CpuIcon,
     Database,
-    Shield
+    Shield,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -36,7 +36,8 @@ const projectsDetailed = [
         timelineTitle: "Deep Learning & Applied AI",
         date: "June 2025",
         title: "PneumoAI — Clinical Decision CNN",
-        subtitle: "High-precision diagnostic triage for emergency lung imaging.",
+        subtitle:
+            "High-precision diagnostic triage for emergency lung imaging.",
         image: "/images/project1.png",
         tags: ["PyTorch", "FastAPI", "ReactJS", "CNN"],
         liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
@@ -44,13 +45,15 @@ const projectsDetailed = [
         metricValue: "92%",
         metricLabel: "Diagnostic Accuracy",
         metricSub: "Serves PyTorch model inferences in under 500 milliseconds.",
-        problem: "Radiology departments face severe backlogs, causing dangerous clinical triage delays.",
-        solution: "A custom deep CNN flagging consolidation zones instantly to sort high-risk scans.",
+        problem:
+            "Radiology departments face severe backlogs, causing dangerous clinical triage delays.",
+        solution:
+            "A custom deep CNN flagging consolidation zones instantly to sort high-risk scans.",
         specs: [
             "Clinical DICOM: Rapid medical image format ingestion.",
             "Grad-CAM Maps: Draws high-precision consolidation regions.",
-            "Weighted Entropy: Highly balanced predictive accuracy."
-        ]
+            "Weighted Entropy: Highly balanced predictive accuracy.",
+        ],
     },
     {
         id: "algoplus",
@@ -65,14 +68,17 @@ const projectsDetailed = [
         githubUrl: "https://github.com/Adi15Jain/AlgoPlus",
         metricValue: "< 1ms",
         metricLabel: "C++ Snap Speed",
-        metricSub: "Microsecond snapshot states generated directly via compiled C++ routines.",
-        problem: "Client-side JS visualizers suffer massive layout lag on large array computations.",
-        solution: "A fast hybrid engine running compiled routines in C++ with uvicorn FastAPI routes.",
+        metricSub:
+            "Microsecond snapshot states generated directly via compiled C++ routines.",
+        problem:
+            "Client-side JS visualizers suffer massive layout lag on large array computations.",
+        solution:
+            "A fast hybrid engine running compiled routines in C++ with uvicorn FastAPI routes.",
         specs: [
             "C++ Core Engine: Processes recursive snapshots in microseconds.",
             "60fps Animations: Renders visual data changes with zero jank.",
-            "Interactive Canvas: Custom graphical graph and tree builders."
-        ]
+            "Interactive Canvas: Custom graphical graph and tree builders.",
+        ],
     },
     {
         id: "coinpush",
@@ -87,14 +93,17 @@ const projectsDetailed = [
         githubUrl: "https://github.com/Adi15Jain/CoinPush",
         metricValue: "90%",
         metricLabel: "Faster Discovery",
-        metricSub: "Pipes continuous prices via WebSockets, eliminating refresh wait.",
-        problem: "Traders lose critical windows due to noisy, delayed ticker feeds.",
-        solution: "A unified market screening terminal using WebSocket telemetry streams and SWR caches.",
+        metricSub:
+            "Pipes continuous prices via WebSockets, eliminating refresh wait.",
+        problem:
+            "Traders lose critical windows due to noisy, delayed ticker feeds.",
+        solution:
+            "A unified market screening terminal using WebSocket telemetry streams and SWR caches.",
         specs: [
             "Resilient Sockets: Features automatic socket reconnection pathways.",
             "SWR Query Cache: Decreases outgoing API loads by over 75%.",
-            "Static Caching: Pre-caches layout frames for fast loading."
-        ]
+            "Static Caching: Pre-caches layout frames for fast loading.",
+        ],
     },
     {
         id: "wealthyminds",
@@ -109,14 +118,17 @@ const projectsDetailed = [
         githubUrl: "https://github.com/Adi15Jain/wealthyminds",
         metricValue: "100%",
         metricLabel: "Offline Math Fallback",
-        metricSub: "Runs 10,000 compound variance equations locally if backend is down.",
-        problem: "Casual investors lack entry-level access to rigorous mathematical risk forecasting.",
-        solution: "AI advisor running stochastic Monte Carlo projections with Gemini 2.0 advisory feedback.",
+        metricSub:
+            "Runs 10,000 compound variance equations locally if backend is down.",
+        problem:
+            "Casual investors lack entry-level access to rigorous mathematical risk forecasting.",
+        solution:
+            "AI advisor running stochastic Monte Carlo projections with Gemini 2.0 advisory feedback.",
         specs: [
             "Monte Carlo Math: Fast compound variance calculations in SciPy.",
             "Math Failover: Instant local math equations fallback.",
-            "Secure Auth BFF: Route guards protecting server assets."
-        ]
+            "Secure Auth BFF: Route guards protecting server assets.",
+        ],
     },
     {
         id: "interviewpilot",
@@ -131,14 +143,17 @@ const projectsDetailed = [
         githubUrl: "https://github.com/Adi15Jain/InterviewPilot",
         metricValue: "< 1s",
         metricLabel: "Voice Response Delay",
-        metricSub: "Maintains continuous audio and micro-expression mapping streams.",
-        problem: "Candidates experience high preparation anxiety practicing mock tests alone.",
-        solution: "Real-time WebSocket audio coach tracking micro-expressions with MediaPipe.",
+        metricSub:
+            "Maintains continuous audio and micro-expression mapping streams.",
+        problem:
+            "Candidates experience high preparation anxiety practicing mock tests alone.",
+        solution:
+            "Real-time WebSocket audio coach tracking micro-expressions with MediaPipe.",
         specs: [
             "WebSockets Voice: Real-time verbal feedback pipelines.",
             "Web Workers CV: Offloads webcam telemetry to prevent frame drops.",
-            "Radar Analytics: Computes global percentiles using Prisma query aggregates."
-        ]
+            "Radar Analytics: Computes global percentiles using Prisma query aggregates.",
+        ],
     },
     {
         id: "vectrion",
@@ -148,19 +163,29 @@ const projectsDetailed = [
         title: "Vectrion — AI Applications SDK",
         subtitle: "Modular TypeScript infrastructure SDK for AI apps.",
         image: null,
-        tags: ["TypeScript", "Google AI", "Ollama", "Zod", "Vitest", "Turborepo"],
+        tags: [
+            "TypeScript",
+            "Google AI",
+            "Ollama",
+            "Zod",
+            "Vitest",
+            "Turborepo",
+        ],
         liveUrl: "https://vectrion-docs.adijain.click",
         githubUrl: "https://github.com/Adi15Jain/vectrion",
         metricValue: "0%",
         metricLabel: "Execution Overhead",
-        metricSub: "Unified adapters, schema validation, and routing with no latency.",
-        problem: "Developers waste hours duplicating API cost, safety, and routing layers.",
-        solution: "A composable SDK handling prompts validation, tracing, and local LLM fallbacks.",
+        metricSub:
+            "Unified adapters, schema validation, and routing with no latency.",
+        problem:
+            "Developers waste hours duplicating API cost, safety, and routing layers.",
+        solution:
+            "A composable SDK handling prompts validation, tracing, and local LLM fallbacks.",
         specs: [
             "Onion Middleware: Composable trace pipelines for AI prompts.",
             "Prompt Injection Guard: Scans variables to stop payload overrides.",
-            "Local Ollama: Resilient local adapter failover system."
-        ]
+            "Local Ollama: Resilient local adapter failover system.",
+        ],
     },
     {
         id: "archlens",
@@ -168,22 +193,32 @@ const projectsDetailed = [
         timelineTitle: "Architecture Intelligence & Governance",
         date: "June 2026",
         title: "ArchLens — Architecture Intelligence",
-        subtitle: "Continuous, evidence-based structural governance and dependency graph analysis for software repositories.",
+        subtitle:
+            "Continuous, evidence-based structural governance and dependency graph analysis for software repositories.",
         image: null,
-        tags: ["TypeScript", "Turborepo", "Graph Theory", "AST Parsing", "CI/CD Gates"],
+        tags: [
+            "TypeScript",
+            "Turborepo",
+            "Graph Theory",
+            "AST Parsing",
+            "CI/CD Gates",
+        ],
         liveUrl: null,
         githubUrl: "https://github.com/Adi15Jain/archLens",
         metricValue: "0 Cycle",
         metricLabel: "Circular Dependencies",
-        metricSub: "Enforces strict module decoupling and layer boundaries on every pull request.",
-        problem: "Software architecture degrades silently, leading to build-time bloat, circular dependency paths, and architectural debt that linters cannot detect.",
-        solution: "A monorepo-based AST parser and dependency graph builder that enforces module rules and calculates explainable structural health scores.",
+        metricSub:
+            "Enforces strict module decoupling and layer boundaries on every pull request.",
+        problem:
+            "Software architecture degrades silently, leading to build-time bloat, circular dependency paths, and architectural debt that linters cannot detect.",
+        solution:
+            "A monorepo-based AST parser and dependency graph builder that enforces module rules and calculates explainable structural health scores.",
         specs: [
             "Dependency Cycles: Deterministic cycle detection across multi-package codebases.",
             "Structural Parsing: Multi-stage AST parser resolving module-level import/export graphs.",
-            "Governance Rules: Enforces layer restrictions and score thresholds directly in CI/CD quality gates."
-        ]
-    }
+            "Governance Rules: Enforces layer restrictions and score thresholds directly in CI/CD quality gates.",
+        ],
+    },
 ];
 
 const RenderVisualCard = ({ id }) => {
@@ -194,16 +229,38 @@ const RenderVisualCard = ({ id }) => {
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                    <span className="text-[10px] text-white/40 ml-2">algoplus_kernel.cpp</span>
+                    <span className="text-[10px] text-white/40 ml-2">
+                        algoplus_kernel.cpp
+                    </span>
                 </div>
                 <div className="flex-grow flex flex-col justify-center items-center py-4 relative gap-3">
                     <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
                         <svg className="w-full h-full stroke-blue-500/40 stroke-[1.5] fill-none">
                             <path d="M 50,30 L 150,60 L 250,20 M 150,60 L 200,110 L 50,30 M 250,20 L 200,110" />
-                            <circle cx="50" cy="30" r="4" className="fill-blue-400" />
-                            <circle cx="150" cy="60" r="4" className="fill-purple-400" />
-                            <circle cx="250" cy="20" r="4" className="fill-emerald-400" />
-                            <circle cx="200" cy="110" r="4" className="fill-blue-400" />
+                            <circle
+                                cx="50"
+                                cy="30"
+                                r="4"
+                                className="fill-blue-400"
+                            />
+                            <circle
+                                cx="150"
+                                cy="60"
+                                r="4"
+                                className="fill-purple-400"
+                            />
+                            <circle
+                                cx="250"
+                                cy="20"
+                                r="4"
+                                className="fill-emerald-400"
+                            />
+                            <circle
+                                cx="200"
+                                cy="110"
+                                r="4"
+                                className="fill-blue-400"
+                            />
                         </svg>
                     </div>
                     <div className="z-10 flex gap-4 text-[11px] text-blue-400/90 font-semibold bg-blue-500/5 border border-blue-500/10 px-3 py-1.5 rounded-lg shadow-sm backdrop-blur-md">
@@ -212,43 +269,71 @@ const RenderVisualCard = ({ id }) => {
                     </div>
                     <div className="z-10 text-[10px] text-white/50 text-center">
                         <span>C++ Binaries generated snapshot array in </span>
-                        <span className="text-emerald-400 font-bold">0.08ms</span>
+                        <span className="text-emerald-400 font-bold">
+                            0.08ms
+                        </span>
                     </div>
                 </div>
             </div>
         );
     }
-    
+
     if (id === "wealthyminds") {
         return (
             <div className="w-full h-full min-h-[200px] bg-slate-950/80 rounded-xl border border-white/5 relative p-4 flex flex-col font-sans text-xs overflow-hidden select-none">
                 <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                    <span className="text-[10px] font-mono text-white/40">wealth_intelligence_teller</span>
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">Gemini 2.0 Flash</span>
+                    <span className="text-[10px] font-mono text-white/40">
+                        wealth_intelligence_teller
+                    </span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
+                        Gemini 2.0 Flash
+                    </span>
                 </div>
                 <div className="flex-grow flex flex-col justify-between py-2.5 relative">
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
                         <svg className="w-full h-full stroke-[2] fill-none">
-                            <path d="M 10,105 Q 80,80 160,60 T 320,35" className="stroke-blue-400/70" />
-                            <path d="M 10,105 Q 80,60 160,30 T 320,10" className="stroke-emerald-400" />
+                            <path
+                                d="M 10,105 Q 80,80 160,60 T 320,35"
+                                className="stroke-blue-400/70"
+                            />
+                            <path
+                                d="M 10,105 Q 80,60 160,30 T 320,10"
+                                className="stroke-emerald-400"
+                            />
                         </svg>
                     </div>
                     <div className="z-10 flex flex-col gap-0.5">
-                        <span className="text-[10px] text-white/70 font-semibold">Monte Carlo Wealth Projection</span>
-                        <span className="text-[8px] text-white/40">10,000 Stochastic Iterations</span>
+                        <span className="text-[10px] text-white/70 font-semibold">
+                            Monte Carlo Wealth Projection
+                        </span>
+                        <span className="text-[8px] text-white/40">
+                            10,000 Stochastic Iterations
+                        </span>
                     </div>
                     <div className="z-10 flex gap-4 text-[10px] justify-between font-mono bg-white/[0.02] border border-white/5 p-2 rounded-lg backdrop-blur-sm">
                         <div className="flex flex-col">
-                            <span className="text-white/40 text-[8px]">90th (Opt)</span>
-                            <span className="text-emerald-400 font-bold">+18.4% CAGR</span>
+                            <span className="text-white/40 text-[8px]">
+                                90th (Opt)
+                            </span>
+                            <span className="text-emerald-400 font-bold">
+                                +18.4% CAGR
+                            </span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-white/40 text-[8px]">50th (Exp)</span>
-                            <span className="text-blue-400 font-bold">+12.1% CAGR</span>
+                            <span className="text-white/40 text-[8px]">
+                                50th (Exp)
+                            </span>
+                            <span className="text-blue-400 font-bold">
+                                +12.1% CAGR
+                            </span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-white/40 text-[8px]">10th (Con)</span>
-                            <span className="text-red-400 font-bold">+6.2% CAGR</span>
+                            <span className="text-white/40 text-[8px]">
+                                10th (Con)
+                            </span>
+                            <span className="text-red-400 font-bold">
+                                +6.2% CAGR
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -260,20 +345,38 @@ const RenderVisualCard = ({ id }) => {
         return (
             <div className="w-full h-full min-h-[200px] bg-slate-950/80 rounded-xl border border-white/5 relative p-4 flex flex-col font-mono text-xs overflow-hidden select-none">
                 <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                    <span className="text-[10px] text-white/40">npm install @vectrion/core</span>
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-medium">TS SDK</span>
+                    <span className="text-[10px] text-white/40">
+                        npm install @vectrion/core
+                    </span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-medium">
+                        TS SDK
+                    </span>
                 </div>
                 <div className="flex-grow flex flex-col justify-center py-2.5 relative gap-1.5 font-mono text-[9px]">
                     <div className="text-blue-400">
-                        <span className="text-purple-400">import</span> {"{"} Vectrion {"}"} <span className="text-purple-400">from</span> <span className="text-emerald-400">&quot;@vectrion/core&quot;</span>;
+                        <span className="text-purple-400">import</span> {"{"}{" "}
+                        Vectrion {"}"}{" "}
+                        <span className="text-purple-400">from</span>{" "}
+                        <span className="text-emerald-400">
+                            &quot;@vectrion/core&quot;
+                        </span>
+                        ;
                     </div>
                     <div className="text-white/40">
-                        <span className="text-blue-400">const</span> ai = <span className="text-blue-400">new</span> Vectrion({"{"} providers: [...] {"}"});
+                        <span className="text-blue-400">const</span> ai ={" "}
+                        <span className="text-blue-400">new</span> Vectrion(
+                        {"{"} providers: [...] {"}"});
                     </div>
                     <div className="text-blue-400">
-                        <span className="text-blue-400">const</span> res = <span className="text-purple-400">await</span> ai.generate({"{"}
+                        <span className="text-blue-400">const</span> res ={" "}
+                        <span className="text-purple-400">await</span>{" "}
+                        ai.generate({"{"}
                         <div className="pl-4 text-white">
-                            model: <span className="text-emerald-400">&quot;gemini-2.0-flash&quot;</span>,
+                            model:{" "}
+                            <span className="text-emerald-400">
+                                &quot;gemini-2.0-flash&quot;
+                            </span>
+                            ,
                         </div>
                         <div className="pl-4 text-white">
                             schema: z.object({"{"} age: z.number() {"}"})
@@ -291,30 +394,37 @@ const RenderVisualCard = ({ id }) => {
         return (
             <div className="w-full h-full min-h-[200px] bg-slate-950/80 rounded-xl border border-white/5 relative p-4 flex flex-col font-mono text-xs overflow-hidden select-none">
                 <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                    <span className="text-[10px] text-white/40">archlens analyze .</span>
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-medium">L7 Governance</span>
+                    <span className="text-[10px] text-white/40">
+                        archlens analyze .
+                    </span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-medium">
+                        L7 Governance
+                    </span>
                 </div>
                 <div className="flex-grow flex flex-col justify-between py-2.5 relative gap-2">
                     <div className="flex flex-col gap-1 text-[9px] z-10">
                         <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded text-emerald-400">
-                           <span>L7: Governance / CI Gate</span>
-                           <span className="font-bold">✔ PASSED</span>
-                       </div>
-                       <div className="flex items-center justify-between bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded text-blue-400">
-                           <span>L5: Scoring (Aggregate)</span>
-                           <span className="font-bold">94/100 (A)</span>
-                       </div>
-                       <div className="flex items-center justify-between bg-purple-500/5 border border-purple-500/10 px-2 py-1 rounded text-purple-300">
-                           <span>L4: Rules Evaluation</span>
-                           <span className="font-bold">0 Violations</span>
-                       </div>
-                       <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 px-2 py-1 rounded text-white/60">
-                           <span>L2: Dependency Graph</span>
-                           <span className="font-bold text-emerald-400">0 Cycles</span>
-                       </div>
+                            <span>L7: Governance / CI Gate</span>
+                            <span className="font-bold">✔ PASSED</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded text-blue-400">
+                            <span>L5: Scoring (Aggregate)</span>
+                            <span className="font-bold">94/100 (A)</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-purple-500/5 border border-purple-500/10 px-2 py-1 rounded text-purple-300">
+                            <span>L4: Rules Evaluation</span>
+                            <span className="font-bold">0 Violations</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 px-2 py-1 rounded text-white/60">
+                            <span>L2: Dependency Graph</span>
+                            <span className="font-bold text-emerald-400">
+                                0 Cycles
+                            </span>
+                        </div>
                     </div>
                     <div className="z-10 text-[9px] text-white/30 text-center font-sans">
-                        Static dependency cycle checks completed in <span className="text-purple-400 font-bold">142ms</span>
+                        Static dependency cycle checks completed in{" "}
+                        <span className="text-purple-400 font-bold">142ms</span>
                     </div>
                 </div>
             </div>
@@ -329,13 +439,13 @@ const ProjectsPage = () => {
     const titleRef = useRef(null);
     const timelineRef = useRef(null);
     const lineRef = useRef(null);
-    
+
     // State for interactive mobile accordion and sub-tabs
     const [expandedProjectId, setExpandedProjectId] = useState("pneumoai");
     const [activeMobileTabs, setActiveMobileTabs] = useState({});
 
     const toggleProject = (projectId) => {
-        setExpandedProjectId(prev => prev === projectId ? null : projectId);
+        setExpandedProjectId((prev) => (prev === projectId ? null : projectId));
         setTimeout(() => {
             if (typeof window !== "undefined") {
                 ScrollTrigger.refresh();
@@ -344,9 +454,9 @@ const ProjectsPage = () => {
     };
 
     const setMobileTab = (projectId, tab) => {
-        setActiveMobileTabs(prev => ({
+        setActiveMobileTabs((prev) => ({
             ...prev,
-            [projectId]: tab
+            [projectId]: tab,
         }));
         setTimeout(() => {
             if (typeof window !== "undefined") {
@@ -354,7 +464,7 @@ const ProjectsPage = () => {
             }
         }, 150);
     };
-    
+
     // Arrays of refs for animations
     const infoCardRefs = useRef([]);
     const specCardRefs = useRef([]);
@@ -498,6 +608,114 @@ const ProjectsPage = () => {
             ref={pageRef}
             className="min-h-screen bg-[#030303] text-white flex flex-col font-sans relative overflow-hidden animate-fade-in"
         >
+            {/* Structured Schema Markup (JSON-LD ItemList / SoftwareApplications) */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "ItemList",
+                        name: "Adi Jain's Project Catalog",
+                        description:
+                            "Showcase of AI/ML models, deep learning CNNs, and systems engineering frameworks built by Adi Jain.",
+                        url: "https://adijain.click/projects",
+                        numberOfItems: 7,
+                        itemListElement: [
+                            {
+                                "@type": "ListItem",
+                                position: 1,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "PneumoAI",
+                                    description:
+                                        "High-precision diagnostic triage deep CNN for lung imaging.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://github.com/Adi15Jain/pneumoAI",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 2,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "AlgoPlus",
+                                    description:
+                                        "High-performance compiled C++ algorithm visualizer engine.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://github.com/Adi15Jain/AlgoPlus",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 3,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "CoinPush",
+                                    description:
+                                        "Zero-latency real-time cryptocurrency WebSocket screening terminal.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://coin-push.vercel.app/",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 4,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "WealthyMinds",
+                                    description:
+                                        "AI-powered compound variance Monte Carlo projections advisor.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://github.com/Adi15Jain/wealthyminds",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 5,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "InterviewPilot",
+                                    description:
+                                        "Generative mock coaching platform featuring voice and expression AI.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://interview-pilot-web.vercel.app/",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 6,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "Vectrion",
+                                    description:
+                                        "Modular TypeScript infrastructure SDK for prompt-tracing and Ollama routes.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://vectrion-docs.adijain.click",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 7,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "ArchLens",
+                                    description:
+                                        "Evidence-based structural governance and dependency graph analyzer.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://github.com/Adi15Jain/archLens",
+                                },
+                            },
+                        ],
+                    }),
+                }}
+            />
             {/* Ambient Background Spotlights */}
             <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none -z-10" />
             <div className="absolute top-[30%] right-[-10%] w-[55%] h-[55%] rounded-full bg-purple-500/10 blur-[130px] pointer-events-none -z-10" />
@@ -546,13 +764,16 @@ const ProjectsPage = () => {
 
                             const infoCardComponent = (
                                 <SpotlightCard
-                                    ref={(el) => (infoCardRefs.current[index] = el)}
+                                    ref={(el) =>
+                                        (infoCardRefs.current[index] = el)
+                                    }
                                     className="w-full max-w-[620px] p-6 md:p-8 rounded-[2.5rem] bg-slate-950/20 border border-white/5 backdrop-blur-xl hover:border-blue-500/25 transition-all duration-500 relative flex flex-col gap-6.5 shadow-2xl hover:shadow-blue-900/5"
                                 >
                                     {/* Mini Phase header */}
                                     <div className="flex justify-between items-center">
                                         <span className="text-xs md:text-sm font-bold tracking-widest uppercase text-blue-400/90">
-                                            {project.phase} &bull; {project.timelineTitle}
+                                            {project.phase} &bull;{" "}
+                                            {project.timelineTitle}
                                         </span>
                                         <span className="lg:hidden text-xs font-bold text-slate-500/90">
                                             {project.date}
@@ -573,7 +794,8 @@ const ProjectsPage = () => {
                                         <div
                                             className="flex items-center gap-5 p-5 rounded-2xl border border-white/[0.04] backdrop-blur-md"
                                             style={{
-                                                background: "rgba(255, 255, 255, 0.01)",
+                                                background:
+                                                    "rgba(255, 255, 255, 0.01)",
                                             }}
                                         >
                                             <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tracking-tight">
@@ -642,16 +864,21 @@ const ProjectsPage = () => {
                                                     rel="noopener noreferrer"
                                                     className="flex items-center gap-2 px-5 py-3 rounded-full text-xs md:text-sm font-bold text-white transition-all duration-200 hover:scale-105 cursor-pointer shadow-md hover:shadow-blue-500/10"
                                                     style={{
-                                                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                                                        background:
+                                                            "linear-gradient(135deg, #3b82f6, #8b5cf6)",
                                                     }}
                                                 >
-                                                    {project.id === "vectrion" ? (
+                                                    {project.id ===
+                                                    "vectrion" ? (
                                                         <BookOpen size={14} />
                                                     ) : (
-                                                        <ExternalLink size={14} />
+                                                        <ExternalLink
+                                                            size={14}
+                                                        />
                                                     )}
                                                     <span>
-                                                        {project.id === "vectrion"
+                                                        {project.id ===
+                                                        "vectrion"
                                                             ? "Documentation"
                                                             : "Live Demonstration"}
                                                     </span>
@@ -665,7 +892,9 @@ const ProjectsPage = () => {
                                                     className="flex items-center gap-2 px-5 py-3 rounded-full text-xs md:text-sm font-bold text-white transition-all duration-200 hover:scale-105 cursor-pointer border border-white/10 hover:border-white/20 bg-white/5 backdrop-blur-md"
                                                 >
                                                     <Github size={14} />
-                                                    <span>Source Repository</span>
+                                                    <span>
+                                                        Source Repository
+                                                    </span>
                                                 </a>
                                             )}
                                         </div>
@@ -675,12 +904,17 @@ const ProjectsPage = () => {
 
                             const specCardComponent = (
                                 <SpotlightCard
-                                    ref={(el) => (specCardRefs.current[index] = el)}
+                                    ref={(el) =>
+                                        (specCardRefs.current[index] = el)
+                                    }
                                     className="w-full max-w-[620px] p-6 md:p-8 rounded-[2.5rem] bg-slate-950/20 border border-white/5 backdrop-blur-xl hover:border-blue-500/25 transition-all duration-500 relative flex flex-col gap-6 shadow-2xl justify-between"
                                 >
                                     {/* Spec Header */}
                                     <div className="flex items-center gap-2.5 text-xs font-bold tracking-widest uppercase text-purple-400">
-                                        <CpuIcon size={14} className="text-purple-400" />
+                                        <CpuIcon
+                                            size={14}
+                                            className="text-purple-400"
+                                        />
                                         <span>System Architecture & Specs</span>
                                     </div>
 
@@ -708,7 +942,8 @@ const ProjectsPage = () => {
                                         </span>
                                         <ul className="space-y-3.5 text-sm text-slate-300">
                                             {project.specs.map((spec, sIdx) => {
-                                                const [specTitle, specDesc] = spec.split(": ");
+                                                const [specTitle, specDesc] =
+                                                    spec.split(": ");
                                                 return (
                                                     <li
                                                         key={sIdx}
@@ -738,7 +973,9 @@ const ProjectsPage = () => {
                                 >
                                     {/* Timeline Node Point Indicator */}
                                     <div
-                                        ref={(el) => (nodeRefs.current[index] = el)}
+                                        ref={(el) =>
+                                            (nodeRefs.current[index] = el)
+                                        }
                                         className="absolute left-[30px] lg:left-1/2 top-10 lg:top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center pointer-events-none"
                                     >
                                         <div className="w-8 h-8 rounded-full bg-[#030303] border-2 border-slate-800 flex items-center justify-center relative shadow-[0_0_15px_rgba(0,0,0,0.5)]">
@@ -754,42 +991,76 @@ const ProjectsPage = () => {
                                     <div className="hidden lg:grid grid-cols-2 gap-16 w-full items-stretch relative">
                                         {/* Left Column */}
                                         <div className="w-full pr-16 flex justify-end">
-                                            {isEven ? infoCardComponent : specCardComponent}
+                                            {isEven
+                                                ? infoCardComponent
+                                                : specCardComponent}
                                         </div>
 
                                         {/* Right Column */}
                                         <div className="w-full pl-16 flex justify-start">
-                                            {isEven ? specCardComponent : infoCardComponent}
+                                            {isEven
+                                                ? specCardComponent
+                                                : infoCardComponent}
                                         </div>
                                     </div>
 
                                     {/* Mobile: Interactive Collapsible Timeline Card */}
-                                    <div 
-                                        ref={(el) => (mobileCardRefs.current[index] = el)}
+                                    <div
+                                        ref={(el) =>
+                                            (mobileCardRefs.current[index] = el)
+                                        }
                                         className="lg:hidden pl-12 md:pl-16 w-full"
                                     >
                                         <SpotlightCard
                                             className={`w-full p-5 rounded-[2rem] bg-slate-950/20 border border-white/5 backdrop-blur-xl transition-all duration-300 relative flex flex-col gap-4 shadow-2xl hover:border-blue-500/20 ${expandedProjectId === project.id ? "border-white/10 shadow-blue-900/5" : ""}`}
                                         >
                                             {/* Clickable Header for Collapsing/Expanding */}
-                                            <div 
-                                                onClick={() => toggleProject(project.id)}
+                                            <div
+                                                onClick={() =>
+                                                    toggleProject(project.id)
+                                                }
                                                 className="flex flex-col gap-2 cursor-pointer select-none"
                                             >
                                                 <div className="flex justify-between items-center w-full">
                                                     <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-blue-400/90">
-                                                        {project.phase} &bull; {project.date}
+                                                        {project.phase} &bull;{" "}
+                                                        {project.date}
                                                     </span>
-                                                    
+
                                                     {/* Expand / Collapse Chevron Indicator */}
                                                     <div className="text-white/60 hover:text-white transition-colors duration-200">
-                                                        {expandedProjectId === project.id ? (
-                                                            <svg className="w-4 h-4 transform rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
+                                                        {expandedProjectId ===
+                                                        project.id ? (
+                                                            <svg
+                                                                className="w-4 h-4 transform rotate-180 transition-transform duration-300"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
+                                                                stroke="currentColor"
+                                                            >
+                                                                <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={
+                                                                        2.5
+                                                                    }
+                                                                    d="M5 15l7-7 7 7"
+                                                                />
                                                             </svg>
                                                         ) : (
-                                                            <svg className="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                                            <svg
+                                                                className="w-4 h-4 transition-transform duration-300"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
+                                                                stroke="currentColor"
+                                                            >
+                                                                <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={
+                                                                        2.5
+                                                                    }
+                                                                    d="M19 9l-7 7-7-7"
+                                                                />
                                                             </svg>
                                                         )}
                                                     </div>
@@ -799,17 +1070,21 @@ const ProjectsPage = () => {
                                                     <h2 className="text-lg md:text-xl font-black text-white tracking-tight leading-snug">
                                                         {project.title}
                                                     </h2>
-                                                    
+
                                                     {/* Metric pill (compact preview) when collapsed */}
-                                                    {expandedProjectId !== project.id && (
+                                                    {expandedProjectId !==
+                                                        project.id && (
                                                         <span className="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono">
-                                                            {project.metricValue}
+                                                            {
+                                                                project.metricValue
+                                                            }
                                                         </span>
                                                     )}
                                                 </div>
-                                                
+
                                                 {/* Short subtitle preview when collapsed */}
-                                                {expandedProjectId !== project.id && (
+                                                {expandedProjectId !==
+                                                    project.id && (
                                                     <p className="text-xs text-slate-400 font-medium line-clamp-1 italic pl-2 border-l border-blue-500/30">
                                                         {project.subtitle}
                                                     </p>
@@ -817,14 +1092,24 @@ const ProjectsPage = () => {
                                             </div>
 
                                             {/* Expanded Body Content */}
-                                            {expandedProjectId === project.id && (
+                                            {expandedProjectId ===
+                                                project.id && (
                                                 <div className="flex flex-col gap-4 animate-fade-in pt-2 border-t border-white/5">
                                                     {/* Tab Switcher */}
                                                     <div className="flex bg-slate-950/60 rounded-xl p-1 border border-white/[0.04]">
                                                         <button
-                                                            onClick={() => setMobileTab(project.id, "overview")}
+                                                            onClick={() =>
+                                                                setMobileTab(
+                                                                    project.id,
+                                                                    "overview",
+                                                                )
+                                                            }
                                                             className={`flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all duration-300 cursor-pointer ${
-                                                                (activeMobileTabs[project.id] || "overview") === "overview"
+                                                                (activeMobileTabs[
+                                                                    project.id
+                                                                ] ||
+                                                                    "overview") ===
+                                                                "overview"
                                                                     ? "bg-white/10 text-white shadow-sm"
                                                                     : "text-slate-400 hover:text-white"
                                                             }`}
@@ -832,9 +1117,18 @@ const ProjectsPage = () => {
                                                             Overview
                                                         </button>
                                                         <button
-                                                            onClick={() => setMobileTab(project.id, "specs")}
+                                                            onClick={() =>
+                                                                setMobileTab(
+                                                                    project.id,
+                                                                    "specs",
+                                                                )
+                                                            }
                                                             className={`flex-1 py-2 text-center rounded-lg text-xs font-bold transition-all duration-300 cursor-pointer ${
-                                                                (activeMobileTabs[project.id] || "overview") === "specs"
+                                                                (activeMobileTabs[
+                                                                    project.id
+                                                                ] ||
+                                                                    "overview") ===
+                                                                "specs"
                                                                     ? "bg-white/10 text-white shadow-sm"
                                                                     : "text-slate-400 hover:text-white"
                                                             }`}
@@ -849,22 +1143,34 @@ const ProjectsPage = () => {
                                                     </p>
 
                                                     {/* TAB 1: Overview */}
-                                                    {(activeMobileTabs[project.id] || "overview") === "overview" && (
+                                                    {(activeMobileTabs[
+                                                        project.id
+                                                    ] || "overview") ===
+                                                        "overview" && (
                                                         <div className="flex flex-col gap-4 animate-fade-in">
                                                             {/* High-visibility Metrics Panel */}
                                                             <div
                                                                 className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.04] backdrop-blur-md"
-                                                                style={{ background: "rgba(255, 255, 255, 0.01)" }}
+                                                                style={{
+                                                                    background:
+                                                                        "rgba(255, 255, 255, 0.01)",
+                                                                }}
                                                             >
                                                                 <div className="text-2xl md:text-3xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tracking-tight font-mono">
-                                                                    {project.metricValue}
+                                                                    {
+                                                                        project.metricValue
+                                                                    }
                                                                 </div>
                                                                 <div className="flex-grow">
                                                                     <div className="text-[10px] font-bold uppercase tracking-wider text-slate-200">
-                                                                        {project.metricLabel}
+                                                                        {
+                                                                            project.metricLabel
+                                                                        }
                                                                     </div>
                                                                     <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                                                                        {project.metricSub}
+                                                                        {
+                                                                            project.metricSub
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -872,24 +1178,42 @@ const ProjectsPage = () => {
                                                             {/* Problem & Solution copy */}
                                                             <div className="flex flex-col gap-3.5 text-xs text-slate-300 leading-relaxed">
                                                                 <div className="flex items-start gap-2.5">
-                                                                    <ShieldAlert className="text-red-400 flex-shrink-0 mt-0.5" size={15} />
+                                                                    <ShieldAlert
+                                                                        className="text-red-400 flex-shrink-0 mt-0.5"
+                                                                        size={
+                                                                            15
+                                                                        }
+                                                                    />
                                                                     <div>
                                                                         <span className="font-bold text-white text-[10px] block uppercase tracking-wider text-red-300/90 mb-0.5">
-                                                                            The Real-World Problem
+                                                                            The
+                                                                            Real-World
+                                                                            Problem
                                                                         </span>
                                                                         <p className="text-slate-400 leading-relaxed">
-                                                                            {project.problem}
+                                                                            {
+                                                                                project.problem
+                                                                            }
                                                                         </p>
                                                                     </div>
                                                                 </div>
                                                                 <div className="flex items-start gap-2.5">
-                                                                    <Flame className="text-emerald-400 flex-shrink-0 mt-0.5" size={15} />
+                                                                    <Flame
+                                                                        className="text-emerald-400 flex-shrink-0 mt-0.5"
+                                                                        size={
+                                                                            15
+                                                                        }
+                                                                    />
                                                                     <div>
                                                                         <span className="font-bold text-white text-[10px] block uppercase tracking-wider text-emerald-300/90 mb-0.5">
-                                                                            The Engineering Solution
+                                                                            The
+                                                                            Engineering
+                                                                            Solution
                                                                         </span>
                                                                         <p className="text-slate-400 leading-relaxed">
-                                                                            {project.solution}
+                                                                            {
+                                                                                project.solution
+                                                                            }
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -897,41 +1221,77 @@ const ProjectsPage = () => {
 
                                                             {/* Tech tags */}
                                                             <div className="flex flex-wrap gap-1.5 pt-1.5">
-                                                                {project.tags.map((tag) => (
-                                                                    <span
-                                                                        key={tag}
-                                                                        className="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 border border-white/5 text-blue-300/80 uppercase tracking-wider"
-                                                                    >
-                                                                        {tag}
-                                                                    </span>
-                                                                ))}
+                                                                {project.tags.map(
+                                                                    (tag) => (
+                                                                        <span
+                                                                            key={
+                                                                                tag
+                                                                            }
+                                                                            className="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 border border-white/5 text-blue-300/80 uppercase tracking-wider"
+                                                                        >
+                                                                            {
+                                                                                tag
+                                                                            }
+                                                                        </span>
+                                                                    ),
+                                                                )}
                                                             </div>
 
                                                             {/* Action buttons */}
                                                             <div className="flex gap-2.5 pt-2">
                                                                 {project.liveUrl && (
                                                                     <a
-                                                                        href={project.liveUrl}
+                                                                        href={
+                                                                            project.liveUrl
+                                                                        }
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                         className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold text-white transition-all duration-200 hover:scale-[1.02] cursor-pointer shadow-md"
-                                                                        style={{ background: "linear-gradient(135deg, #3b82f6, #8b5cf6)" }}
+                                                                        style={{
+                                                                            background:
+                                                                                "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                                                                        }}
                                                                     >
-                                                                        {project.id === "vectrion" ? <BookOpen size={12} /> : <ExternalLink size={12} />}
+                                                                        {project.id ===
+                                                                        "vectrion" ? (
+                                                                            <BookOpen
+                                                                                size={
+                                                                                    12
+                                                                                }
+                                                                            />
+                                                                        ) : (
+                                                                            <ExternalLink
+                                                                                size={
+                                                                                    12
+                                                                                }
+                                                                            />
+                                                                        )}
                                                                         <span>
-                                                                            {project.id === "vectrion" ? "Docs" : "Live Demo"}
+                                                                            {project.id ===
+                                                                            "vectrion"
+                                                                                ? "Docs"
+                                                                                : "Live Demo"}
                                                                         </span>
                                                                     </a>
                                                                 )}
                                                                 {project.githubUrl && (
                                                                     <a
-                                                                        href={project.githubUrl}
+                                                                        href={
+                                                                            project.githubUrl
+                                                                        }
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                         className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold text-white transition-all duration-200 hover:scale-[1.02] cursor-pointer border border-white/10 hover:border-white/20 bg-white/5 backdrop-blur-md"
                                                                     >
-                                                                        <Github size={12} />
-                                                                        <span>Source Code</span>
+                                                                        <Github
+                                                                            size={
+                                                                                12
+                                                                            }
+                                                                        />
+                                                                        <span>
+                                                                            Source
+                                                                            Code
+                                                                        </span>
                                                                     </a>
                                                                 )}
                                                             </div>
@@ -939,12 +1299,22 @@ const ProjectsPage = () => {
                                                     )}
 
                                                     {/* TAB 2: System Specs */}
-                                                    {(activeMobileTabs[project.id] || "overview") === "specs" && (
+                                                    {(activeMobileTabs[
+                                                        project.id
+                                                    ] || "overview") ===
+                                                        "specs" && (
                                                         <div className="flex flex-col gap-4 animate-fade-in">
                                                             {/* System Specs Header */}
                                                             <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-purple-400">
-                                                                <CpuIcon size={12} className="text-purple-400" />
-                                                                <span>System Architecture & Specs</span>
+                                                                <CpuIcon
+                                                                    size={12}
+                                                                    className="text-purple-400"
+                                                                />
+                                                                <span>
+                                                                    System
+                                                                    Architecture
+                                                                    & Specs
+                                                                </span>
                                                             </div>
 
                                                             {/* Visual Frame */}
@@ -952,43 +1322,73 @@ const ProjectsPage = () => {
                                                                 {project.image ? (
                                                                     <div className="image-wrapper relative overflow-hidden rounded-xl w-full aspect-[16/9] bg-slate-950/60 border border-white/5 flex items-center justify-center p-1 shadow-inner">
                                                                         <Image
-                                                                            src={project.image}
-                                                                            alt={project.title}
-                                                                            width={400}
-                                                                            height={225}
+                                                                            src={
+                                                                                project.image
+                                                                            }
+                                                                            alt={
+                                                                                project.title
+                                                                            }
+                                                                            width={
+                                                                                400
+                                                                            }
+                                                                            height={
+                                                                                225
+                                                                            }
                                                                             className="w-full h-full object-contain rounded-lg"
                                                                         />
                                                                     </div>
                                                                 ) : (
-                                                                    <RenderVisualCard id={project.id} />
+                                                                    <RenderVisualCard
+                                                                        id={
+                                                                            project.id
+                                                                        }
+                                                                    />
                                                                 )}
                                                             </div>
 
                                                             {/* Milestones list */}
                                                             <div className="space-y-2 pt-1">
                                                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">
-                                                                    Technical Milestones
+                                                                    Technical
+                                                                    Milestones
                                                                 </span>
                                                                 <ul className="space-y-2 text-xs text-slate-300">
-                                                                    {project.specs.map((spec, sIdx) => {
-                                                                        const [specTitle, specDesc] = spec.split(": ");
-                                                                        return (
-                                                                            <li
-                                                                                key={sIdx}
-                                                                                className="flex items-start gap-2 bg-white/[0.01] border border-white/[0.02] p-2.5 rounded-xl"
-                                                                            >
-                                                                                <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 flex-shrink-0" />
-                                                                                <div>
-                                                                                    <span className="font-bold text-white block text-[11px] tracking-wide">
-                                                                                        {specTitle}
-                                                                                    </span>
-                                                                                    <span className="text-slate-400 text-[11px] leading-normal mt-0.5 block">
-                                                                                        {specDesc}
-                                                                                    </span>
-                                                                                </div>
-                                                                            </li>
-                                                                        );
-                                                                    })}
+                                                                    {project.specs.map(
+                                                                        (
+                                                                            spec,
+                                                                            sIdx,
+                                                                        ) => {
+                                                                            const [
+                                                                                specTitle,
+                                                                                specDesc,
+                                                                            ] =
+                                                                                spec.split(
+                                                                                    ": ",
+                                                                                );
+                                                                            return (
+                                                                                <li
+                                                                                    key={
+                                                                                        sIdx
+                                                                                    }
+                                                                                    className="flex items-start gap-2 bg-white/[0.01] border border-white/[0.02] p-2.5 rounded-xl"
+                                                                                >
+                                                                                    <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 flex-shrink-0" />
+                                                                                    <div>
+                                                                                        <span className="font-bold text-white block text-[11px] tracking-wide">
+                                                                                            {
+                                                                                                specTitle
+                                                                                            }
+                                                                                        </span>
+                                                                                        <span className="text-slate-400 text-[11px] leading-normal mt-0.5 block">
+                                                                                            {
+                                                                                                specDesc
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </li>
+                                                                            );
+                                                                        },
+                                                                    )}
                                                                 </ul>
                                                             </div>
                                                         </div>

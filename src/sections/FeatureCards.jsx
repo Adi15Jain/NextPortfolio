@@ -99,7 +99,7 @@ const FeatureCards = () => {
         switch (index) {
             case 0: // The Problem I Solve: Interactive Optimization Sandbox
                 return (
-                    <div className="w-full h-full flex flex-col gap-6 font-sans text-xs">
+                    <div className="w-full h-full flex flex-col gap-6 lg:gap-8 font-sans text-xs">
                         <div className="flex justify-between items-center pb-3 border-b border-white/5">
                             <span className="text-white/40 uppercase tracking-widest font-semibold flex items-center gap-1.5">
                                 <Activity size={12} className="text-cyan-400" />{" "}
@@ -110,9 +110,9 @@ const FeatureCards = () => {
                             </span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 flex-grow items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 flex-grow items-center">
                             {/* Left Column: Core Web Vitals Checklist */}
-                            <div className="md:col-span-5 flex flex-col gap-2.5 bg-slate-950/40 p-4 rounded-xl border border-white/5 h-full justify-center">
+                            <div className="md:col-span-5 flex flex-col gap-2.5 lg:gap-5 bg-slate-950/40 p-4 lg:p-6 rounded-xl border border-white/5 h-full justify-center">
                                 <span className="text-[10px] text-white/40 uppercase font-mono tracking-wider block border-b border-white/5 pb-1.5 mb-1">
                                     Core Web Vitals
                                 </span>
@@ -159,9 +159,9 @@ const FeatureCards = () => {
                             </div>
 
                             {/* Right Column: Interactive gauges & waves */}
-                            <div className="md:col-span-7 flex flex-col gap-4">
+                            <div className="md:col-span-7 flex flex-col gap-4 lg:gap-6">
                                 {/* User Friction Gauge */}
-                                <div className="space-y-1.5">
+                                <div className="space-y-1.5 lg:space-y-3.5">
                                     <div className="flex justify-between text-[11px] font-mono">
                                         <span className="text-white/60">
                                             Friction Level
@@ -170,7 +170,7 @@ const FeatureCards = () => {
                                             12.4% (Critical) → 0.02% (Target)
                                         </span>
                                     </div>
-                                    <div className="h-2.5 w-full bg-white/5 rounded-full overflow-hidden relative">
+                                    <div className="h-2.5 lg:h-3.5 w-full bg-white/5 rounded-full overflow-hidden relative">
                                         <div
                                             className="h-full bg-gradient-to-r from-red-500 to-cyan-500 rounded-full animate-progress-bar"
                                             style={{ width: "98%" }}
@@ -179,7 +179,7 @@ const FeatureCards = () => {
                                 </div>
 
                                 {/* Telemetry Wave */}
-                                <div className="h-20 bg-slate-950/80 border border-white/5 rounded-xl flex items-center justify-center p-3 relative overflow-hidden">
+                                <div className="h-20 lg:h-28 bg-slate-950/80 border border-white/5 rounded-xl flex items-center justify-center p-3 lg:p-5 relative overflow-hidden">
                                     <div className="absolute inset-0 flex items-center justify-center opacity-20">
                                         <svg className="w-full h-full stroke-cyan-400 stroke-2 fill-none">
                                             <path
@@ -189,10 +189,10 @@ const FeatureCards = () => {
                                         </svg>
                                     </div>
                                     <div className="text-center z-10 space-y-0.5">
-                                        <span className="text-cyan-400 font-mono font-bold block text-[13px]">
+                                        <span className="text-cyan-400 font-mono font-bold block text-[13px] lg:text-[15px]">
                                             Telemetry Sync: ON
                                         </span>
-                                        <span className="text-white/50 text-[10px]">
+                                        <span className="text-white/50 text-[10px] lg:text-[12px]">
                                             Layout shifts successfully
                                             eradicated.
                                         </span>
@@ -200,14 +200,14 @@ const FeatureCards = () => {
                                 </div>
 
                                 {/* Quick stats */}
-                                <div className="grid grid-cols-2 gap-3 text-[10px] text-white/50">
-                                    <div className="bg-white/5 border border-white/5 p-2 rounded-lg">
+                                <div className="grid grid-cols-2 gap-3 lg:gap-4.5 text-[10px] text-white/50">
+                                    <div className="bg-white/5 border border-white/5 p-2 lg:p-3.5 rounded-lg">
                                         <span className="text-white font-semibold block">
                                             Hydration Guard
                                         </span>
                                         <span>Eliminates browser errors.</span>
                                     </div>
-                                    <div className="bg-white/5 border border-white/5 p-2 rounded-lg">
+                                    <div className="bg-white/5 border border-white/5 p-2 lg:p-3.5 rounded-lg">
                                         <span className="text-white font-semibold block">
                                             Dynamic Pre-render
                                         </span>
@@ -220,7 +220,7 @@ const FeatureCards = () => {
                 );
             case 1: // The Products I Ship: WebSocket Live Sockets Console
                 return (
-                    <div className="w-full h-full flex flex-col gap-6 font-sans text-xs">
+                    <div className="w-full h-full flex flex-col gap-6 lg:gap-8 font-sans text-xs">
                         <div className="flex justify-between items-center pb-3 border-b border-white/5">
                             <span className="text-white/40 uppercase tracking-widest font-semibold flex items-center gap-1.5">
                                 <Terminal
@@ -234,11 +234,11 @@ const FeatureCards = () => {
                             </span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 flex-grow items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 flex-grow items-center">
                             {/* Left Column: Sockets Statistics */}
-                            <div className="md:col-span-5 flex flex-col gap-3 h-full justify-center">
-                                <div className="grid grid-cols-3 gap-2">
-                                    <div className="bg-white/5 border border-white/5 p-2 rounded-xl text-center">
+                            <div className="md:col-span-5 flex flex-col gap-3 lg:gap-5 h-full justify-center">
+                                <div className="grid grid-cols-3 gap-2 lg:gap-3">
+                                    <div className="bg-white/5 border border-white/5 p-2 lg:p-3 rounded-xl text-center">
                                         <span className="text-white/40 block text-[8px]">
                                             Uptime
                                         </span>
@@ -246,7 +246,7 @@ const FeatureCards = () => {
                                             99.98%
                                         </span>
                                     </div>
-                                    <div className="bg-white/5 border border-white/5 p-2 text-center rounded-xl">
+                                    <div className="bg-white/5 border border-white/5 p-2 lg:p-3 text-center rounded-xl">
                                         <span className="text-white/40 block text-[8px]">
                                             Ingress
                                         </span>
@@ -254,7 +254,7 @@ const FeatureCards = () => {
                                             1.2GB/s
                                         </span>
                                     </div>
-                                    <div className="bg-white/5 border border-white/5 p-2 text-center rounded-xl">
+                                    <div className="bg-white/5 border border-white/5 p-2 lg:p-3 text-center rounded-xl">
                                         <span className="text-white/40 block text-[8px]">
                                             Conns
                                         </span>
@@ -265,7 +265,7 @@ const FeatureCards = () => {
                                 </div>
 
                                 {/* Sockets Server Nodes */}
-                                <div className="bg-slate-950/40 p-3 rounded-xl border border-white/5 space-y-2">
+                                <div className="bg-slate-950/40 p-3 lg:p-4.5 rounded-xl border border-white/5 space-y-2 lg:space-y-3.5">
                                     <span className="text-[10px] text-white/40 font-mono tracking-wider uppercase block border-b border-white/5 pb-1">
                                         Active Nodes
                                     </span>
@@ -300,9 +300,9 @@ const FeatureCards = () => {
                             </div>
 
                             {/* Right Column: Real-time scrolling event feed */}
-                            <div className="md:col-span-7 flex flex-col gap-3">
+                            <div className="md:col-span-7 flex flex-col gap-3 lg:gap-5">
                                 {/* Simulated WebSocket Feed */}
-                                <div className="bg-slate-950/80 border border-white/5 rounded-xl p-3 font-mono text-[10px] space-y-2.5">
+                                <div className="bg-slate-950/80 border border-white/5 rounded-xl p-3 lg:p-5 font-mono text-[10px] space-y-2.5 lg:space-y-4">
                                     <div className="flex justify-between items-center">
                                         <span className="text-white/60">
                                             ▸ ws://live.analytics.v1/stream
@@ -360,7 +360,7 @@ const FeatureCards = () => {
                                 </div>
 
                                 {/* Scrolling rolling event logger */}
-                                <div className="bg-black/90 border border-white/5 rounded-xl p-3 font-mono text-[9px] min-h-[70px] space-y-1 flex flex-col justify-center text-white/60">
+                                <div className="bg-black/90 border border-white/5 rounded-xl p-3 lg:p-4.5 font-mono text-[9px] min-h-[70px] lg:min-h-[110px] space-y-1 lg:space-y-2 flex flex-col justify-center text-white/60">
                                     <span className="text-white/30 text-[8px] uppercase tracking-wider block mb-1">
                                         Server Event Logger
                                     </span>
@@ -376,7 +376,7 @@ const FeatureCards = () => {
                 );
             case 2: // My Core Standard: Interactive Drizzle ORM Terminal
                 return (
-                    <div className="w-full h-full flex flex-col gap-5 font-sans text-xs">
+                    <div className="w-full h-full flex flex-col gap-5 lg:gap-8 font-sans text-xs">
                         <div className="flex justify-between items-center pb-3 border-b border-white/5">
                             <span className="text-emerald-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
                                 <Database
@@ -404,11 +404,11 @@ const FeatureCards = () => {
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 flex-grow items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 flex-grow items-center">
                             {/* Left Column: Schema and SQL compilation */}
                             <div className="md:col-span-6 flex flex-col gap-3">
                                 {/* Drizzle code sandbox mock */}
-                                <div className="bg-slate-950/90 border border-white/5 rounded-xl p-3.5 font-mono text-[10px] space-y-1 relative group">
+                                <div className="bg-slate-950/90 border border-white/5 rounded-xl p-3.5 lg:p-5 font-mono text-[10px] space-y-1 lg:space-y-2.5 relative group">
                                     <span className="text-white/30 absolute top-2 right-3 font-sans text-[8px] tracking-wider uppercase">
                                         Drizzle Schema
                                     </span>
@@ -449,7 +449,7 @@ const FeatureCards = () => {
                                 </div>
 
                                 {/* Compiled RAW SQL */}
-                                <div className="bg-slate-950/80 border border-white/5 rounded-xl p-3 font-mono text-[9px] space-y-1 relative">
+                                <div className="bg-slate-950/80 border border-white/5 rounded-xl p-3 lg:p-4.5 font-mono text-[9px] space-y-1 lg:space-y-2.5 relative">
                                     <span className="text-white/30 absolute top-2 right-3 font-sans text-[8px] tracking-wider uppercase">
                                         Compiled Raw SQL
                                     </span>
@@ -483,9 +483,9 @@ const FeatureCards = () => {
                             </div>
 
                             {/* Right Column: Execution logs */}
-                            <div className="md:col-span-6 flex flex-col gap-3 h-full justify-center">
+                            <div className="md:col-span-6 flex flex-col gap-3 lg:gap-4.5 h-full justify-center">
                                 {/* Simulated console logs */}
-                                <div className="bg-black/90 border border-white/5 rounded-xl p-3.5 font-mono text-[10px] min-h-[110px] flex flex-col justify-start">
+                                <div className="bg-black/90 border border-white/5 rounded-xl p-3.5 lg:p-5 font-mono text-[10px] min-h-[110px] lg:min-h-[160px] flex flex-col justify-start">
                                     <span className="text-white/30 text-[8px] uppercase tracking-wider block mb-1">
                                         Query Handshake Console
                                     </span>
@@ -517,7 +517,7 @@ const FeatureCards = () => {
                                 </div>
 
                                 {/* Strict TS compilation status */}
-                                <div className="bg-white/5 border border-white/5 px-3 py-2.5 rounded-xl flex items-center justify-between text-[10px]">
+                                <div className="bg-white/5 border border-white/5 px-3 lg:px-5 py-2.5 lg:py-4 rounded-xl flex items-center justify-between text-[10px]">
                                     <span className="text-white/60">
                                         TypeScript Typings Validate
                                     </span>
@@ -532,7 +532,7 @@ const FeatureCards = () => {
                 );
             case 3: // Real-World Proof: Interactive Catalog Relational Map
                 return (
-                    <div className="w-full h-full flex flex-col gap-5 font-sans text-xs">
+                    <div className="w-full h-full flex flex-col gap-5 lg:gap-8 font-sans text-xs">
                         <div className="flex justify-between items-center pb-3 border-b border-white/5">
                             <span className="text-amber-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
                                 <Heart size={12} className="text-amber-400" />{" "}
@@ -725,7 +725,7 @@ const FeatureCards = () => {
                             </div>
 
                             {/* Compiled SQL JOINS based on Hover State */}
-                            <div className="bg-slate-950/90 border border-white/5 rounded-xl p-3 font-mono text-[9px] min-h-[70px] space-y-1.5 relative">
+                            <div className="bg-slate-950/90 border border-white/5 rounded-xl p-3 lg:p-4.5 font-mono text-[9px] min-h-[70px] lg:min-h-[120px] space-y-1.5 lg:space-y-3 relative">
                                 <span className="text-white/30 absolute top-2 right-3 font-sans text-[8px] tracking-wider uppercase">
                                     Relational SQL Compiler
                                 </span>
@@ -832,13 +832,19 @@ const FeatureCards = () => {
                         {abilities.map(({ imgPath, title, desc }, index) => {
                             const isActive = activeIndex === index;
                             return (
-                                <div key={title} className="flex flex-col gap-4">
+                                <div
+                                    key={title}
+                                    className="flex flex-col gap-4"
+                                >
                                     <div
                                         role="button"
                                         tabIndex={0}
                                         onClick={() => setActiveIndex(index)}
                                         onKeyDown={(e) => {
-                                            if (e.key === "Enter" || e.key === " ") {
+                                            if (
+                                                e.key === "Enter" ||
+                                                e.key === " "
+                                            ) {
                                                 setActiveIndex(index);
                                             }
                                         }}
@@ -858,7 +864,8 @@ const FeatureCards = () => {
                                             style={{
                                                 background:
                                                     iconGradients[
-                                                        index % iconGradients.length
+                                                        index %
+                                                            iconGradients.length
                                                     ],
                                             }}
                                         />
@@ -875,12 +882,12 @@ const FeatureCards = () => {
                                         {/* Content fields */}
                                         <div className="flex flex-col gap-1.5 flex-1">
                                             <h3
-                                                className={`text-lg font-bold transition-colors duration-200 ${isActive ? "text-white" : "text-white/70"}`}
+                                                className={`text-lg lg:text-xl font-bold transition-colors duration-200 ${isActive ? "text-white" : "text-white/70"}`}
                                             >
                                                 {title}
                                             </h3>
                                             <p
-                                                className={`text-xs leading-relaxed transition-colors duration-200 ${isActive ? "text-white/60" : "text-white/40 line-clamp-2 group-hover:text-white/50"}`}
+                                                className={`text-xs lg:text-[13.5px] leading-relaxed transition-colors duration-200 ${isActive ? "text-white/60" : "text-white/40 line-clamp-2 group-hover:text-white/50"}`}
                                             >
                                                 {desc}
                                             </p>
@@ -897,12 +904,15 @@ const FeatureCards = () => {
                                                     style={{
                                                         background:
                                                             iconGradients[
-                                                                index % iconGradients.length
+                                                                index %
+                                                                    iconGradients.length
                                                             ],
                                                     }}
                                                 />
                                                 <div className="w-full h-full flex flex-col justify-between flex-grow">
-                                                    {renderInteractiveVisual(index)}
+                                                    {renderInteractiveVisual(
+                                                        index,
+                                                    )}
                                                 </div>
                                             </SpotlightCard>
                                         </div>
@@ -914,7 +924,7 @@ const FeatureCards = () => {
 
                     {/* Right Column: High-fidelity interactive visual preview sandbox panel */}
                     <div className="hidden lg:flex lg:col-span-7">
-                        <SpotlightCard className="w-full rounded-2xl p-8 bg-slate-900/40 border border-white/5 flex flex-col justify-between backdrop-blur-xl relative min-h-[360px]">
+                        <SpotlightCard className="w-full rounded-2xl p-8 bg-slate-900/40 border border-white/5 flex flex-col justify-between backdrop-blur-xl relative min-h-[360px] desktop-detail-card">
                             {/* Neon visual halo wrapper */}
                             <div
                                 className="absolute -top-12 -right-12 w-48 h-48 rounded-full filter blur-[80px] opacity-15 pointer-events-none transition-all duration-700"
@@ -954,6 +964,26 @@ const FeatureCards = () => {
                 .animate-wave-path {
                     stroke-dasharray: 10, 5;
                     animation: wave-path 5s linear infinite;
+                }
+                @media (min-width: 1024px) {
+                    .desktop-detail-card .text-xs {
+                        font-size: 13.5px !important;
+                    }
+                    .desktop-detail-card .text-\\[10px\\] {
+                        font-size: 11.5px !important;
+                    }
+                    .desktop-detail-card .text-\\[9px\\] {
+                        font-size: 11px !important;
+                    }
+                    .desktop-detail-card .text-\\[8px\\] {
+                        font-size: 10px !important;
+                    }
+                    .desktop-detail-card .text-\\[11px\\] {
+                        font-size: 12.5px !important;
+                    }
+                    .desktop-detail-card .text-\\[13px\\] {
+                        font-size: 14.5px !important;
+                    }
                 }
             `,
                 }}

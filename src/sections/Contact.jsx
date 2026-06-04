@@ -4,7 +4,15 @@ import { useEffect, useRef, useState } from "react";
 
 import TitleHeader from "../components/TitleHeader";
 import { MessageSquare } from "lucide-react";
-import ContactExperience from "../components/Models/Contact/ContactExperience";
+import dynamic from "next/dynamic";
+
+const ContactExperience = dynamic(
+    () => import("../components/Models/Contact/ContactExperience"),
+    {
+        ssr: false,
+        loading: () => <div className="w-full h-full bg-transparent" />,
+    },
+);
 
 const ContactFallback = ({ onLoad }) => {
     return (
@@ -12,7 +20,7 @@ const ContactFallback = ({ onLoad }) => {
             {/* Pulsing glow highlights matching the copper background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-amber-200/10 filter blur-[40px] animate-pulse pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-amber-300/5 filter blur-[25px] animate-pulse delay-700 pointer-events-none" />
-            
+
             {/* Tech grid aesthetic overlay */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:20px_20px] opacity-40 pointer-events-none" />
 
@@ -24,10 +32,23 @@ const ContactFallback = ({ onLoad }) => {
                     <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-white/45 rounded-tr-md" />
                     <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-white/45 rounded-bl-md" />
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-white/45 rounded-br-md" />
-                    
+
                     <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                        <svg className="w-6 h-6 animate-pulse text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                        <svg
+                            className="w-6 h-6 animate-pulse text-white/80"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                        >
+                            <rect
+                                x="2"
+                                y="3"
+                                width="20"
+                                height="14"
+                                rx="2"
+                                ry="2"
+                            />
                             <line x1="8" y1="21" x2="16" y2="21" />
                             <line x1="12" y1="17" x2="12" y2="21" />
                         </svg>
@@ -39,7 +60,8 @@ const ContactFallback = ({ onLoad }) => {
                         Interactive Workstation
                     </h3>
                     <p className="text-white/60 text-[10px] tracking-wide font-mono leading-relaxed max-w-[280px]">
-                        WebGL model paused to maximize mobile responsive scrolling speeds.
+                        WebGL model paused to maximize mobile responsive
+                        scrolling speeds.
                     </p>
                 </div>
 
@@ -154,7 +176,15 @@ const Contact = () => {
             <div className="w-full h-full md:px-10 px-0">
                 <TitleHeader
                     title="Get in Touch – Let's Connect"
-                    sub={<span className="flex items-center gap-1.5"><MessageSquare size={13} className="text-blue-400" /> Have questions or ideas? Let&apos;s talk!</span>}
+                    sub={
+                        <span className="flex items-center gap-1.5">
+                            <MessageSquare
+                                size={13}
+                                className="text-blue-400"
+                            />{" "}
+                            Have questions or ideas? Let&apos;s talk!
+                        </span>
+                    }
                 />
                 <div className="grid-12-cols mt-16">
                     {/* FORM */}
@@ -170,16 +200,31 @@ const Contact = () => {
                                     {/* Glowing Success Icon */}
                                     <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 relative">
                                         <div className="absolute inset-0 rounded-full bg-emerald-500/20 filter blur-[8px] animate-pulse" />
-                                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                        <svg
+                                            className="w-8 h-8"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth="2.5"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M5 13l4 4L19 7"
+                                            />
                                         </svg>
                                     </div>
-                                    
+
                                     <h3 className="text-lg font-bold text-white mb-2 tracking-widest font-mono uppercase text-emerald-400">
                                         SIGNAL TRANSMITTED
                                     </h3>
                                     <p className="text-white/60 text-xs font-mono leading-relaxed max-w-[280px] mb-8">
-                                        Your packet was successfully routed. I will establish contact via <span className="text-blue-400 font-semibold">{lastSubmittedEmail}</span> within 24 hours.
+                                        Your packet was successfully routed. I
+                                        will establish contact via{" "}
+                                        <span className="text-blue-400 font-semibold">
+                                            {lastSubmittedEmail}
+                                        </span>{" "}
+                                        within 24 hours.
                                     </p>
 
                                     <button
@@ -194,16 +239,28 @@ const Contact = () => {
                                     {/* Glowing Error Icon */}
                                     <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 mb-6 relative">
                                         <div className="absolute inset-0 rounded-full bg-red-500/20 filter blur-[8px] animate-pulse" />
-                                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        <svg
+                                            className="w-8 h-8"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth="2.5"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            />
                                         </svg>
                                     </div>
-                                    
+
                                     <h3 className="text-lg font-bold text-red-400 mb-2 tracking-widest font-mono uppercase">
                                         TRANSMISSION ERROR
                                     </h3>
                                     <p className="text-white/60 text-xs font-mono leading-relaxed max-w-[280px] mb-8">
-                                        An uplink exception occurred. Please verify your network interface and retry routing the transmission.
+                                        An uplink exception occurred. Please
+                                        verify your network interface and retry
+                                        routing the transmission.
                                     </p>
 
                                     <button
@@ -229,18 +286,26 @@ const Contact = () => {
                                             value={form.name}
                                             onChange={handleChange}
                                             placeholder="What's your good name?"
-                                            className={errors.name ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60" : ""}
+                                            className={
+                                                errors.name
+                                                    ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60"
+                                                    : ""
+                                            }
                                         />
                                         {errors.name && (
                                             <div className="mt-1.5 px-3 py-1 rounded-lg border border-red-500/15 bg-red-500/5 text-red-400/90 text-[10px] font-mono flex items-center gap-1.5 animate-contact-fade-in shadow-[0_2px_10px_rgba(239,68,68,0.05)]">
-                                                <span className="text-[11px] animate-pulse">⚠️</span>
+                                                <span className="text-[11px] animate-pulse">
+                                                    ⚠️
+                                                </span>
                                                 {errors.name}
                                             </div>
                                         )}
                                     </div>
 
                                     <div>
-                                        <label htmlFor="email">Your Email</label>
+                                        <label htmlFor="email">
+                                            Your Email
+                                        </label>
                                         <input
                                             type="email"
                                             id="email"
@@ -248,11 +313,17 @@ const Contact = () => {
                                             value={form.email}
                                             onChange={handleChange}
                                             placeholder="your@email.com"
-                                            className={errors.email ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60" : ""}
+                                            className={
+                                                errors.email
+                                                    ? "!border-red-500/40 !bg-red-500/5 !focus:border-red-500/60"
+                                                    : ""
+                                            }
                                         />
                                         {errors.email && (
                                             <div className="mt-1.5 px-3 py-1 rounded-lg border border-red-500/15 bg-red-500/5 text-red-400/90 text-[10px] font-mono flex items-center gap-1.5 animate-contact-fade-in shadow-[0_2px_10px_rgba(239,68,68,0.05)]">
-                                                <span className="text-[11px] animate-pulse">⚠️</span>
+                                                <span className="text-[11px] animate-pulse">
+                                                    ⚠️
+                                                </span>
                                                 {errors.email}
                                             </div>
                                         )}
@@ -273,7 +344,9 @@ const Contact = () => {
                                         />
                                         {errors.message && (
                                             <div className="mt-1.5 px-3 py-1 rounded-lg border border-red-500/15 bg-red-500/5 text-red-400/90 text-[10px] font-mono flex items-center gap-1.5 animate-contact-fade-in shadow-[0_2px_10px_rgba(239,68,68,0.05)]">
-                                                <span className="text-[11px] animate-pulse">⚠️</span>
+                                                <span className="text-[11px] animate-pulse">
+                                                    ⚠️
+                                                </span>
                                                 {errors.message}
                                             </div>
                                         )}
@@ -284,25 +357,35 @@ const Contact = () => {
                                         disabled={loading}
                                         className="w-full"
                                     >
-                                        <div className={`cta-button group w-full relative overflow-hidden transition-all duration-300 ${loading ? 'border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.3)]' : ''}`}>
+                                        <div
+                                            className={`cta-button group w-full relative overflow-hidden transition-all duration-300 ${loading ? "border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.3)]" : ""}`}
+                                        >
                                             {loading ? (
                                                 <>
                                                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-emerald-500/20 animate-pulse" />
-                                                    <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 animate-loading-shimmer" style={{ width: "100%" }} />
-                                                    
+                                                    <div
+                                                        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 animate-loading-shimmer"
+                                                        style={{
+                                                            width: "100%",
+                                                        }}
+                                                    />
+
                                                     <div className="flex items-center justify-center gap-2 z-10 py-1.5">
                                                         <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce delay-100" />
                                                         <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce delay-200" />
                                                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce delay-300" />
                                                         <span className="text-[11px] font-semibold text-white/80 font-mono tracking-wider ml-1 uppercase">
-                                                            Transmitting Signal...
+                                                            Transmitting
+                                                            Signal...
                                                         </span>
                                                     </div>
                                                 </>
                                             ) : (
                                                 <>
                                                     <div className="bg-circle" />
-                                                    <p className="text">Send Message</p>
+                                                    <p className="text">
+                                                        Send Message
+                                                    </p>
                                                     <div className="arrow-wrapper">
                                                         <img
                                                             src="/images/arrow-down.svg"
@@ -327,7 +410,9 @@ const Contact = () => {
                             {!isMobile || load3D ? (
                                 <ContactExperience />
                             ) : (
-                                <ContactFallback onLoad={() => setLoad3D(true)} />
+                                <ContactFallback
+                                    onLoad={() => setLoad3D(true)}
+                                />
                             )}
                         </div>
                     </div>

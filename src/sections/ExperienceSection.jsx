@@ -75,7 +75,7 @@ const ExperienceSection = () => {
 
     // Short tab labels for the mobile pill navigation
     const tabLabels = expCards.map((card) => {
-        if (card.title.includes("B.Tech")) return "B.Tech Student";
+        if (card.title.includes("B.Tech")) return "B.Tech Graduate";
         if (card.title.includes("Data")) return "Data Intern";
         return card.title;
     });
@@ -212,8 +212,7 @@ const ExperienceSection = () => {
                                             background:
                                                 "linear-gradient(90deg, #3b82f6, #8b5cf6)",
                                             WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor:
-                                                "transparent",
+                                            WebkitTextFillColor: "transparent",
                                             backgroundClip: "text",
                                         }}
                                     >

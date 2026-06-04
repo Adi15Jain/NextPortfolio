@@ -18,17 +18,23 @@ const monaSans = Mona_Sans({
     variable: "--font-mona-sans",
 });
 
+export const viewport = {
+    themeColor: "#030303",
+    width: "device-width",
+    initialScale: 1,
+};
+
 export const metadata = {
     metadataBase: new URL("https://adijain.click"),
     alternates: {
         canonical: "https://adijain.click",
     },
     title: {
-        default: "Adi Jain — AI & ML Developer",
-        template: "%s | Adi Jain",
+        default: "Adi Jain — AI & ML Developer & Software Engineer Portfolio",
+        template: "%s | Adi Jain Portfolio",
     },
     description:
-        "Adi Jain is an AI & ML Developer specializing in deep learning pipelines, computer vision systems, and modern interactive web architectures.",
+        "Adi Jain is an AI & ML Developer and Software Engineer specializing in deep learning pipelines, computer vision systems (CNN), Three.js 3D web interfaces, and high-performance backend platforms.",
     keywords: [
         "Adi Jain",
         "Adi Jain Portfolio",
@@ -41,18 +47,24 @@ export const metadata = {
         "AI Developer",
         "ML Engineer",
         "Next.js Portfolio",
+        "Software Engineer Portfolio",
+        "Three.js 3D Developer",
         "Teerthanker Mahaveer University",
     ],
     authors: [{ name: "Adi Jain" }],
     creator: "Adi Jain",
+    publisher: "Adi Jain",
+    applicationName: "Adi Jain Portfolio",
+    referrer: "origin-when-cross-origin",
+    category: "technology",
     openGraph: {
         type: "website",
         locale: "en_US",
         url: "https://adijain.click",
         siteName: "Adi Jain Portfolio",
-        title: "Adi Jain — AI & ML Developer",
+        title: "Adi Jain — AI & ML Developer & Software Engineer Portfolio",
         description:
-            "Adi Jain is an AI & ML Developer specializing in deep learning pipelines, computer vision systems, and modern interactive web architectures.",
+            "Discover clinical-grade computer vision, high-performance real-time WebSockets screening terminals, and interactive Three.js 3D structures engineered by Adi Jain.",
         images: [
             {
                 url: "/images/og-image.png",
@@ -64,9 +76,9 @@ export const metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Adi Jain — AI & ML Developer",
+        title: "Adi Jain — AI & ML Developer & Software Engineer Portfolio",
         description:
-            "Adi Jain is an AI & ML Developer specializing in deep learning pipelines, computer vision systems, and modern interactive web architectures.",
+            "Discover clinical-grade computer vision, high-performance real-time WebSockets screening terminals, and interactive Three.js 3D structures engineered by Adi Jain.",
         images: ["/images/og-image.png"],
         creator: "@adi_jain_aj_",
     },
@@ -104,9 +116,12 @@ export default function RootLayout({ children }) {
                                 "@type": "Person",
                                 "@id": "https://adijain.click/#person",
                                 name: "Adi Jain",
+                                gender: "http://schema.org/Male",
+                                description:
+                                    "Adi Jain is an AI & Machine Learning Developer and Software Engineer specializing in deep learning, computer vision, and modern web architectures.",
                                 jobTitle: "AI & Machine Learning Developer",
                                 url: "https://adijain.click",
-                                image: "https://adijain.click/images/fav.png",
+                                image: "https://adijain.click/images/avatar_noBg.png",
                                 sameAs: [
                                     "https://www.github.com/Adi15Jain/",
                                     "https://www.linkedin.com/in/adi-jain-73334724b/",
@@ -117,6 +132,7 @@ export default function RootLayout({ children }) {
                                     name: "Teerthanker Mahaveer University",
                                     alternateName: "TMU",
                                 },
+                                knowsLanguage: ["English", "Hindi"],
                                 knowsAbout: [
                                     "Artificial Intelligence",
                                     "Machine Learning",
@@ -126,6 +142,8 @@ export default function RootLayout({ children }) {
                                     "React.js",
                                     "Python",
                                     "Three.js",
+                                    "FastAPI",
+                                    "SQL",
                                 ],
                             },
                             {

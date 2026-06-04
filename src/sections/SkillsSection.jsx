@@ -331,7 +331,10 @@ const SkillsSection = () => {
                         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#10b981]" />
 
                         {skillGroups.map((group, gi) => (
-                            <div key={group.group} className="flex flex-col gap-3">
+                            <div
+                                key={group.group}
+                                className="flex flex-col gap-3"
+                            >
                                 {/* Group Category Header */}
                                 <div className="flex items-center gap-2.5">
                                     <div

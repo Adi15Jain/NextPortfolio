@@ -2,7 +2,15 @@
 
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
-import HeroExperience from "../components/HeroModels/HeroExperience";
+import dynamic from "next/dynamic";
+
+const HeroExperience = dynamic(
+    () => import("../components/HeroModels/HeroExperience"),
+    {
+        ssr: false,
+        loading: () => <div className="w-full h-full bg-transparent" />,
+    },
+);
 
 import { words } from "../constants";
 import { useGSAP } from "@gsap/react";
