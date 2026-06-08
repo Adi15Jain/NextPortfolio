@@ -6,13 +6,13 @@ import Lenis from "lenis";
 export default function SmoothScroll() {
     useEffect(() => {
         // Return early on touch/mobile devices to prevent choppy scrolling
-        const isTouch = 
-            typeof window !== "undefined" && (
-                ("ontouchstart" in window) || 
-                (navigator.maxTouchPoints > 0) || 
-                (window.matchMedia && window.matchMedia("(pointer: coarse)").matches)
-            );
-        
+        const isTouch =
+            typeof window !== "undefined" &&
+            ("ontouchstart" in window ||
+                navigator.maxTouchPoints > 0 ||
+                (window.matchMedia &&
+                    window.matchMedia("(pointer: coarse)").matches));
+
         if (isTouch) return;
 
         const lenis = new Lenis({

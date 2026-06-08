@@ -219,6 +219,39 @@ const projectsDetailed = [
             "Governance Rules: Enforces layer restrictions and score thresholds directly in CI/CD quality gates.",
         ],
     },
+    {
+        id: "exyst",
+        phase: "Project 8",
+        timelineTitle: "AI Document Intelligence & RAG",
+        date: "June 2026",
+        title: "Exyst — AI Exam Intelligence",
+        subtitle:
+            "Predictive exam analytics engine leveraging LLM-based page classification and ChromaDB semantic RAG pipelines.",
+        image: null,
+        tags: [
+            "Next.js 15",
+            "FastAPI",
+            "ChromaDB",
+            "LiteLLM",
+            "Groq",
+            "PostgreSQL",
+        ],
+        liveUrl: null,
+        githubUrl: "https://github.com/Adi15Jain/exyst_paper",
+        metricValue: "91.4%",
+        metricLabel: "Composite Confidence",
+        metricSub:
+            "Calculates real-time historical alignment, syllabus coverage, and quality check indexes.",
+        problem:
+            "Students and educators struggle to extract key focal areas from dense, unstructured historical question papers and university syllabi.",
+        solution:
+            "An intelligent processing pipeline parsing PDFs, classifying sections, indexing question embeddings via ChromaDB, and predicting exam papers.",
+        specs: [
+            "Multi-Stage PDF Pipeline: Combines pdfminer and PyMuPDF fallback for perfect document intelligence.",
+            "Vector RAG Layer: Stores historical question papers in ChromaDB for high-precision semantic recall.",
+            "Structured LiteLLM Routing: Features zero-parse-failure Pydantic outputs backed by Groq APIs.",
+        ],
+    },
 ];
 
 const RenderVisualCard = ({ id }) => {
@@ -431,6 +464,96 @@ const RenderVisualCard = ({ id }) => {
         );
     }
 
+    if (id === "exyst") {
+        return (
+            <div className="w-full h-full min-h-[200px] bg-slate-950/80 rounded-xl border border-white/5 relative p-4 flex flex-col font-mono text-xs overflow-hidden select-none">
+                <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                    <span className="text-[10px] text-white/40">
+                        exyst predict --doc exam_pack.pdf
+                    </span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-medium">
+                        RAG AI Pipeline
+                    </span>
+                </div>
+                <div className="flex-grow flex flex-col justify-between py-2.5 relative gap-2">
+                    {/* Background abstract embedding network */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+                        <svg className="w-full h-full stroke-amber-500/50 stroke-[1] fill-none">
+                            <path d="M 30,20 L 120,50 L 80,100 L 30,20 M 120,50 L 200,30 L 250,80 M 200,30 L 280,60 L 250,80 M 80,100 L 160,110 L 250,80" />
+                            <circle
+                                cx="30"
+                                cy="20"
+                                r="3"
+                                className="fill-amber-400"
+                            />
+                            <circle
+                                cx="120"
+                                cy="50"
+                                r="3"
+                                className="fill-blue-400"
+                            />
+                            <circle
+                                cx="80"
+                                cy="100"
+                                r="3"
+                                className="fill-purple-400"
+                            />
+                            <circle
+                                cx="200"
+                                cy="30"
+                                r="3"
+                                className="fill-amber-400"
+                            />
+                            <circle
+                                cx="250"
+                                cy="80"
+                                r="3"
+                                className="fill-emerald-400"
+                            />
+                            <circle
+                                cx="280"
+                                cy="60"
+                                r="3"
+                                className="fill-blue-400"
+                            />
+                            <circle
+                                cx="160"
+                                cy="110"
+                                r="3"
+                                className="fill-purple-400"
+                            />
+                        </svg>
+                    </div>
+                    <div className="flex flex-col gap-1.5 text-[9px] z-10">
+                        <div className="flex items-center justify-between bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded text-blue-400">
+                            <span>Syllabus Parsing</span>
+                            <span className="font-bold">
+                                ✔ 12 Units Extracted
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded text-purple-400">
+                            <span>ChromaDB Vector Match</span>
+                            <span className="font-bold">
+                                94% Semantic Recall
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded text-emerald-400">
+                            <span>Exam Confidence Score</span>
+                            <span className="font-bold">
+                                91.4% (High Trust)
+                            </span>
+                        </div>
+                    </div>
+                    <div className="z-10 text-[9px] text-white/30 text-center font-sans">
+                        Predicted 15 questions with structured JSON validation
+                        in{" "}
+                        <span className="text-amber-400 font-bold">1.2s</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return null;
 };
 
@@ -619,7 +742,7 @@ const ProjectsPage = () => {
                         description:
                             "Showcase of AI/ML models, deep learning CNNs, and systems engineering frameworks built by Adi Jain.",
                         url: "https://adijain.click/projects",
-                        numberOfItems: 7,
+                        numberOfItems: 8,
                         itemListElement: [
                             {
                                 "@type": "ListItem",
@@ -710,6 +833,19 @@ const ProjectsPage = () => {
                                     applicationCategory: "DeveloperApplication",
                                     operatingSystem: "Web",
                                     url: "https://github.com/Adi15Jain/archLens",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 8,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "Exyst",
+                                    description:
+                                        "AI-powered exam intelligence platform with RAG pipelines and confidence scoring.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://github.com/Adi15Jain/exyst_paper",
                                 },
                             },
                         ],
