@@ -242,7 +242,7 @@ const NavBar = () => {
                     <div className="flex items-center gap-4">
                         {/* Resume Download Button */}
                         <a
-                            href="/AdiJainResumeNew.pdf"
+                            href="/AdiJainResumeNew.pdf?v=2"
                             download="Adi_Jain_Resume.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -352,7 +352,7 @@ const NavBar = () => {
 
                 {/* Styled Mobile Resume Button */}
                 <a
-                    href="/AdiJainResumeNew.pdf"
+                    href="/AdiJainResumeNew.pdf?v=2"
                     download="Adi_Jain_Resume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"

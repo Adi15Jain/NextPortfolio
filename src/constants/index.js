@@ -234,33 +234,6 @@ const expLogos = [
     },
 ];
 
-const testimonials = [
-    {
-        name: "Priya Sharma",
-        role: "Full Stack Developer · ex-Google",
-        mention: "@priya_dev",
-        review: "Adi's curiosity and ability to ship polished, well-thought-out projects is genuinely impressive for a recent graduate. His Three.js work on the portfolio blew me away — most professionals couldn't pull that off.",
-        avatar: "🧑‍💻",
-        rating: 5,
-    },
-    {
-        name: "Rishabh Malhotra",
-        role: "Data Science Lead · EvoAstra",
-        mention: "@rishabh_ml",
-        review: "During his internship, Adi showed exceptional analytical thinking. He didn't just execute tasks — he asked the right questions and drove better outcomes. His EDA work and modeling were among the best I've seen from an intern.",
-        avatar: "📊",
-        rating: 5,
-    },
-    {
-        name: "Sneha Kapoor",
-        role: "UI/UX Designer · Freelance",
-        mention: "@sneha_creates",
-        review: "What sets Adi apart is his eye for design combined with technical depth. He built something that looks like a senior designer collaborated with a senior engineer. Rare combination — definitely keep an eye on this one.",
-        avatar: "🎨",
-        rating: 5,
-    },
-];
-
 const socialImgs = [
     {
         name: "github",
