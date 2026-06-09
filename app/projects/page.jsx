@@ -13,18 +13,10 @@ import {
     ExternalLink,
     Github,
     Flame,
-    Cpu,
     Sparkles,
-    CheckCircle2,
     ShieldAlert,
-    Terminal,
-    TrendingUp,
-    Workflow,
     BookOpen,
-    Zap,
     CpuIcon,
-    Database,
-    Shield,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -258,34 +250,27 @@ const projectsDetailed = [
     {
         id: "telechurn",
         phase: "Project 9",
-        timelineTitle: "AI Document Intelligence & RAG",
+        timelineTitle: "ML & Business ROI Optimization",
         date: "June 2026",
-        title: "TeleChurn — AI Exam Intelligence",
+        title: "TeleChurn — Churn Prediction Terminal",
         subtitle:
-            "Predictive exam analytics engine leveraging LLM-based page classification and ChromaDB semantic RAG pipelines.",
+            "Interactive FastAPI web dashboard and machine learning pipeline forecasting telecom subscriber churn.",
         image: null,
-        tags: [
-            "Next.js 15",
-            "FastAPI",
-            "ChromaDB",
-            "LiteLLM",
-            "Groq",
-            "PostgreSQL",
-        ],
-        liveUrl: "https://exyst.adijain.click",
-        githubUrl: "https://github.com/Adi15Jain/exyst_paper",
-        metricValue: "91.4%",
-        metricLabel: "Composite Confidence",
+        tags: ["FastAPI", "scikit-learn", "Python", "Plotly", "Optuna", "SHAP"],
+        liveUrl: "https://telechurn.adijain.click",
+        githubUrl: "https://github.com/Adi15Jain/tele-churn",
+        metricValue: "87.2%",
+        metricLabel: "Model Accuracy",
         metricSub:
-            "Calculates real-time historical alignment, syllabus coverage, and quality check indexes.",
+            "Achieved on validation splits using TRAI telecom records, optimizing campaign ROI thresholds.",
         problem:
-            "Students and educators struggle to extract key focal areas from dense, unstructured historical question papers and university syllabi.",
+            "Telecom operator teams lack early, regional-level forecasts of customer MoM subscriber declines to target retention budgets efficiently.",
         solution:
-            "An intelligent processing pipeline parsing PDFs, classifying sections, indexing question embeddings via ChromaDB, and predicting exam papers.",
+            "An ML classification pipeline with Optuna hyperparameter searches, SHAP interpretability, and a custom financial ROI simulator.",
         specs: [
-            "Multi-Stage PDF Pipeline: Combines pdfminer and PyMuPDF fallback for perfect document intelligence.",
-            "Vector RAG Layer: Stores historical question papers in ChromaDB for high-precision semantic recall.",
-            "Structured LiteLLM Routing: Features zero-parse-failure Pydantic outputs backed by Groq APIs.",
+            "Optuna XGBoost Core: Multi-model pipeline benchmarking Logistic Regression, Random Forests, and Boosted Ensembles.",
+            "ROI Alert Optimizer: Dynamically models ARPU and campaign incentives to target subscribers at peak profitability thresholds.",
+            "Circle Strategy Prescriptions: Automatically suggests copper retirement, FTTH upgrades, or prepaid value bundles.",
         ],
     },
 ];
@@ -590,6 +575,45 @@ const RenderVisualCard = ({ id }) => {
         );
     }
 
+    if (id === "telechurn") {
+        return (
+            <div className="w-full h-full min-h-[200px] bg-slate-950/80 rounded-xl border border-white/5 relative p-4 flex flex-col font-mono text-xs overflow-hidden select-none">
+                <div className="flex justify-between items-center pb-2 border-b border-white/5">
+                    <span className="text-[10px] text-white/40">
+                        telechurn predict --circle HP
+                    </span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 font-medium">
+                        ML Retention Optimizer
+                    </span>
+                </div>
+                <div className="flex-grow flex flex-col justify-between py-2.5 relative gap-2">
+                    <div className="flex flex-col gap-1 text-[9px] z-10">
+                        <div className="flex items-center justify-between bg-rose-500/10 border border-rose-500/20 px-2 py-1 rounded text-rose-400">
+                            <span>MoM Subscriber Decline</span>
+                            <span className="font-bold">
+                                Risk Alert (&ge;5%)
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded text-blue-400">
+                            <span>Target Threshold (Optimal)</span>
+                            <span className="font-bold">0.10 Alert Limit</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded text-emerald-400">
+                            <span>Projected Net ROI Savings</span>
+                            <span className="font-bold">
+                                &#8377;7.7M (20% ROI)
+                            </span>
+                        </div>
+                    </div>
+                    <div className="z-10 text-[9px] text-white/30 text-center font-sans">
+                        SHAP feature importance & drift analysis completed in{" "}
+                        <span className="text-rose-400 font-bold">12ms</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return null;
 };
 
@@ -778,7 +802,7 @@ const ProjectsPage = () => {
                         description:
                             "Showcase of AI/ML models, deep learning CNNs, and systems engineering frameworks built by Adi Jain.",
                         url: "https://adijain.click/projects",
-                        numberOfItems: 8,
+                        numberOfItems: 9,
                         itemListElement: [
                             {
                                 "@type": "ListItem",
@@ -882,6 +906,19 @@ const ProjectsPage = () => {
                                     applicationCategory: "DeveloperApplication",
                                     operatingSystem: "Web",
                                     url: "https://github.com/Adi15Jain/exyst_paper",
+                                },
+                            },
+                            {
+                                "@type": "ListItem",
+                                position: 9,
+                                item: {
+                                    "@type": "SoftwareApplication",
+                                    name: "TeleChurn",
+                                    description:
+                                        "Telecom market share churn prediction dashboard and business ROI optimization engine.",
+                                    applicationCategory: "DeveloperApplication",
+                                    operatingSystem: "Web",
+                                    url: "https://telechurn.adijain.click",
                                 },
                             },
                         ],

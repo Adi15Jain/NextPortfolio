@@ -197,7 +197,12 @@ const ShowcaseSection = () => {
                                                     }}
                                                 >
                                                     <ExternalLink size={12} />{" "}
-                                                    {project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
+                                                    {project.liveUrl.includes(
+                                                        "youtube.com",
+                                                    ) ||
+                                                    project.liveUrl.includes(
+                                                        "youtu.be",
+                                                    )
                                                         ? "Video Demo"
                                                         : "Live Demo"}
                                                 </a>
@@ -247,7 +252,7 @@ const ShowcaseSection = () => {
                                     />
                                 </div>
 
-                                <div className="text-content mt-2 space-y-3.5">
+                                <div className="text-content mt-2 space-y-1">
                                     <div className="flex justify-between items-center gap-2 flex-wrap">
                                         <div className="badges flex flex-wrap gap-2">
                                             {featured.tags.map((tag) => (
@@ -281,7 +286,13 @@ const ShowcaseSection = () => {
                                                         "linear-gradient(135deg, #3b82f6, #8b5cf6)",
                                                 }}
                                             >
-                                                <ExternalLink size={14} /> {featured.liveUrl.includes("youtube.com") || featured.liveUrl.includes("youtu.be")
+                                                <ExternalLink size={14} />{" "}
+                                                {featured.liveUrl.includes(
+                                                    "youtube.com",
+                                                ) ||
+                                                featured.liveUrl.includes(
+                                                    "youtu.be",
+                                                )
                                                     ? "Video Demo"
                                                     : "Live Demo"}
                                             </a>
@@ -443,7 +454,12 @@ const ShowcaseSection = () => {
                                                                             12
                                                                         }
                                                                     />{" "}
-                                                                    {project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
+                                                                    {project.liveUrl.includes(
+                                                                        "youtube.com",
+                                                                    ) ||
+                                                                    project.liveUrl.includes(
+                                                                        "youtu.be",
+                                                                    )
                                                                         ? "Video Demo"
                                                                         : "Live Demo"}
                                                                 </a>

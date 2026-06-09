@@ -153,8 +153,6 @@ const ExperienceSection = () => {
                                         : "hidden"
                                 }`}
                             >
-
-
                                 {/* Logo + Title + Date */}
                                 <div className="flex items-center gap-4 pb-4 mb-1 border-b border-white/[0.06]">
                                     <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border border-white/10 bg-white/5 p-1.5">
