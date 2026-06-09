@@ -158,7 +158,7 @@ const ShowcaseSection = () => {
                                                     )}
                                                 </div>
                                                 <span
-                                                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-black border ${
+                                                    className={`hidden md:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black border ${
                                                         project.featured
                                                             ? "bg-blue-500/10 border-blue-500/25 text-blue-400"
                                                             : "bg-purple-500/10 border-purple-500/25 text-purple-400"
@@ -343,7 +343,7 @@ const ShowcaseSection = () => {
                                                             ),
                                                         )}
                                                     </div>
-                                                    <span className="px-3 py-1 rounded-full text-xs font-black bg-purple-500/10 border border-purple-500/25 text-purple-400">
+                                                    <span className="hidden md:inline-block px-3 py-1 rounded-full text-xs font-black bg-purple-500/10 border border-purple-500/25 text-purple-400">
                                                         {project.metric}
                                                     </span>
                                                 </div>

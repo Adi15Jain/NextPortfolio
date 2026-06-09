@@ -605,7 +605,7 @@ const Footer = () => {
 
                         <div className="flex items-center gap-2 mt-0.5">
                             <span className="text-white/35 font-mono">
-                                TIME UPTIME:
+                                UPTIME:
                             </span>
                             <span className="text-white/70 bg-white/[0.03] px-1.5 py-0.5 rounded border border-white/[0.08]">
                                 {currentTime || "00:00:00"}
