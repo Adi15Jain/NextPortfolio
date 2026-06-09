@@ -106,9 +106,9 @@ const Footer = () => {
         const measurePing = async () => {
             const startTime = performance.now();
             try {
-                // HEAD request to robots.txt with cache-busting timestamp
+                // GET request to robots.txt with cache-busting timestamp for wider server support
                 await fetch(`/robots.txt?t=${Date.now()}`, {
-                    method: "HEAD",
+                    method: "GET",
                     cache: "no-store",
                     headers: { "Cache-Control": "no-cache" },
                 });
@@ -365,13 +365,13 @@ const Footer = () => {
                         <p className="text-[11px] font-mono tracking-wider text-white/40 text-center md:text-left">
                             SYSTEM DESIGN & PRODUCT ENGINEERING
                         </p>
-                        <Link
-                            href="/"
-                            className="text-xs font-mono tracking-wide text-cyan-400/50 hover:text-cyan-400/80 transition-colors duration-300 mt-1 flex items-center gap-1.5 justify-center md:justify-start"
+                        <span
+                            className="text-xs font-mono tracking-wide text-cyan-400/40 cursor-not-allowed mt-1 flex items-center gap-1.5 justify-center md:justify-start select-none"
+                            title="My blog is currently in progress. Stay tuned!"
                         >
-                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400/30" />
                             Visit my blog (In Progress)
-                        </Link>
+                        </span>
                     </div>
 
                     {/* Center Column: Social Icons */}

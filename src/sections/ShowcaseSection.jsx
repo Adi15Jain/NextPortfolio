@@ -197,7 +197,9 @@ const ShowcaseSection = () => {
                                                     }}
                                                 >
                                                     <ExternalLink size={12} />{" "}
-                                                    Live Demo
+                                                    {project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
+                                                        ? "Video Demo"
+                                                        : "Live Demo"}
                                                 </a>
                                             )}
                                             <a
@@ -279,8 +281,9 @@ const ShowcaseSection = () => {
                                                         "linear-gradient(135deg, #3b82f6, #8b5cf6)",
                                                 }}
                                             >
-                                                <ExternalLink size={14} /> Live
-                                                Demo
+                                                <ExternalLink size={14} /> {featured.liveUrl.includes("youtube.com") || featured.liveUrl.includes("youtu.be")
+                                                    ? "Video Demo"
+                                                    : "Live Demo"}
                                             </a>
                                         )}
                                         <a
@@ -440,7 +443,9 @@ const ShowcaseSection = () => {
                                                                             12
                                                                         }
                                                                     />{" "}
-                                                                    Live Demo
+                                                                    {project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
+                                                                        ? "Video Demo"
+                                                                        : "Live Demo"}
                                                                 </a>
                                                             )}
                                                             <a

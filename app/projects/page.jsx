@@ -39,7 +39,7 @@ const projectsDetailed = [
         subtitle:
             "High-precision diagnostic triage for emergency lung imaging.",
         image: "/images/project1.png",
-        tags: ["PyTorch", "FastAPI", "ReactJS", "CNN"],
+        tags: ["PyTorch", "FastAPI", "React.js", "CNN"],
         liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
         githubUrl: "https://github.com/Adi15Jain/pneumoAI",
         metricValue: "92%",
@@ -59,7 +59,7 @@ const projectsDetailed = [
         id: "algoplus",
         phase: "Project 2",
         timelineTitle: "High-Performance Systems",
-        date: "Late 2025",
+        date: "October 2025",
         title: "AlgoPlus — Cinematic DSA Visualizer",
         subtitle: "High-performance hybrid compiled algorithm snapshots.",
         image: null,
@@ -88,7 +88,7 @@ const projectsDetailed = [
         title: "CoinPush — Crypto Screening Terminal",
         subtitle: "Zero-latency real-time cryptocurrency price terminal.",
         image: "/images/project3.png",
-        tags: ["Next.js", "WebSockets", "CoinGecko API", "SWR", "SWC"],
+        tags: ["Next.js", "WebSockets", "CoinGecko API", "SWR"],
         liveUrl: "https://coin-push.vercel.app/",
         githubUrl: "https://github.com/Adi15Jain/CoinPush",
         metricValue: "90%",
@@ -109,7 +109,7 @@ const projectsDetailed = [
         id: "wealthyminds",
         phase: "Project 4",
         timelineTitle: "Scientific Portfolio Computing",
-        date: "Early 2026",
+        date: "February 2026",
         title: "WealthyMinds — AI Wealth Advisor",
         subtitle: "AI investment oracle for long-term wealth creation.",
         image: null,
@@ -134,7 +134,7 @@ const projectsDetailed = [
         id: "interviewpilot",
         phase: "Project 5",
         timelineTitle: "Generative Voice & Telemetry",
-        date: "February 2026",
+        date: "March 2026",
         title: "InterviewPilot — Conversational Coach",
         subtitle: "Interactive mock coaching with voice and behavioral AI.",
         image: "/images/interviewPilot.png",
@@ -159,7 +159,7 @@ const projectsDetailed = [
         id: "vectrion",
         phase: "Project 6",
         timelineTitle: "AI Applications Infrastructure",
-        date: "Late February 2026",
+        date: "April 2026",
         title: "Vectrion — AI Applications SDK",
         subtitle: "Modular TypeScript infrastructure SDK for AI apps.",
         image: null,
@@ -191,7 +191,7 @@ const projectsDetailed = [
         id: "archlens",
         phase: "Project 7",
         timelineTitle: "Architecture Intelligence & Governance",
-        date: "June 2026",
+        date: "May 2026",
         title: "ArchLens — Architecture Intelligence",
         subtitle:
             "Continuous, evidence-based structural governance and dependency graph analysis for software repositories.",
@@ -1013,10 +1013,11 @@ const ProjectsPage = () => {
                                                         />
                                                     )}
                                                     <span>
-                                                        {project.id ===
-                                                        "vectrion"
+                                                        {project.id === "vectrion"
                                                             ? "Documentation"
-                                                            : "Live Demonstration"}
+                                                            : (project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
+                                                                ? "Video Demonstration"
+                                                                : "Live Demonstration")}
                                                     </span>
                                                 </a>
                                             )}
@@ -1403,10 +1404,11 @@ const ProjectsPage = () => {
                                                                             />
                                                                         )}
                                                                         <span>
-                                                                            {project.id ===
-                                                                            "vectrion"
+                                                                            {project.id === "vectrion"
                                                                                 ? "Docs"
-                                                                                : "Live Demo"}
+                                                                                : (project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
+                                                                                    ? "Video Demo"
+                                                                                    : "Live Demo")}
                                                                         </span>
                                                                     </a>
                                                                 )}

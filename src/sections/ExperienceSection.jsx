@@ -76,7 +76,7 @@ const ExperienceSection = () => {
     // Short tab labels for the mobile pill navigation
     const tabLabels = expCards.map((card) => {
         if (card.title.includes("B.Tech")) return "B.Tech Graduate";
-        if (card.title.includes("Data")) return "Data Intern";
+        if (card.title.includes("Data")) return "Data Science Intern";
         return card.title;
     });
 
