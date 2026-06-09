@@ -10,20 +10,17 @@ import {
     ShieldCheck,
     ShieldAlert,
     Github,
-    Instagram,
     Linkedin,
     Eye,
 } from "lucide-react";
 
 const socialColors = {
-    insta: "#e1306c",
     github: "#60a5fa",
     linkedin: "#0a66c2",
     x: "#ffffff",
 };
 
 const socialIcons = {
-    insta: Instagram,
     github: Github,
     linkedin: Linkedin,
 };

@@ -125,7 +125,6 @@ export default function RootLayout({ children }) {
                                 sameAs: [
                                     "https://www.github.com/Adi15Jain/",
                                     "https://www.linkedin.com/in/adi-jain-73334724b/",
-                                    "https://www.instagram.com/adi_jain_aj_/",
                                 ],
                                 alumniOf: {
                                     "@type": "EducationalOrganization",

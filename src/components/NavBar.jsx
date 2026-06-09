@@ -7,17 +7,15 @@ import gsap from "gsap";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Activity, Wifi, Instagram, Github, Linkedin } from "lucide-react";
+import { Activity, Wifi, Github, Linkedin } from "lucide-react";
 
 const socialColors = {
-    insta: "#e1306c",
     github: "#60a5fa",
     linkedin: "#0a66c2",
     x: "#ffffff",
 };
 
 const socialIcons = {
-    insta: Instagram,
     github: Github,
     linkedin: Linkedin,
 };

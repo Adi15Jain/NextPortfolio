@@ -263,19 +263,10 @@ const testimonials = [
 
 const socialImgs = [
     {
-        name: "insta",
-        url: "https://www.instagram.com/adi_jain_aj_/",
-        imgPath: "/images/insta.png",
-    },
-    {
         name: "github",
         url: "https://www.github.com/Adi15Jain/",
         imgPath: "/images/github.png",
     },
-    // {
-    //     name: "x",
-    //     imgPath: "/images/x.png",
-    // },
     {
         name: "linkedin",
         url: "https://www.linkedin.com/in/adi-jain-73334724b/",
