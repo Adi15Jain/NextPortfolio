@@ -183,26 +183,27 @@ const techStackIcons = [
 
 const expCards = [
     {
-        review: "My role as a Web Developer at Teerthanker Mahaveer University allowed me to architect and optimize high-traffic flagship digital platforms. I spearheaded homepage redesigns and slashed load times by 35% using Laravel, Tailwind, and custom performance pipelines.",
+        review: "Worked as a Web Developer at Teerthanker Mahaveer University, focusing on backend restructuring and frontend load-time optimizations. I designed custom modules in Laravel and decoupled dynamic scripts, resulting in measurable speed improvements across the university's primary traffic gateways.",
         imgPath: "/images/logo.webp",
         logoPath: "/images/logo.png",
         title: "Web Developer",
         date: "February 2026 - May 2026",
         responsibilities: [
-            "Redesigned and architected the university’s high-traffic flagship homepage using Laravel, Tailwind CSS, and custom responsive modules, serving over 25,000+ monthly visitors.",
-            "Slashed initial page load times by 35% and boosted Google PageSpeed score by 26+ points through adaptive HLS video streaming, dynamic component lazy loading, and deferred GTM/GA payloads.",
+            "Redesigned the university homepage (Laravel) serving 150+ academic programs, boosting average session duration by 28% through improved information architecture and responsive design.",
+            "Cut page load time by 45% by implementing adaptive HLS streaming, asset preloading, and lazy-loaded DB queries via IntersectionObserver API.",
+            "Designed modular layout components using Laravel and CSS to support 25k+ monthly visitors across primary university traffic gateways.",
         ],
     },
     {
-        review: "My internship at EvoAstra Private Ventures Pvt. Ltd. was highly impactful and industry-oriented. I worked on real-world data science problems involving data preprocessing, exploratory data analysis, and predictive modeling, which strengthened my analytical thinking and problem-solving skills.",
+        review: "My internship at EvoAstra Private Ventures Pvt. Ltd. was focused on building end-to-end predictive systems. I architected the TeleChurn machine learning classification pipeline and FastAPI dashboard, which forecasted MoM circle-level subscriber churn and optimized marketing retention budgets.",
         imgPath: "/images/download3.png",
         logoPath: "/images/download4.jpeg",
         title: "Data Science Intern",
         date: "September 2025 - December 2025",
         responsibilities: [
-            "Worked as a Data Science Intern at EvoAstra Private Ventures Pvt. Ltd. on real-world datasets.",
-            "Performed data cleaning, preprocessing, and exploratory data analysis (EDA) using Python.",
-            "Collaborated with the team to interpret results and present data-driven recommendations.",
+            "Engineered a telecom subscriber churn prediction pipeline using longitudinal TRAI records, achieving an accuracy of 87.2% and a ROC-AUC of 0.89 on chronological test splits.",
+            "Developed an interactive web dashboard in FastAPI and Plotly to simulate business ROI metrics, projecting campaign profit savings of ₹7.7 Million.",
+            "Built a custom strategic advisory module to recommend regional interventions (such as FTTH migration) based on circle wireline-to-wireless ratios.",
         ],
     },
     {

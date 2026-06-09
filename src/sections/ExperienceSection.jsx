@@ -210,9 +210,8 @@ const ExperienceSection = () => {
                                         Highlights
                                     </p>
                                     <ul className="flex flex-col gap-3">
-                                        {card.responsibilities
-                                            .slice(0, 2)
-                                            .map((responsibility) => (
+                                        {card.responsibilities.map(
+                                            (responsibility) => (
                                                 <li
                                                     key={responsibility}
                                                     className="flex items-start gap-2.5 text-white/55 text-[13px] leading-relaxed"
@@ -223,7 +222,8 @@ const ExperienceSection = () => {
                                                     />
                                                     {responsibility}
                                                 </li>
-                                            ))}
+                                            ),
+                                        )}
                                     </ul>
                                 </div>
                             </div>

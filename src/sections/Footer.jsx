@@ -613,8 +613,7 @@ const Footer = () => {
                         </div>
 
                         <p className="text-white/35 text-[10px] mt-0.5 tracking-wider text-center md:text-right">
-                            © {new Date().getFullYear()} ADI JAIN • ALL CHANNELS
-                            SECURED
+                            © {new Date().getFullYear()} ADI JAIN ©
                         </p>
                     </div>
                 </div>
