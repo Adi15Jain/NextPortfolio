@@ -1,12 +1,14 @@
 export const metadata = {
     title: "Projects Showcase",
-    description: "Discover clinical-grade computer vision, high-performance real-time voice synthesis agents, and crypto screening platforms engineered to solve real-world problems by Adi Jain.",
+    description:
+        "Discover computer vision triage models, real-time speech training tools, and cryptocurrency tracking systems engineered by Adi Jain.",
     alternates: {
         canonical: "https://adijain.click/projects",
     },
     openGraph: {
         title: "Projects Showcase | Adi Jain Portfolio",
-        description: "Discover clinical-grade computer vision, high-performance real-time voice synthesis agents, and crypto screening platforms engineered to solve real-world problems by Adi Jain.",
+        description:
+            "Discover computer vision triage models, real-time speech training tools, and cryptocurrency tracking systems engineered by Adi Jain.",
         url: "https://adijain.click/projects",
         type: "website",
         images: [
@@ -21,9 +23,10 @@ export const metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Projects Showcase | Adi Jain Portfolio",
-        description: "Discover clinical-grade computer vision, high-performance real-time voice synthesis agents, and crypto screening platforms engineered to solve real-world problems by Adi Jain.",
+        description:
+            "Discover computer vision triage models, real-time speech training tools, and cryptocurrency tracking systems engineered by Adi Jain.",
         images: ["/images/og-image.png"],
-    }
+    },
 };
 
 export default function ProjectsLayout({ children }) {

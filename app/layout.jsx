@@ -35,22 +35,6 @@ export const metadata = {
     },
     description:
         "Adi Jain is an AI & ML Developer and Software Engineer specializing in deep learning pipelines, computer vision systems (CNN), Three.js 3D web interfaces, and high-performance backend platforms.",
-    keywords: [
-        "Adi Jain",
-        "Adi Jain Portfolio",
-        "Adi Jain AI & ML Developer",
-        "Adi Jain Developer",
-        "Adi Jain AI ML",
-        "Adi Jain Machine Learning",
-        "Adi Jain Deep Learning",
-        "adijain.click",
-        "AI Developer",
-        "ML Engineer",
-        "Next.js Portfolio",
-        "Software Engineer Portfolio",
-        "Three.js 3D Developer",
-        "Teerthanker Mahaveer University",
-    ],
     authors: [{ name: "Adi Jain" }],
     creator: "Adi Jain",
     publisher: "Adi Jain",
@@ -64,7 +48,7 @@ export const metadata = {
         siteName: "Adi Jain Portfolio",
         title: "Adi Jain — AI & ML Developer & Software Engineer Portfolio",
         description:
-            "Discover clinical-grade computer vision, high-performance real-time WebSockets screening terminals, and interactive Three.js 3D structures engineered by Adi Jain.",
+            "Discover computer vision triage classifiers, real-time WebSocket screening terminals, and interactive Three.js 3D structures engineered by Adi Jain.",
         images: [
             {
                 url: "/images/og-image.png",
@@ -78,7 +62,7 @@ export const metadata = {
         card: "summary_large_image",
         title: "Adi Jain — AI & ML Developer & Software Engineer Portfolio",
         description:
-            "Discover clinical-grade computer vision, high-performance real-time WebSockets screening terminals, and interactive Three.js 3D structures engineered by Adi Jain.",
+            "Discover computer vision triage classifiers, real-time WebSocket screening terminals, and interactive Three.js 3D structures engineered by Adi Jain.",
         images: ["/images/og-image.png"],
         creator: "@adi_jain_aj_",
     },

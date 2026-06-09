@@ -35,24 +35,25 @@ const projectsDetailed = [
         phase: "Project 1",
         timelineTitle: "Deep Learning & Applied AI",
         date: "June 2025",
-        title: "PneumoAI — Clinical Decision CNN",
+        title: "PneumoAI — Pneumonia Detection CNN",
         subtitle:
-            "High-precision diagnostic triage for emergency lung imaging.",
+            "Triage classification and region localization for emergency lung scans.",
         image: "/images/project1.png",
         tags: ["PyTorch", "FastAPI", "React.js", "CNN"],
         liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
         githubUrl: "https://github.com/Adi15Jain/pneumoAI",
-        metricValue: "92%",
-        metricLabel: "Diagnostic Accuracy",
-        metricSub: "Serves PyTorch model inferences in under 500 milliseconds.",
+        metricValue: "92.4%",
+        metricLabel: "Sensitivity / Recall",
+        metricSub:
+            "Tested on 5,856 Kaggle Chest X-ray images, outperforming baseline CNNs.",
         problem:
-            "Radiology departments face severe backlogs, causing dangerous clinical triage delays.",
+            "Radiology departments experience high backlogs, delaying critical diagnosis.",
         solution:
-            "A custom deep CNN flagging consolidation zones instantly to sort high-risk scans.",
+            "A custom CNN built in PyTorch to classify pneumonia cases and generate Grad-CAM heatmaps to prioritize emergency scans.",
         specs: [
-            "Clinical DICOM: Rapid medical image format ingestion.",
-            "Grad-CAM Maps: Draws high-precision consolidation regions.",
-            "Weighted Entropy: Highly balanced predictive accuracy.",
+            "DICOM Ingestion: Parses raw clinical imaging datasets.",
+            "Grad-CAM Heatmaps: Highlights consolidation areas to assist review.",
+            "Loss Optimization: Uses weighted cross-entropy to handle class imbalance.",
         ],
     },
     {
@@ -83,85 +84,88 @@ const projectsDetailed = [
     {
         id: "coinpush",
         phase: "Project 3",
-        timelineTitle: "Real-Time Telemetry Streams",
+        timelineTitle: "Real-Time Data Streams",
         date: "January 2026",
         title: "CoinPush — Crypto Screening Terminal",
-        subtitle: "Zero-latency real-time cryptocurrency price terminal.",
+        subtitle:
+            "Cryptocurrency tracking dashboard powered by live WebSockets.",
         image: "/images/project3.png",
         tags: ["Next.js", "WebSockets", "CoinGecko API", "SWR"],
-        liveUrl: "https://coin-push.vercel.app/",
+        liveUrl: "https://coinpush.adijain.click",
         githubUrl: "https://github.com/Adi15Jain/CoinPush",
         metricValue: "90%",
-        metricLabel: "Faster Discovery",
+        metricLabel: "Lower Update Latency",
         metricSub:
-            "Pipes continuous prices via WebSockets, eliminating refresh wait.",
+            "Achieved through direct WebSocket client streams over standard polling approaches.",
         problem:
-            "Traders lose critical windows due to noisy, delayed ticker feeds.",
+            "Market watchers experience lag and heavy network request usage due to standard REST API polling.",
         solution:
-            "A unified market screening terminal using WebSocket telemetry streams and SWR caches.",
+            "A fast cryptocurrency screen terminal fetching live pricing updates via continuous WebSockets.",
         specs: [
-            "Resilient Sockets: Features automatic socket reconnection pathways.",
-            "SWR Query Cache: Decreases outgoing API loads by over 75%.",
-            "Static Caching: Pre-caches layout frames for fast loading.",
+            "Auto-Reconnection: Keeps WebSocket state alive during temporary network dropouts.",
+            "SWR Query Caches: Prevents duplicate API requests across UI elements.",
+            "Pre-cached Layouts: Minimizes paint latency on initial render.",
         ],
     },
     {
         id: "wealthyminds",
         phase: "Project 4",
-        timelineTitle: "Scientific Portfolio Computing",
+        timelineTitle: "Portfolio Forecasting Engine",
         date: "February 2026",
-        title: "WealthyMinds — AI Wealth Advisor",
-        subtitle: "AI investment oracle for long-term wealth creation.",
+        title: "WealthyMinds — Probabilistic Wealth Engine",
+        subtitle:
+            "A financial modeling tool integrating AI guidance with Monte Carlo projections.",
         image: null,
         tags: ["Next.js 16", "Gemini 2.0 Flash", "Prisma", "Python", "FastAPI"],
         liveUrl: null,
         githubUrl: "https://github.com/Adi15Jain/wealthyminds",
-        metricValue: "100%",
-        metricLabel: "Offline Math Fallback",
+        metricValue: "10k",
+        metricLabel: "Monte Carlo Projections",
         metricSub:
-            "Runs 10,000 compound variance equations locally if backend is down.",
+            "Simulates varied asset growth pathways locally using statistical distribution libraries.",
         problem:
-            "Casual investors lack entry-level access to rigorous mathematical risk forecasting.",
+            "Individual investors frequently lack access to complex statistical simulations to visualize risk ranges.",
         solution:
-            "AI advisor running stochastic Monte Carlo projections with Gemini 2.0 advisory feedback.",
+            "An analytical app linking Gemini 2.0 advisory prompts with a Monte Carlo modeling backend.",
         specs: [
-            "Monte Carlo Math: Fast compound variance calculations in SciPy.",
-            "Math Failover: Instant local math equations fallback.",
-            "Secure Auth BFF: Route guards protecting server assets.",
+            "Stochastic Scipy Core: Runs high-iteration wealth distribution paths in Python.",
+            "Offline Fallback: Computes mathematical growth curves locally if API connection drops.",
+            "BFF Authentication: Implements secure backend-for-frontend routes.",
         ],
     },
     {
         id: "interviewpilot",
         phase: "Project 5",
-        timelineTitle: "Generative Voice & Telemetry",
+        timelineTitle: "Interactive AI Coaching",
         date: "March 2026",
-        title: "InterviewPilot — Conversational Coach",
-        subtitle: "Interactive mock coaching with voice and behavioral AI.",
+        title: "InterviewPilot — Speech & Telemetry Trainer",
+        subtitle:
+            "A collaborative mock interview app featuring real-time AI speech feedback.",
         image: "/images/interviewPilot.png",
         tags: ["Next.js", "Gemini AI", "Vapi Sockets", "MediaPipe", "NeonDB"],
-        liveUrl: "https://interview-pilot-web.vercel.app/",
+        liveUrl: "https://interviewpilot.adijain.click",
         githubUrl: "https://github.com/Adi15Jain/InterviewPilot",
-        metricValue: "< 1s",
-        metricLabel: "Voice Response Delay",
+        metricValue: "Val Loss: 0.08",
+        metricLabel: "Behavior Classification",
         metricSub:
-            "Maintains continuous audio and micro-expression mapping streams.",
+            "Trained validation score for classifying real-time mock candidate performance criteria.",
         problem:
-            "Candidates experience high preparation anxiety practicing mock tests alone.",
+            "Candidates face high preparation anxiety and lack real-time feedback on mock responses.",
         solution:
-            "Real-time WebSocket audio coach tracking micro-expressions with MediaPipe.",
+            "A collaborative team project where I engineered the AI speech integration and client-side expression detection pipeline.",
         specs: [
-            "WebSockets Voice: Real-time verbal feedback pipelines.",
-            "Web Workers CV: Offloads webcam telemetry to prevent frame drops.",
-            "Radar Analytics: Computes global percentiles using Prisma query aggregates.",
+            "WebSocket Speech: Low-latency audio feedback loop powered by Gemini and Vapi.",
+            "MediaPipe Workers: Processes webcam frames off-thread to maintain smooth animations.",
+            "Performance Metrics: Aggregates candidate scoring data using Prisma ORM.",
         ],
     },
     {
         id: "vectrion",
         phase: "Project 6",
-        timelineTitle: "AI Applications Infrastructure",
+        timelineTitle: "AI Infrastructure",
         date: "April 2026",
-        title: "Vectrion — AI Applications SDK",
-        subtitle: "Modular TypeScript infrastructure SDK for AI apps.",
+        title: "Vectrion — AI Application SDK",
+        subtitle: "Modular TypeScript library for developer tool abstractions.",
         image: null,
         tags: [
             "TypeScript",
@@ -173,18 +177,17 @@ const projectsDetailed = [
         ],
         liveUrl: "https://vectrion-docs.adijain.click",
         githubUrl: "https://github.com/Adi15Jain/vectrion",
-        metricValue: "0%",
-        metricLabel: "Execution Overhead",
-        metricSub:
-            "Unified adapters, schema validation, and routing with no latency.",
+        metricValue: "< 0.5ms",
+        metricLabel: "Middleware Overhead",
+        metricSub: "Minimizes schema parsing latency on validation checks.",
         problem:
-            "Developers waste hours duplicating API cost, safety, and routing layers.",
+            "Developers write duplicate middleware for prompt routing, logging, and validations.",
         solution:
-            "A composable SDK handling prompts validation, tracing, and local LLM fallbacks.",
+            "A typed SDK offering clean adapter routing, prompt verification, and local fallback paths.",
         specs: [
-            "Onion Middleware: Composable trace pipelines for AI prompts.",
-            "Prompt Injection Guard: Scans variables to stop payload overrides.",
-            "Local Ollama: Resilient local adapter failover system.",
+            "Unified Adapters: Interfaces Google AI, Groq, and local Ollama.",
+            "Onion Middleware: Pipeline tracing and validations via Zod structures.",
+            "Local Failover: Automatically falls back to Ollama if external APIs time out.",
         ],
     },
     {
@@ -236,7 +239,40 @@ const projectsDetailed = [
             "Groq",
             "PostgreSQL",
         ],
-        liveUrl: null,
+        liveUrl: "https://exyst.adijain.click",
+        githubUrl: "https://github.com/Adi15Jain/exyst_paper",
+        metricValue: "91.4%",
+        metricLabel: "Composite Confidence",
+        metricSub:
+            "Calculates real-time historical alignment, syllabus coverage, and quality check indexes.",
+        problem:
+            "Students and educators struggle to extract key focal areas from dense, unstructured historical question papers and university syllabi.",
+        solution:
+            "An intelligent processing pipeline parsing PDFs, classifying sections, indexing question embeddings via ChromaDB, and predicting exam papers.",
+        specs: [
+            "Multi-Stage PDF Pipeline: Combines pdfminer and PyMuPDF fallback for perfect document intelligence.",
+            "Vector RAG Layer: Stores historical question papers in ChromaDB for high-precision semantic recall.",
+            "Structured LiteLLM Routing: Features zero-parse-failure Pydantic outputs backed by Groq APIs.",
+        ],
+    },
+    {
+        id: "telechurn",
+        phase: "Project 9",
+        timelineTitle: "AI Document Intelligence & RAG",
+        date: "June 2026",
+        title: "TeleChurn — AI Exam Intelligence",
+        subtitle:
+            "Predictive exam analytics engine leveraging LLM-based page classification and ChromaDB semantic RAG pipelines.",
+        image: null,
+        tags: [
+            "Next.js 15",
+            "FastAPI",
+            "ChromaDB",
+            "LiteLLM",
+            "Groq",
+            "PostgreSQL",
+        ],
+        liveUrl: "https://exyst.adijain.click",
         githubUrl: "https://github.com/Adi15Jain/exyst_paper",
         metricValue: "91.4%",
         metricLabel: "Composite Confidence",
@@ -1013,11 +1049,17 @@ const ProjectsPage = () => {
                                                         />
                                                     )}
                                                     <span>
-                                                        {project.id === "vectrion"
+                                                        {project.id ===
+                                                        "vectrion"
                                                             ? "Documentation"
-                                                            : (project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
-                                                                ? "Video Demonstration"
-                                                                : "Live Demonstration")}
+                                                            : project.liveUrl.includes(
+                                                                    "youtube.com",
+                                                                ) ||
+                                                                project.liveUrl.includes(
+                                                                    "youtu.be",
+                                                                )
+                                                              ? "Video Demonstration"
+                                                              : "Live Demonstration"}
                                                     </span>
                                                 </a>
                                             )}
@@ -1404,11 +1446,17 @@ const ProjectsPage = () => {
                                                                             />
                                                                         )}
                                                                         <span>
-                                                                            {project.id === "vectrion"
+                                                                            {project.id ===
+                                                                            "vectrion"
                                                                                 ? "Docs"
-                                                                                : (project.liveUrl.includes("youtube.com") || project.liveUrl.includes("youtu.be")
-                                                                                    ? "Video Demo"
-                                                                                    : "Live Demo")}
+                                                                                : project.liveUrl.includes(
+                                                                                        "youtube.com",
+                                                                                    ) ||
+                                                                                    project.liveUrl.includes(
+                                                                                        "youtu.be",
+                                                                                    )
+                                                                                  ? "Video Demo"
+                                                                                  : "Live Demo"}
                                                                         </span>
                                                                     </a>
                                                                 )}

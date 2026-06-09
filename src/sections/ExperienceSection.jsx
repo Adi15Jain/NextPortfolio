@@ -153,14 +153,7 @@ const ExperienceSection = () => {
                                         : "hidden"
                                 }`}
                             >
-                                {/* Star rating */}
-                                <div className="flex items-center gap-1 mb-1">
-                                    {Array.from({ length: 5 }, (_, i) => (
-                                        <span key={i} className="text-sm">
-                                            ⭐
-                                        </span>
-                                    ))}
-                                </div>
+
 
                                 {/* Logo + Title + Date */}
                                 <div className="flex items-center gap-4 pb-4 mb-1 border-b border-white/[0.06]">

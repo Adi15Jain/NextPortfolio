@@ -14,10 +14,10 @@ gsap.registerPlugin(ScrollTrigger);
 const projectData = [
     {
         id: "project1",
-        title: "InterviewPilot — AI Interview Coach",
-        metric: "< 1s Audio Delay",
+        title: "InterviewPilot — AI Interview Trainer",
+        metric: "< 1s Audio Latency",
         solution:
-            "A dynamic WebSocket voice coach tracking facial expressions using MediaPipe webcam telemetry.",
+            "A collaborative app where I engineered the real-time AI audio pipeline and client-side expression telemetry using MediaPipe.",
         image: "/images/interviewPilot.png",
         alt: "InterviewPilot",
         liveUrl: "https://interview-pilot-web.vercel.app/",
@@ -28,9 +28,9 @@ const projectData = [
     {
         id: "project2",
         title: "PneumoAI — Pneumonia Detection",
-        metric: "92% Accuracy Triage",
+        metric: "92.4% Recall Triage",
         solution:
-            "A deep Convolutional Neural Network triaging high-risk emergency radiology scans in milliseconds.",
+            "A PyTorch Convolutional Neural Network classifier identifying lung consolidation regions to prioritize urgent clinical scans.",
         image: "/images/project1.png",
         alt: "PneumoAI",
         liveUrl: "https://www.youtube.com/watch?v=ppJ2CQorY5g",
@@ -41,9 +41,9 @@ const projectData = [
     {
         id: "project3",
         title: "CoinPush — Crypto Screening App",
-        metric: "90% Faster Discovery",
+        metric: "90% Latency Reduction",
         solution:
-            "A high-throughput cryptocurrency terminal piping price velocity over WebSocket streams.",
+            "A real-time cryptocurrency terminal piping live price updates over WebSockets to bypass REST polling limits.",
         image: "/images/project3.png",
         alt: "CoinPush",
         liveUrl: "https://coin-push.vercel.app/",
