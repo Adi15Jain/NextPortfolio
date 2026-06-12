@@ -134,7 +134,7 @@ export function PortalGate() {
 export function Timeline() {
     // Two real org logos; gates without one (independent work) show no chip.
     const [tmuTex, evoTex] = useTexture([
-        "/images/logo.webp",
+        "/images/logo.png",
         "/images/download4.jpeg",
     ]);
     tmuTex.colorSpace = THREE.SRGBColorSpace;
