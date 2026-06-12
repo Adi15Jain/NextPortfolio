@@ -75,26 +75,20 @@ const ShowcaseSection = () => {
 
     useGSAP(() => {
         [project1Ref, project2Ref, project3Ref].forEach((ref, index) => {
-            gsap.fromTo(
-                ref.current,
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    delay: 0.3 * (index + 1),
-                    scrollTrigger: {
-                        trigger: ref.current,
-                        start: "top bottom -=100",
-                    },
+            if (!ref.current) return;
+            gsap.set(ref.current, { opacity: 0, y: 56 });
+            gsap.to(ref.current, {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                delay: index * 0.12,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ref.current,
+                    start: "top 88%",
                 },
-            );
+            });
         });
-        gsap.fromTo(
-            sectionRef.current,
-            { opacity: 0 },
-            { opacity: 1, duration: 1.5 },
-        );
     }, []);
 
     const featured = projectData[0];
@@ -239,6 +233,8 @@ const ShowcaseSection = () => {
                             {/* LEFT: Featured Project */}
                             <SpotlightCard
                                 ref={project1Ref}
+                                tilt
+                                tiltStrength={4}
                                 className="first-project-wrapper p-6 rounded-2xl flex flex-col justify-start gap-4 cursor-default group h-fit"
                             >
                                 <div className="image-wrapper relative overflow-hidden rounded-xl bg-slate-950/40 border border-white/5 w-full">
@@ -315,6 +311,8 @@ const ShowcaseSection = () => {
                                     <SpotlightCard
                                         key={project.id}
                                         ref={refs[idx + 1]}
+                                        tilt
+                                        tiltStrength={5}
                                         className="project p-6 md:p-3 rounded-2xl cursor-default group"
                                     >
                                         {/* Mobile View: stacked layout matching InterviewPilot (visible on mobile, hidden on md+) */}

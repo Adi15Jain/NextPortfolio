@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import SpotlightCard from "../components/SpotlightCard";
 import TitleHeader from "../components/TitleHeader";
+import Reveal, { RevealStagger, RevealItem } from "../components/Reveal";
 import {
     Sparkles,
     Terminal,
@@ -828,11 +829,14 @@ const FeatureCards = () => {
                 {/* Main Interactive Dual Column Panel */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
                     {/* Left Column: Interactive Tab Selectors */}
-                    <div className="lg:col-span-5 flex flex-col gap-4">
+                    <RevealStagger
+                        className="lg:col-span-5 flex flex-col gap-4"
+                        stagger={0.1}
+                    >
                         {abilities.map(({ imgPath, title, desc }, index) => {
                             const isActive = activeIndex === index;
                             return (
-                                <div
+                                <RevealItem
                                     key={title}
                                     className="flex flex-col gap-4"
                                 >
@@ -917,14 +921,22 @@ const FeatureCards = () => {
                                             </SpotlightCard>
                                         </div>
                                     )}
-                                </div>
+                                </RevealItem>
                             );
                         })}
-                    </div>
+                    </RevealStagger>
 
                     {/* Right Column: High-fidelity interactive visual preview sandbox panel */}
-                    <div className="hidden lg:flex lg:col-span-7">
-                        <SpotlightCard className="w-full rounded-2xl p-8 bg-slate-900/40 border border-white/5 flex flex-col justify-between backdrop-blur-xl relative min-h-[360px] desktop-detail-card">
+                    <Reveal
+                        as="div"
+                        className="hidden lg:flex lg:col-span-7"
+                        delay={0.15}
+                    >
+                        <SpotlightCard
+                            tilt
+                            tiltStrength={3}
+                            className="w-full rounded-2xl p-8 bg-slate-900/40 border border-white/5 flex flex-col justify-between backdrop-blur-xl relative min-h-[360px] desktop-detail-card"
+                        >
                             {/* Neon visual halo wrapper */}
                             <div
                                 className="absolute -top-12 -right-12 w-48 h-48 rounded-full filter blur-[80px] opacity-15 pointer-events-none transition-all duration-700"
@@ -941,7 +953,7 @@ const FeatureCards = () => {
                                 {renderInteractiveVisual(activeIndex)}
                             </div>
                         </SpotlightCard>
-                    </div>
+                    </Reveal>
                 </div>
             </div>
 

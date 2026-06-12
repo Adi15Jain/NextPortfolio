@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import TitleHeader from "../components/TitleHeader";
+import Reveal from "../components/Reveal";
 import { MessageSquare } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -188,7 +189,7 @@ const Contact = () => {
                 />
                 <div className="grid-12-cols mt-16">
                     {/* FORM */}
-                    <div className="xl:col-span-5">
+                    <Reveal as="div" className="xl:col-span-5">
                         <div
                             className="glass-card rounded-2xl p-8 md:p-10"
                             style={{
@@ -399,10 +400,10 @@ const Contact = () => {
                                 </form>
                             )}
                         </div>
-                    </div>
+                    </Reveal>
 
                     {/* 3D MODEL */}
-                    <div className="xl:col-span-7 min-h-96">
+                    <Reveal as="div" delay={0.15} className="xl:col-span-7 min-h-96">
                         <div
                             className="w-full h-full hover:cursor-grab rounded-3xl overflow-hidden"
                             style={{ background: "#cd7c2e" }}
@@ -415,7 +416,7 @@ const Contact = () => {
                                 />
                             )}
                         </div>
-                    </div>
+                    </Reveal>
                 </div>
             </div>
         </section>

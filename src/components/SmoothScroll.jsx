@@ -23,6 +23,11 @@ export default function SmoothScroll() {
             touchMultiplier: 1.5,
         });
 
+        // Expose the instance so in-page navigation (e.g. the projects route
+        // map) can scroll *through* Lenis — otherwise Lenis snaps the page back
+        // to its own internal target after a native window.scrollTo.
+        window.__lenis = lenis;
+
         let rafId;
         function raf(time) {
             lenis.raf(time);
@@ -41,6 +46,7 @@ export default function SmoothScroll() {
         return () => {
             cancelAnimationFrame(rafId);
             lenis.destroy();
+            if (window.__lenis === lenis) delete window.__lenis;
         };
     }, []);
 

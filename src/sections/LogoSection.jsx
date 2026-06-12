@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import TitleHeader from "../components/TitleHeader";
+import Reveal from "../components/Reveal";
 import { Wrench } from "lucide-react";
 
 // ─── Expanded Icon Data ────────────────────────────────────────────────────────
@@ -225,16 +226,18 @@ const LogoSection = () => {
             />
 
             {/* Desktop View: Infinite Marquee */}
-            <div
+            <Reveal
+                as="div"
+                delay={0.1}
                 className="hidden md:block ag-marquee-section mt-2"
                 style={{ paddingTop: "70px", paddingBottom: "20px" }}
             >
                 <MarqueeRow icons={ROW_1} direction="ltr" />
                 <MarqueeRow icons={ROW_2} direction="rtl" />
-            </div>
+            </Reveal>
 
             {/* Mobile View: High-Density Interactive Grid */}
-            <div className="block md:hidden mt-8 px-4">
+            <Reveal as="div" delay={0.1} className="block md:hidden mt-8 px-4">
                 <div className="grid grid-cols-6 gap-3 justify-items-center max-w-[340px] mx-auto">
                     {ALL_ICONS.map((icon) => (
                         <div
@@ -263,7 +266,7 @@ const LogoSection = () => {
                             : "Tap a tool to identify it"}
                     </span>
                 </div>
-            </div>
+            </Reveal>
         </div>
     );
 };

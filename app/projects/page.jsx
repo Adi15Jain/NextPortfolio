@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import NavBar from "../../src/components/NavBar";
 import Footer from "../../src/sections/Footer";
 import SpotlightCard from "../../src/components/SpotlightCard";
+import JourneyMap from "../../src/components/projects/JourneyMap";
 import Image from "next/image";
 import {
     ArrowLeft,
@@ -55,7 +56,7 @@ const projectsDetailed = [
         date: "October 2025",
         title: "AlgoPlus — Cinematic DSA Visualizer",
         subtitle: "High-performance hybrid compiled algorithm snapshots.",
-        image: null,
+        image: "/images/algoplus.png",
         tags: ["C++ Core", "FastAPI", "NextJS", "Framer Motion"],
         liveUrl: null,
         githubUrl: "https://github.com/Adi15Jain/AlgoPlus",
@@ -274,6 +275,52 @@ const projectsDetailed = [
         ],
     },
 ];
+
+/* The "weight" of each milestone — what this chapter of the journey proved.
+   Surfaced prominently so every project reads as a deliberate step, not a
+   one-off. Keyed by project id. */
+const journeyMeaning = {
+    pneumoai:
+        "Where it began — proving a model could shoulder a life-or-death triage decision.",
+    algoplus:
+        "The leap into systems — trading JavaScript's ceiling for compiled C++ speed.",
+    coinpush:
+        "Learning to move at the speed of the market — push, never poll.",
+    wealthyminds:
+        "Turning uncertainty into something you can see — ten thousand futures, one decision.",
+    interviewpilot:
+        "Building for people under pressure — real-time feedback the moment it matters.",
+    vectrion:
+        "Graduating from shipping apps to shipping the infrastructure others build on.",
+    archlens:
+        "Making the invisible visible — governing architecture before it quietly rots.",
+    exyst: "Teaching documents to answer questions — retrieval over guesswork.",
+    telechurn:
+        "Closing the loop — models that defend revenue, measured in real rupees.",
+};
+
+/* Tries the real screenshot; if the asset is missing it falls back to the
+   hand-built code visual so the page never shows a broken image. */
+const ProjectVisual = ({ project }) => {
+    const [failed, setFailed] = useState(false);
+
+    if (project.image && !failed) {
+        return (
+            <div className="image-wrapper relative overflow-hidden rounded-xl w-full aspect-[16/9] bg-slate-950/60 border border-white/5 flex items-center justify-center p-2 shadow-inner">
+                <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={500}
+                    height={280}
+                    onError={() => setFailed(true)}
+                    className="w-full h-full object-contain rounded-lg"
+                />
+            </div>
+        );
+    }
+
+    return <RenderVisualCard id={project.id} />;
+};
 
 const RenderVisualCard = ({ id }) => {
     if (id === "algoplus") {
@@ -789,7 +836,7 @@ const ProjectsPage = () => {
     return (
         <div
             ref={pageRef}
-            className="min-h-screen bg-[#030303] text-white flex flex-col font-sans relative overflow-hidden animate-fade-in"
+            className="min-h-screen bg-[#030303] text-white flex flex-col font-sans relative overflow-x-clip animate-fade-in"
         >
             {/* Structured Schema Markup (JSON-LD ItemList / SoftwareApplications) */}
             <script
@@ -948,16 +995,26 @@ const ProjectsPage = () => {
 
                     <div ref={titleRef} className="space-y-4">
                         <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider text-blue-400 bg-blue-400/10 border border-blue-400/20 uppercase">
-                            <Sparkles size={12} /> The Engineering Timeline
+                            <Sparkles size={12} /> The Build Journey
                         </div>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] max-w-4xl bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                            Solving Real-World Challenges Chronologically
+                            From One Model to Many Systems
                         </h1>
+                        <p className="text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
+                            It started with a single CNN. Each project after it
+                            answered a harder question than the last — here&apos;s
+                            the path, milestone by milestone.
+                        </p>
                     </div>
                 </div>
 
+                {/* JOURNEY MAP — sticky route that tracks where you are */}
+                <div className="intro-element sticky top-[84px] z-30 -mx-5 px-5 py-5 mb-4 bg-[#030303]/70 backdrop-blur-xl border-y border-white/[0.05]">
+                    <JourneyMap projects={projectsDetailed} />
+                </div>
+
                 {/* TIMELINE SECTION */}
-                <div ref={timelineRef} className="relative w-full mt-24">
+                <div ref={timelineRef} className="relative w-full mt-16">
                     {/* Central vertical line on desktop, left vertical line on mobile */}
                     <div className="absolute left-[30px] lg:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 -translate-x-1/2 pointer-events-none z-10">
                         <div
@@ -988,6 +1045,13 @@ const ProjectsPage = () => {
                                             {project.date}
                                         </span>
                                     </div>
+
+                                    {/* Milestone meaning — the weight this chapter carries */}
+                                    {journeyMeaning[project.id] && (
+                                        <p className="relative text-base md:text-lg font-semibold leading-snug text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 pl-4 border-l-[3px] border-blue-500/70">
+                                            {journeyMeaning[project.id]}
+                                        </p>
+                                    )}
 
                                     <div className="space-y-5.5">
                                         <div>
@@ -1136,19 +1200,7 @@ const ProjectsPage = () => {
 
                                     {/* Visual Representation Frame */}
                                     <div className="w-full">
-                                        {project.image ? (
-                                            <div className="image-wrapper relative overflow-hidden rounded-xl w-full aspect-[16/9] bg-slate-950/60 border border-white/5 flex items-center justify-center p-2 shadow-inner">
-                                                <Image
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    width={500}
-                                                    height={280}
-                                                    className="w-full h-full object-contain rounded-lg"
-                                                />
-                                            </div>
-                                        ) : (
-                                            <RenderVisualCard id={project.id} />
-                                        )}
+                                        <ProjectVisual project={project} />
                                     </div>
 
                                     {/* Architectural Specs List */}
@@ -1185,7 +1237,8 @@ const ProjectsPage = () => {
                             return (
                                 <div
                                     key={project.id}
-                                    className="relative w-full"
+                                    id={`journey-${project.id}`}
+                                    className="relative w-full scroll-mt-32"
                                 >
                                     {/* Timeline Node Point Indicator */}
                                     <div
@@ -1311,6 +1364,19 @@ const ProjectsPage = () => {
                                             {expandedProjectId ===
                                                 project.id && (
                                                 <div className="flex flex-col gap-4 animate-fade-in pt-2 border-t border-white/5">
+                                                    {/* Milestone meaning */}
+                                                    {journeyMeaning[
+                                                        project.id
+                                                    ] && (
+                                                        <p className="text-sm font-semibold leading-snug text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 pl-3 border-l-[3px] border-blue-500/70">
+                                                            {
+                                                                journeyMeaning[
+                                                                    project.id
+                                                                ]
+                                                            }
+                                                        </p>
+                                                    )}
+
                                                     {/* Tab Switcher */}
                                                     <div className="flex bg-slate-950/60 rounded-xl p-1 border border-white/[0.04]">
                                                         <button
@@ -1542,31 +1608,11 @@ const ProjectsPage = () => {
 
                                                             {/* Visual Frame */}
                                                             <div className="w-full">
-                                                                {project.image ? (
-                                                                    <div className="image-wrapper relative overflow-hidden rounded-xl w-full aspect-[16/9] bg-slate-950/60 border border-white/5 flex items-center justify-center p-1 shadow-inner">
-                                                                        <Image
-                                                                            src={
-                                                                                project.image
-                                                                            }
-                                                                            alt={
-                                                                                project.title
-                                                                            }
-                                                                            width={
-                                                                                400
-                                                                            }
-                                                                            height={
-                                                                                225
-                                                                            }
-                                                                            className="w-full h-full object-contain rounded-lg"
-                                                                        />
-                                                                    </div>
-                                                                ) : (
-                                                                    <RenderVisualCard
-                                                                        id={
-                                                                            project.id
-                                                                        }
-                                                                    />
-                                                                )}
+                                                                <ProjectVisual
+                                                                    project={
+                                                                        project
+                                                                    }
+                                                                />
                                                             </div>
 
                                                             {/* Milestones list */}

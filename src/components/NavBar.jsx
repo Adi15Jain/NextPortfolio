@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Magnetic from "./Magnetic";
 import { Activity, Wifi, Github, Linkedin } from "lucide-react";
 
 const socialColors = {
@@ -252,14 +253,16 @@ const NavBar = () => {
                         </a>
 
                         {/* Contact Button */}
-                        <Link
-                            href={isHome ? "#contact" : "/#contact"}
-                            className="contact-btn group hidden lg:flex"
-                        >
-                            <div className="inner">
-                                <span>Contact me</span>
-                            </div>
-                        </Link>
+                        <Magnetic strength={0.45} className="hidden lg:inline-flex">
+                            <Link
+                                href={isHome ? "#contact" : "/#contact"}
+                                className="contact-btn group flex"
+                            >
+                                <div className="inner">
+                                    <span>Contact me</span>
+                                </div>
+                            </Link>
+                        </Magnetic>
 
                         {/* Hamburger Button */}
                         <button

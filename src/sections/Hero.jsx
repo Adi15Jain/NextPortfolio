@@ -2,6 +2,7 @@
 
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
+import Magnetic from "../components/Magnetic";
 import dynamic from "next/dynamic";
 
 const HeroExperience = dynamic(
@@ -291,11 +292,13 @@ const Hero = () => {
                         </div>
 
                         <div className="flex flex-col gap-3">
-                            <Button
-                                className="see-button md:w-80 md:h-16 w-60 h-12 pointer-events-auto"
-                                id="button"
-                                text="See my Work"
-                            />
+                            <Magnetic className="pointer-events-auto w-fit">
+                                <Button
+                                    className="see-button md:w-80 md:h-16 w-60 h-12 pointer-events-auto"
+                                    id="button"
+                                    text="See my Work"
+                                />
+                            </Magnetic>
                         </div>
                     </div>
                 </header>
