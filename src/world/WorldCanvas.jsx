@@ -5,17 +5,14 @@ import { Environment, Lightformer, useGLTF } from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
 import CameraRig from "./CameraRig";
-import WorldDust from "./WorldDust";
+import MorphField from "./particles/MorphField";
 import StreamBridges from "./StreamBridges";
 import EcosystemScene from "./scenes/EcosystemScene";
 import GalaxyScene from "./scenes/GalaxyScene";
 import MindScene from "./scenes/MindScene";
-import {
-    Workspace,
-    WorkspaceLights,
-    PortalGate,
-    Timeline,
-} from "./WorldScenes";
+import TimelineScene from "./scenes/TimelineScene";
+import WorldPost from "./post/WorldPost";
+import { Workspace, WorkspaceLights, PortalGate } from "./WorldScenes";
 
 // Self-host the Draco decoder (copied into /public/draco) so compressed asset
 // models decode without a third-party CDN. Textures ship as WebP (no extra
@@ -82,7 +79,8 @@ export default function WorldCanvas() {
             gl={{
                 antialias: true,
                 powerPreference: "high-performance",
-                toneMapping: THREE.ACESFilmicToneMapping,
+                // tone-mapping is applied once by the post ToneMapping effect
+                toneMapping: THREE.NoToneMapping,
             }}
             camera={{ position: [-0.6, 0.6, 7.8], fov: 42, near: 0.1, far: 200 }}
         >
@@ -95,7 +93,7 @@ export default function WorldCanvas() {
                 <WorldEnvironment />
 
                 <CameraRig />
-                <WorldDust count={850} />
+                <MorphField count={12000} />
 
                 <WorkspaceLights />
                 <Workspace />
@@ -103,8 +101,10 @@ export default function WorldCanvas() {
                 <EcosystemScene />
                 <GalaxyScene />
                 <MindScene />
-                <Timeline />
+                <TimelineScene />
                 <StreamBridges />
+
+                <WorldPost />
             </Suspense>
         </Canvas>
     );

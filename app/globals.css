@@ -231,19 +231,21 @@ section {
 .world-panel-left::before {
     content: "";
     position: absolute;
-    top: -56px;
-    bottom: -56px;
+    top: -70px;
+    bottom: -70px;
     left: calc(-1 * clamp(20px, 6vw, 90px));
-    right: -110px;
+    right: -150px;
     z-index: -1;
-    border-radius: 0 36px 36px 0;
-    background: linear-gradient(
-        90deg,
-        rgba(5, 6, 10, 0.92) 0%,
-        rgba(5, 6, 10, 0.8) 50%,
-        rgba(5, 6, 10, 0.45) 78%,
-        transparent 100%
-    );
+    /* feathered both horizontally and vertically so it melts into the scene
+       instead of reading as a hard black card */
+    background:
+        radial-gradient(
+            ellipse 78% 70% at 22% 50%,
+            rgba(5, 6, 10, 0.9) 0%,
+            rgba(5, 6, 10, 0.6) 48%,
+            rgba(5, 6, 10, 0.25) 70%,
+            transparent 84%
+        );
 }
 .world-panel-center {
     left: 50%;
@@ -427,6 +429,73 @@ section {
     font-size: 11px;
     color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.02em;
+}
+
+/* Workspace hero — avatar halo + pulsing status dot */
+.world-ws-avatar {
+    position: relative;
+    width: 74px;
+    height: 74px;
+    margin-bottom: 2px;
+}
+.world-ws-avatar img {
+    position: relative;
+    z-index: 1;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    background: rgba(127, 180, 255, 0.06);
+}
+.world-ws-halo {
+    position: absolute;
+    inset: -7px;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(127, 180, 255, 0.55) 0%,
+        rgba(139, 92, 246, 0.3) 45%,
+        transparent 72%
+    );
+    filter: blur(9px);
+    animation: wsHalo 3.2s ease-in-out infinite;
+}
+@keyframes wsHalo {
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.95;
+        transform: scale(1.1);
+    }
+}
+.world-ws-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+.world-ws-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    animation: wsDot 2s ease-in-out infinite;
+}
+@keyframes wsDot {
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    }
+    50% {
+        opacity: 0.55;
+        box-shadow: 0 0 16px rgba(74, 222, 128, 1);
+    }
 }
 
 /* Chips (ecosystem) */
@@ -950,27 +1019,47 @@ section {
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* Enter-world button (shown in classic mode on capable devices) */
-.enter-world-btn {
-    position: fixed;
-    bottom: 26px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 80;
+/* Immersive-mode button — lives in the navbar, right of "Contact me"
+   (shown in classic view on high-tier desktops only). Compact pill so it
+   never crowds the other nav controls. */
+.nav-immersive-btn {
+    align-items: center;
+    gap: 7px;
     font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     color: #fff;
-    padding: 12px 24px;
+    padding: 8px 16px;
     border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45);
+    box-shadow: 0 6px 22px rgba(99, 102, 241, 0.38),
+        inset 0 1px 1px rgba(255, 255, 255, 0.18);
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
-.enter-world-btn:hover {
-    transform: translateX(-50%) translateY(-2px);
-    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+.nav-immersive-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.55),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
+.nav-immersive-btn:active {
+    transform: translateY(0) scale(0.97);
+}
+.nav-immersive-spark {
+    font-size: 12px;
+    line-height: 1;
+    opacity: 0.95;
+    animation: nav-spark-pulse 2.6s ease-in-out infinite;
+}
+@keyframes nav-spark-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(0.92); }
+    50% { opacity: 1; transform: scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nav-immersive-spark { animation: none; }
 }
 
 @media (max-width: 900px) {
@@ -993,6 +1082,13 @@ section {
 }
 
 /* Cinematic film grain — fixed, ultra-subtle, above content but click-through. */
+/* When the immersive World is mounted, its in-canvas grain + vignette take
+   over — hide the global CSS overlays so they don't double up. */
+body:has(.world-stage) .cinematic-grain,
+body:has(.world-stage) .cinematic-vignette {
+    display: none;
+}
+
 .cinematic-grain {
     position: fixed;
     inset: 0;
@@ -1074,6 +1170,10 @@ section {
     .journey-focus::before {
         animation: none !important;
         display: none !important;
+    }
+    .world-ws-halo,
+    .world-ws-dot {
+        animation: none !important;
     }
 }
 

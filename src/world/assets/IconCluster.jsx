@@ -50,7 +50,7 @@ export default function IconCluster({ position = [0, 0, 0] }) {
                 const r = Math.floor(i / 3);
                 return {
                     key: ic.key,
-                    url: `/images/tech/${ic.key}.png`,
+                    url: `/images/tech/${ic.key}.svg`,
                     position: [(c - 1) * 0.82, (1 - r) * 0.82 + 0.3, 0],
                 };
             }),

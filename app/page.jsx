@@ -19,12 +19,7 @@ import { useDeviceTier } from "../src/hooks/useDeviceCapabilities";
 function ClassicHome({ onEnterWorld }) {
     return (
         <>
-            <NavBar />
-            {onEnterWorld && (
-                <button className="enter-world-btn" onClick={onEnterWorld}>
-                    ✦ Enter the immersive experience
-                </button>
-            )}
+            <NavBar onEnterWorld={onEnterWorld} />
             <Hero />
             <ShowcaseSection />
             <LogoSection />

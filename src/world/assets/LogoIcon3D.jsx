@@ -23,12 +23,26 @@ export default function LogoIcon3D({
     target = 1.25, // uniform max-dimension for every logo
     scale = 1, // optional per-logo fine-tune
     spin = 0.45,
+    tint = null, // lighten/recolour a dark logo (e.g. the black Three.js mark)
 }) {
     const ref = useRef();
     const { scene } = useGLTF(model);
 
     const { obj, factor, halfH } = useMemo(() => {
         const clone = scene.clone(true);
+        if (tint) {
+            const c = new THREE.Color(tint);
+            clone.traverse((o) => {
+                if (!o.isMesh || !o.material) return;
+                const m = o.material.clone();
+                m.color = c;
+                m.emissive = c;
+                m.emissiveIntensity = 0.35;
+                m.metalness = Math.min(m.metalness ?? 0, 0.3);
+                m.needsUpdate = true;
+                o.material = m;
+            });
+        }
         const box = new THREE.Box3().setFromObject(clone);
         const size = new THREE.Vector3();
         const center = new THREE.Vector3();
@@ -38,7 +52,7 @@ export default function LogoIcon3D({
         const factor = (target / maxDim) * scale;
         clone.position.sub(center); // center geometry at origin
         return { obj: clone, factor, halfH: (size.y * factor) / 2 };
-    }, [scene, target, scale]);
+    }, [scene, target, scale, tint]);
 
     useFrame((_, delta) => {
         if (!nearRange(0.22, 0.44)) return; // ecosystem only

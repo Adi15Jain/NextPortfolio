@@ -110,7 +110,11 @@ function ReactComponentTree({ position }) {
             ))}
             {edges.map(([a, b], i) => (
                 <line key={i} geometry={lineGeom([nodes[a].p, nodes[b].p])}>
-                    <lineBasicMaterial color="#61dafb" transparent opacity={0.35} />
+                    <lineBasicMaterial
+                        color="#61dafb"
+                        transparent
+                        opacity={0.35}
+                    />
                 </line>
             ))}
             {edges.map((_, i) => (
@@ -119,7 +123,12 @@ function ReactComponentTree({ position }) {
                     <meshBasicMaterial color="#bdefff" transparent />
                 </mesh>
             ))}
-            <SystemLabel name="React" caption="A component tree, props flowing down" color="#61dafb" y={-1.3} />
+            <SystemLabel
+                name="React"
+                caption="A component tree, props flowing down"
+                color="#61dafb"
+                y={-1.3}
+            />
         </group>
     );
 }
@@ -129,9 +138,21 @@ function ReactComponentTree({ position }) {
 function NextRoutingNetwork({ position }) {
     const routes = useMemo(
         () => [
-            [[-1.2, 0, 0], [0.2, 0.7, 0], [1.4, 0.7, 0]],
-            [[-1.2, 0, 0], [0.3, 0, 0], [1.4, 0, 0]],
-            [[-1.2, 0, 0], [0.2, -0.7, 0], [1.4, -0.7, 0]],
+            [
+                [-1.2, 0, 0],
+                [0.2, 0.7, 0],
+                [1.4, 0.7, 0],
+            ],
+            [
+                [-1.2, 0, 0],
+                [0.3, 0, 0],
+                [1.4, 0, 0],
+            ],
+            [
+                [-1.2, 0, 0],
+                [0.2, -0.7, 0],
+                [1.4, -0.7, 0],
+            ],
         ],
         [],
     );
@@ -162,29 +183,51 @@ function NextRoutingNetwork({ position }) {
         <group position={position}>
             <mesh position={[-1.2, 0, 0]}>
                 <boxGeometry args={[0.5, 0.5, 0.5]} />
-                <meshStandardMaterial color="#15151c" emissive="#ffffff" emissiveIntensity={0.25} />
+                <meshStandardMaterial
+                    color="#15151c"
+                    emissive="#ffffff"
+                    emissiveIntensity={0.25}
+                />
             </mesh>
             {curves.map((c, i) => (
                 <line
                     key={i}
-                    geometry={lineGeom(c.getPoints(16).map((v) => [v.x, v.y, v.z]))}
+                    geometry={lineGeom(
+                        c.getPoints(16).map((v) => [v.x, v.y, v.z]),
+                    )}
                 >
-                    <lineBasicMaterial color="#cfd6e4" transparent opacity={0.3} />
+                    <lineBasicMaterial
+                        color="#cfd6e4"
+                        transparent
+                        opacity={0.3}
+                    />
                 </line>
             ))}
             {routes.map((r, i) => (
                 <mesh key={i} position={r[2]}>
                     <planeGeometry args={[0.4, 0.28]} />
-                    <meshBasicMaterial color="#2a2f3c" side={THREE.DoubleSide} />
+                    <meshBasicMaterial
+                        color="#2a2f3c"
+                        side={THREE.DoubleSide}
+                    />
                 </mesh>
             ))}
             {[0, 1, 2].map((i) => (
                 <mesh key={i} ref={(el) => (pages.current[i] = el)}>
                     <planeGeometry args={[0.26, 0.18]} />
-                    <meshBasicMaterial color="#e8ecf5" transparent side={THREE.DoubleSide} />
+                    <meshBasicMaterial
+                        color="#e8ecf5"
+                        transparent
+                        side={THREE.DoubleSide}
+                    />
                 </mesh>
             ))}
-            <SystemLabel name="Next.js" caption="Server-rendered pages, streamed per route" color="#cfd6e4" y={-1.3} />
+            <SystemLabel
+                name="Next.js"
+                caption="Server-rendered pages, streamed per route"
+                color="#cfd6e4"
+                y={-1.3}
+            />
         </group>
     );
 }
@@ -215,7 +258,11 @@ function FastApiConduit({ position }) {
         <group position={position}>
             <mesh rotation={[0, 0, Math.PI / 2]}>
                 <torusGeometry args={[0.55, 0.04, 12, 48]} />
-                <meshStandardMaterial color="#05bfa3" emissive="#05bfa3" emissiveIntensity={1.2} />
+                <meshStandardMaterial
+                    color="#05bfa3"
+                    emissive="#05bfa3"
+                    emissiveIntensity={1.2}
+                />
             </mesh>
             {[0, 1, 2].map((i) => (
                 <mesh key={`q${i}`} ref={(el) => (reqs.current[i] = el)}>
@@ -229,7 +276,12 @@ function FastApiConduit({ position }) {
                     <meshBasicMaterial color="#b8fff1" transparent />
                 </mesh>
             ))}
-            <SystemLabel name="FastAPI" caption="Requests in · responses out" color="#05bfa3" y={-1.2} />
+            <SystemLabel
+                name="FastAPI"
+                caption="Requests in · responses out"
+                color="#05bfa3"
+                y={-1.2}
+            />
         </group>
     );
 }
@@ -291,7 +343,11 @@ function TorchTrainingNet({ position }) {
                         }}
                     >
                         <sphereGeometry args={[0.11, 12, 12]} />
-                        <meshStandardMaterial color="#ee4c2c" emissive="#ee4c2c" emissiveIntensity={0.3} />
+                        <meshStandardMaterial
+                            color="#ee4c2c"
+                            emissive="#ee4c2c"
+                            emissiveIntensity={0.3}
+                        />
                     </mesh>
                 )),
             )}
@@ -305,7 +361,11 @@ function TorchTrainingNet({ position }) {
                                 [layers[li + 1][0], y2, 0],
                             ])}
                         >
-                            <lineBasicMaterial color="#ee4c2c" transparent opacity={0.18} />
+                            <lineBasicMaterial
+                                color="#ee4c2c"
+                                transparent
+                                opacity={0.18}
+                            />
                         </line>
                     )),
                 ),
@@ -314,17 +374,34 @@ function TorchTrainingNet({ position }) {
             <line geometry={lineGeom(lossCurve.map((v) => [v.x, v.y, v.z]))}>
                 <lineBasicMaterial color="#ffb59f" transparent opacity={0.6} />
             </line>
-            <line geometry={lineGeom([[1.5, -0.55, 0], [2.7, -0.55, 0]])}>
+            <line
+                geometry={lineGeom([
+                    [1.5, -0.55, 0],
+                    [2.7, -0.55, 0],
+                ])}
+            >
                 <lineBasicMaterial color="#ffffff" transparent opacity={0.2} />
             </line>
             <mesh ref={lossDot}>
                 <sphereGeometry args={[0.05, 8, 8]} />
                 <meshBasicMaterial color="#ffd9cd" />
             </mesh>
-            <Text position={[2.1, 0.6, 0]} fontSize={0.13} color="#ffb59f" anchorX="center" outlineWidth={0.006} outlineColor="#05060a">
+            <Text
+                position={[2.1, 0.6, 0]}
+                fontSize={0.13}
+                color="#ffb59f"
+                anchorX="center"
+                outlineWidth={0.006}
+                outlineColor="#05060a"
+            >
                 loss ↓
             </Text>
-            <SystemLabel name="PyTorch" caption="Forward pass · loss falling" color="#ee4c2c" y={-1.5} />
+            <SystemLabel
+                name="PyTorch"
+                caption="Forward pass · loss falling"
+                color="#ee4c2c"
+                y={-1.5}
+            />
         </group>
     );
 }
@@ -355,23 +432,45 @@ function DockerPipeline({ position }) {
         <group position={position}>
             <mesh position={[0.9, 0, 0]}>
                 <boxGeometry args={[1.8, 0.12, 1.0]} />
-                <meshStandardMaterial color="#11324d" emissive="#2496ed" emissiveIntensity={0.25} />
+                <meshStandardMaterial
+                    color="#11324d"
+                    emissive="#2496ed"
+                    emissiveIntensity={0.25}
+                />
             </mesh>
             <mesh ref={lamp} position={[1.7, 0.16, 0.4]}>
                 <sphereGeometry args={[0.06, 8, 8]} />
-                <meshStandardMaterial color="#2eea8d" emissive="#2eea8d" emissiveIntensity={0.3} />
+                <meshStandardMaterial
+                    color="#2eea8d"
+                    emissive="#2eea8d"
+                    emissiveIntensity={0.3}
+                />
             </mesh>
             <mesh position={[-1.1, 0.42, 0]}>
                 <boxGeometry args={[1.4, 0.03, 0.5]} />
                 <meshBasicMaterial color="#2496ed" transparent opacity={0.35} />
             </mesh>
             {[0, 1, 2].map((i) => (
-                <mesh key={i} ref={(el) => (boxes.current[i] = el)} position={[-1.6, 0.5, 0]}>
+                <mesh
+                    key={i}
+                    ref={(el) => (boxes.current[i] = el)}
+                    position={[-1.6, 0.5, 0]}
+                >
                     <boxGeometry args={[0.42, 0.3, 0.42]} />
-                    <meshStandardMaterial color={colors[i]} emissive={colors[i]} emissiveIntensity={0.5} transparent />
+                    <meshStandardMaterial
+                        color={colors[i]}
+                        emissive={colors[i]}
+                        emissiveIntensity={0.5}
+                        transparent
+                    />
                 </mesh>
             ))}
-            <SystemLabel name="Docker" caption="Build → ship → deployed ●" color="#2496ed" y={-1.1} />
+            <SystemLabel
+                name="Docker"
+                caption="Build → ship → deployed ●"
+                color="#2496ed"
+                y={-1.1}
+            />
         </group>
     );
 }
@@ -410,17 +509,29 @@ function PostgresCore({ position }) {
             {[-0.3, 0, 0.3].map((y, i) => (
                 <mesh key={i} position={[0, y - 0.1, 0]}>
                     <cylinderGeometry args={[0.5, 0.5, 0.22, 24]} />
-                    <meshStandardMaterial color="#274a78" emissive="#4f7fd0" emissiveIntensity={0.5} />
+                    <meshStandardMaterial
+                        color="#274a78"
+                        emissive="#4f7fd0"
+                        emissiveIntensity={0.5}
+                    />
                 </mesh>
             ))}
             {sats.map((s, i) => (
                 <group key={i}>
                     <mesh position={s}>
                         <boxGeometry args={[0.3, 0.2, 0.06]} />
-                        <meshStandardMaterial color="#4f7fd0" emissive="#4f7fd0" emissiveIntensity={0.7} />
+                        <meshStandardMaterial
+                            color="#4f7fd0"
+                            emissive="#4f7fd0"
+                            emissiveIntensity={0.7}
+                        />
                     </mesh>
                     <line geometry={lineGeom([[0, -0.1, 0], s])}>
-                        <lineBasicMaterial color="#4f7fd0" transparent opacity={0.3} />
+                        <lineBasicMaterial
+                            color="#4f7fd0"
+                            transparent
+                            opacity={0.3}
+                        />
                     </line>
                 </group>
             ))}
@@ -436,7 +547,12 @@ function PostgresCore({ position }) {
                     <meshBasicMaterial color="#d6e6ff" transparent />
                 </mesh>
             ))}
-            <SystemLabel name="PostgreSQL" caption="Writes in · reads out · relations held" color="#6f9ee8" y={-1.25} />
+            <SystemLabel
+                name="PostgreSQL"
+                caption="Writes in · reads out · relations held"
+                color="#6f9ee8"
+                y={-1.25}
+            />
         </group>
     );
 }
@@ -475,7 +591,12 @@ function GitGraph({ position }) {
     );
     return (
         <group position={position}>
-            <line geometry={lineGeom([[-1.4, -0.3, 0], [1.4, -0.3, 0]])}>
+            <line
+                geometry={lineGeom([
+                    [-1.4, -0.3, 0],
+                    [1.4, -0.3, 0],
+                ])}
+            >
                 <lineBasicMaterial color="#f05133" transparent opacity={0.6} />
             </line>
             <line geometry={lineGeom(branchPts)}>
@@ -495,7 +616,12 @@ function GitGraph({ position }) {
                 <sphereGeometry args={[0.05, 8, 8]} />
                 <meshBasicMaterial color="#ffd9a8" />
             </mesh>
-            <SystemLabel name="Git" caption="Feature branch merging to main" color="#f05133" y={-1.0} />
+            <SystemLabel
+                name="Git"
+                caption="Feature branch merging to main"
+                color="#f05133"
+                y={-1.0}
+            />
         </group>
     );
 }
@@ -523,12 +649,25 @@ function TypeAssembly({ position }) {
     return (
         <group position={position}>
             {grid.map(([x, y], i) => (
-                <mesh key={i} position={[x, y, 0]} ref={(el) => (cubes.current[i] = el)}>
+                <mesh
+                    key={i}
+                    position={[x, y, 0]}
+                    ref={(el) => (cubes.current[i] = el)}
+                >
                     <boxGeometry args={[0.34, 0.34, 0.34]} />
-                    <meshStandardMaterial color="#3178c6" emissive="#3178c6" emissiveIntensity={0.3} />
+                    <meshStandardMaterial
+                        color="#3178c6"
+                        emissive="#3178c6"
+                        emissiveIntensity={0.3}
+                    />
                 </mesh>
             ))}
-            <SystemLabel name="TypeScript" caption="Strict mode: every block checked" color="#6aa9ee" y={-1.35} />
+            <SystemLabel
+                name="TypeScript"
+                caption="Strict mode: every block checked"
+                color="#6aa9ee"
+                y={-1.35}
+            />
         </group>
     );
 }
@@ -549,11 +688,67 @@ const M = {
    bottom) so the stack occupies a narrow column instead of sprawling across
    the viewport. */
 const ITEMS = [
-    { key: "react", render: (p) => <LogoIcon3D model={M.react} position={p} name="React" caption="Component-driven interfaces" captionColor="#61dafb" /> },
-    { key: "python", render: (p) => <LogoIcon3D model={M.python} position={p} name="Python" caption="AI / ML & backend" captionColor="#ffd54a" /> },
-    { key: "node", render: (p) => <LogoIcon3D model={M.node} position={p} name="Node.js" caption="Real-time backends" captionColor="#7cc66b" /> },
-    { key: "three", render: (p) => <LogoIcon3D model={M.three} position={p} name="Three.js" caption="Powers this very world" captionColor="#ffffff" /> },
-    { key: "git", render: (p) => <LogoIcon3D model={M.git} position={p} name="Git" caption="Version control" captionColor="#f05133" /> },
+    {
+        key: "react",
+        render: (p) => (
+            <LogoIcon3D
+                model={M.react}
+                position={p}
+                name="React"
+                caption="Component-driven interfaces"
+                captionColor="#61dafb"
+            />
+        ),
+    },
+    {
+        key: "python",
+        render: (p) => (
+            <LogoIcon3D
+                model={M.python}
+                position={p}
+                name="Python"
+                caption="AI / ML & backend"
+                captionColor="#ffd54a"
+            />
+        ),
+    },
+    {
+        key: "node",
+        render: (p) => (
+            <LogoIcon3D
+                model={M.node}
+                position={p}
+                name="Node.js"
+                caption="Real-time backends"
+                captionColor="#7cc66b"
+            />
+        ),
+    },
+    {
+        key: "three",
+        render: (p) => (
+            <LogoIcon3D
+                model={M.three}
+                position={p}
+                name="Three.js"
+                caption="Powers this very world"
+                captionColor="#ffffff"
+                tint="#e6ebf5"
+            />
+        ),
+    },
+    {
+        key: "git",
+        render: (p) => (
+            <LogoIcon3D
+                model={M.git}
+                position={p}
+                name="Git"
+                caption="Version control"
+                captionColor="#f05133"
+            />
+        ),
+    },
     { key: "fastapi", render: (p) => <FastApiConduit position={p} /> },
     { key: "pytorch", render: (p) => <TorchTrainingNet position={p} /> },
     { key: "docker", render: (p) => <DockerPipeline position={p} /> },
@@ -573,7 +768,12 @@ export default function EcosystemScene() {
     const pairs = [0, 1, 2, 3];
     return (
         <group>
-            <pointLight position={[3, 0, -34]} intensity={36} distance={48} color="#3ad6ff" />
+            <pointLight
+                position={[3, 0, -34]}
+                intensity={36}
+                distance={48}
+                color="#3ad6ff"
+            />
             {pairs.map((pi) => {
                 const z = PAIR_Z[pi];
                 const top = ITEMS[pi * 2];

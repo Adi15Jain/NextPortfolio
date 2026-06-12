@@ -21,7 +21,7 @@ const socialIcons = {
     linkedin: Linkedin,
 };
 
-const NavBar = () => {
+const NavBar = ({ onEnterWorld }) => {
     const pathname = usePathname();
     const isHome = pathname === "/" || pathname === "";
     const [scrolled, setScrolled] = useState(false);
@@ -49,7 +49,7 @@ const NavBar = () => {
             },
         );
         gsap.fromTo(
-            ".navbar .contact-btn, .navbar .resume-btn",
+            ".navbar .contact-btn, .navbar .resume-btn, .navbar .nav-immersive-btn",
             { y: -20, opacity: 0 },
             {
                 y: 0,
@@ -263,6 +263,19 @@ const NavBar = () => {
                                 </div>
                             </Link>
                         </Magnetic>
+
+                        {/* Enter the immersive 3D world (high-tier desktops only) */}
+                        {onEnterWorld && (
+                            <button
+                                type="button"
+                                onClick={onEnterWorld}
+                                className="nav-immersive-btn hidden lg:inline-flex"
+                                aria-label="Enter the immersive experience"
+                            >
+                                <span className="nav-immersive-spark" aria-hidden="true">✦</span>
+                                <span>Immersive&nbsp;mode</span>
+                            </button>
+                        )}
 
                         {/* Hamburger Button */}
                         <button

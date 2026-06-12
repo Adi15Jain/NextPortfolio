@@ -1,10 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import CountUp from "react-countup";
 import Link from "next/link";
 import { SCENES, useActiveScene, useTimelineGate } from "./journeyStore";
 import { MILESTONES } from "./timelineData";
 import ContactTerminal from "./ContactTerminal";
+import Scramble from "../components/Scramble";
 import { Github, Linkedin, FileText } from "lucide-react";
 import { counterItems, socialImgs } from "../constants";
 
@@ -41,38 +43,88 @@ const Eyebrow = ({ children }) => (
     <span className="world-eyebrow">{children}</span>
 );
 
-/* ── Per-scene content (the real, indexable copy, docked into the world) ── */
-function SceneContent({ scene }) {
-    const id = SCENES[scene].id;
+/* ── Scene 01 — the workspace hero, with a staggered entrance, avatar halo,
+   pulsing "open" dot and counting-up stats so it feels alive like the 3D. ── */
+const wsContainer = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } },
+};
+const wsItem = {
+    hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
+    show: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.7, ease: EASE },
+    },
+};
 
-    if (id === "workspace")
-        return (
-            <Panel align="left">
-                <Eyebrow>● Open to opportunities</Eyebrow>
-                <h1 className="world-h1">
+function WorkspacePanel() {
+    const reduced = useReducedMotion();
+    return (
+        <div className="world-panel world-panel-left">
+            <motion.div
+                className="world-panel-anim world-ws"
+                variants={reduced ? undefined : wsContainer}
+                initial={reduced ? false : "hidden"}
+                animate={reduced ? false : "show"}
+            >
+                <motion.div className="world-ws-avatar" variants={reduced ? undefined : wsItem}>
+                    <img src="/images/avatar_noBg.png" alt="Adi Jain" />
+                    <span className="world-ws-halo" aria-hidden="true" />
+                </motion.div>
+
+                <motion.span className="world-eyebrow world-ws-status" variants={reduced ? undefined : wsItem}>
+                    <span className="world-ws-dot" aria-hidden="true" />
+                    Open to opportunities
+                </motion.span>
+
+                <motion.h1 className="world-h1" variants={reduced ? undefined : wsItem}>
                     Adi Jain
                     <span className="world-h1-sub">
                         AI &amp; ML Engineer · Systems Builder
                     </span>
-                </h1>
-                <p className="world-lead">
+                </motion.h1>
+
+                <motion.p className="world-lead" variants={reduced ? undefined : wsItem}>
                     Welcome into my workspace. Everything you&apos;re about to
                     travel through started here — at this desk.
-                </p>
-                <div className="world-stats">
+                </motion.p>
+
+                <motion.div className="world-stats" variants={reduced ? undefined : wsItem}>
                     {counterItems.map((c) => (
                         <div key={c.label} className="world-stat">
                             <span className="world-stat-v">
-                                {c.value}
-                                {c.suffix}
+                                {reduced ? (
+                                    `${c.value}${c.suffix}`
+                                ) : (
+                                    <CountUp
+                                        end={c.value}
+                                        duration={2.2}
+                                        delay={0.5}
+                                        separator=","
+                                        suffix={c.suffix}
+                                    />
+                                )}
                             </span>
                             <span className="world-stat-l">{c.label}</span>
                         </div>
                     ))}
-                </div>
-                <span className="world-hint">Scroll to begin the journey ↓</span>
-            </Panel>
-        );
+                </motion.div>
+
+                <motion.span className="world-hint" variants={reduced ? undefined : wsItem}>
+                    Scroll to begin the journey ↓
+                </motion.span>
+            </motion.div>
+        </div>
+    );
+}
+
+/* ── Per-scene content (the real, indexable copy, docked into the world) ── */
+function SceneContent({ scene }) {
+    const id = SCENES[scene].id;
+
+    if (id === "workspace") return <WorkspacePanel />;
 
     if (id === "portal")
         return (
@@ -87,7 +139,7 @@ function SceneContent({ scene }) {
         return (
             <Panel align="left">
                 <Eyebrow>Scene 03 — The Builder&apos;s Ecosystem</Eyebrow>
-                <h2 className="world-h2">Watch the stack run</h2>
+                <Scramble as="h2" className="world-h2" text="Watch the stack run" />
                 <p className="world-lead">
                     Every system here is doing its real job — requests flowing,
                     containers shipping, networks learning.
@@ -99,7 +151,7 @@ function SceneContent({ scene }) {
         return (
             <Panel align="left">
                 <Eyebrow>Scene 04 — Project Galaxy</Eyebrow>
-                <h2 className="world-h2">Each project is a world</h2>
+                <Scramble as="h2" className="world-h2" text="Each project is a world" />
                 <p className="world-lead">
                     The form is the function — a scanner that scans, a market
                     that moves, an interview room that speaks.
@@ -114,7 +166,7 @@ function SceneContent({ scene }) {
         return (
             <Panel align="left">
                 <Eyebrow>Scene 05 — The Engineering Mind</Eyebrow>
-                <h2 className="world-h2">Watch a thought travel</h2>
+                <Scramble as="h2" className="world-h2" text="Watch a thought travel" />
                 <p className="world-lead">
                     Five disciplines, one engine. Each pulse leaving the core is
                     a problem becoming a decision.
