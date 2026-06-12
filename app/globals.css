@@ -59,6 +59,1017 @@ section {
 }
 
 /* =============================================
+   GLOBAL WEBGL ATMOSPHERE + CINEMATIC OVERLAYS
+   The atmosphere sits behind every section so all
+   content appears to float inside one 3D space.
+   ============================================= */
+.atmosphere-root {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* above body bg, below all content */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.atmosphere-canvas {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Instant-paint colour wash that also serves as the WebGL fallback.
+   Kept very soft so it only tints the far corners — never a busy glow. */
+.atmosphere-css {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            ellipse 75% 60% at 12% 6%,
+            rgba(59, 130, 246, 0.08) 0%,
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse 65% 55% at 92% 18%,
+            rgba(139, 92, 246, 0.07) 0%,
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse 90% 65% at 55% 100%,
+            rgba(6, 182, 212, 0.05) 0%,
+            transparent 62%
+        );
+    opacity: 0.85;
+}
+
+/* Low tier (touch / small screens): a slow living aurora, no WebGL. */
+.atmosphere-css.tier-low {
+    background:
+        radial-gradient(
+            ellipse 75% 60% at 12% 6%,
+            rgba(59, 130, 246, 0.1) 0%,
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse 65% 55% at 92% 18%,
+            rgba(139, 92, 246, 0.09) 0%,
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse 90% 65% at 55% 100%,
+            rgba(6, 182, 212, 0.06) 0%,
+            transparent 62%
+        );
+    background-size: 150% 150%;
+    animation: auroraDrift 32s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+    0% {
+        background-position:
+            0% 0%,
+            100% 0%,
+            50% 100%;
+    }
+    100% {
+        background-position:
+            20% 30%,
+            70% 40%,
+            40% 70%;
+    }
+}
+
+/* =============================================
+   THE WORLD — cinematic experience UI layer
+   ============================================= */
+.world-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+.world-canvas {
+    position: absolute !important;
+    inset: 0;
+    pointer-events: auto; /* receive cursor for parallax */
+}
+.world-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+.world-flash {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background: radial-gradient(circle at 50% 50%, #f2f6ff 0%, #cdd9f7 100%);
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+}
+
+/* Top bar */
+.world-topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px clamp(20px, 4vw, 48px);
+    pointer-events: none;
+    z-index: 12;
+}
+.world-brand {
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+}
+.world-classic-toggle {
+    pointer-events: auto;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.world-classic-toggle:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Scene content panels — the dedicated CONTENT ZONE (left third).
+   The OUTER div owns positioning (Framer never touches its transform);
+   `.world-panel-anim` inside owns the entrance animation.
+   A scrim guarantees readability no matter what flies behind the text. */
+.world-panel {
+    position: absolute;
+    max-width: min(460px, 84vw);
+    pointer-events: none;
+}
+.world-panel-anim {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.world-panel-left {
+    left: clamp(20px, 6vw, 90px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+/* The left scrim is anchored to the viewport edge — it bleeds off-screen
+   left so it can never read as a clipped card. */
+.world-panel-left::before {
+    content: "";
+    position: absolute;
+    top: -56px;
+    bottom: -56px;
+    left: calc(-1 * clamp(20px, 6vw, 90px));
+    right: -110px;
+    z-index: -1;
+    border-radius: 0 36px 36px 0;
+    background: linear-gradient(
+        90deg,
+        rgba(5, 6, 10, 0.92) 0%,
+        rgba(5, 6, 10, 0.8) 50%,
+        rgba(5, 6, 10, 0.45) 78%,
+        transparent 100%
+    );
+}
+.world-panel-center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: min(680px, 90vw);
+}
+.world-panel-center .world-panel-anim {
+    align-items: center;
+    text-align: center;
+}
+.world-panel-center::before {
+    content: "";
+    position: absolute;
+    inset: -52px -72px;
+    z-index: -1;
+    border-radius: 36px;
+    background: radial-gradient(
+        ellipse 100% 100% at 50% 50%,
+        rgba(5, 6, 10, 0.85) 0%,
+        rgba(5, 6, 10, 0.5) 60%,
+        transparent 82%
+    );
+}
+/* Compact corner caption — used when the 3D scene IS the content (timeline). */
+.world-panel-bottom {
+    left: clamp(20px, 5vw, 70px);
+    bottom: clamp(28px, 7vh, 70px);
+    max-width: min(380px, 80vw);
+}
+.world-panel-bottom .world-panel-anim {
+    gap: 10px;
+}
+.world-panel-bottom::before {
+    content: "";
+    position: absolute;
+    inset: -28px -44px;
+    z-index: -1;
+    border-radius: 20px;
+    background: radial-gradient(
+        ellipse 100% 100% at 30% 60%,
+        rgba(5, 6, 10, 0.85) 0%,
+        rgba(5, 6, 10, 0.5) 60%,
+        transparent 85%
+    );
+}
+.world-lead-sm {
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+/* Scene 06 — animated milestone achievement card (bottom-left) */
+.world-tl-panel {
+    max-width: min(440px, 86vw);
+}
+.world-tl-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+.world-tl-role {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+}
+.world-tl-org {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 4px;
+}
+.world-tl-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.world-tl-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.82);
+}
+.world-tl-dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.world-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7fb4ff;
+}
+.world-h1 {
+    font-size: clamp(44px, 7vw, 92px);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.world-h1-sub {
+    font-size: clamp(14px, 1.6vw, 19px);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 14px;
+}
+.world-h2 {
+    font-size: clamp(32px, 4.6vw, 60px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+.world-glow {
+    text-shadow: 0 0 30px rgba(160, 190, 255, 0.6);
+}
+.world-lead {
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.66);
+    max-width: 460px;
+}
+.world-center {
+    text-align: center;
+    margin: 0 auto;
+}
+.world-hint {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 6px;
+    animation: worldHint 2.4s ease-in-out infinite;
+}
+@keyframes worldHint {
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(4px);
+    }
+}
+
+/* Stats (workspace) */
+.world-stats {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 14px 30px;
+    margin-top: 6px;
+}
+.world-stat {
+    display: flex;
+    flex-direction: column;
+}
+.world-stat-v {
+    font-size: 26px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff, #8fb4ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.world-stat-l {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.02em;
+}
+
+/* Chips (ecosystem) */
+.world-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+.world-chip {
+    pointer-events: auto;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 7px 15px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+}
+
+/* Pillars (mind) */
+.world-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.world-pillar {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-left: 2px solid rgba(167, 139, 250, 0.6);
+    padding-left: 14px;
+}
+.world-pillar-t {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+.world-pillar-d {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* Timeline list */
+.world-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.world-tl-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-left: 2px solid rgba(52, 211, 153, 0.6);
+    padding-left: 14px;
+}
+.world-tl-date {
+    font-size: 11px;
+    font-family: monospace;
+    letter-spacing: 0.04em;
+    color: #34d399;
+}
+.world-tl-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* CTAs + finale */
+.world-finale {
+    text-align: center;
+    text-shadow: 0 0 40px rgba(160, 190, 255, 0.4);
+}
+.world-finale-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+.world-cta {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.world-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 44px rgba(99, 102, 241, 0.6);
+}
+.world-cta-ghost {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 13px 26px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+.world-cta-ghost:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+.world-socials {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    margin-top: 4px;
+}
+.world-social {
+    pointer-events: auto;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+.world-social:hover {
+    color: #fff;
+}
+
+/* ── Finale layout (Scene 07): two columns that always FIT — copy + terminal,
+   centred in the viewport. Widths are tuned so the pair fits even in a 768px
+   window (the narrowest the immersive World ever renders at) without wrapping
+   to a too-tall stack. The layer is click-through; only the form + links are
+   interactive. ── */
+.world-finale-layout {
+    position: absolute;
+    inset: 0;
+    z-index: 11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    padding: clamp(64px, 10vh, 104px) clamp(16px, 3vw, 60px)
+        clamp(28px, 6vh, 52px);
+}
+.world-finale-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(14px, 2vw, 44px);
+    width: 100%;
+    max-width: 1000px;
+}
+.world-finale-copy {
+    position: relative;
+    flex: 1 1 260px;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.world-finale-copy::before {
+    content: "";
+    position: absolute;
+    inset: -22px -34px;
+    z-index: -1;
+    border-radius: 26px;
+    background: radial-gradient(
+        ellipse 120% 100% at 28% 50%,
+        rgba(5, 6, 10, 0.86) 0%,
+        rgba(5, 6, 10, 0.55) 62%,
+        transparent 88%
+    );
+}
+.world-finale-copy .world-h2 {
+    font-size: clamp(26px, 3.2vw, 44px);
+    line-height: 1.04;
+}
+.world-finale-form {
+    flex: 0 1 420px;
+    display: flex;
+    justify-content: center;
+}
+.world-socials-left {
+    justify-content: flex-start;
+}
+/* Genuinely tiny windows (rare for the World): stack and shrink. */
+@media (max-width: 700px) {
+    .world-finale-copy {
+        flex-basis: 100%;
+        max-width: 520px;
+    }
+    .world-finale-form {
+        flex-basis: 100%;
+    }
+}
+/* Short viewports: shrink the copy so the terminal always has room. */
+@media (max-height: 720px) {
+    .world-finale-copy .world-h2 {
+        font-size: clamp(22px, 2.8vw, 32px);
+    }
+    .world-finale-copy {
+        gap: 10px;
+    }
+    .world-finale-copy .world-lead {
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+}
+
+/* ── Workstation contact terminal (Scene 07) ── */
+.terminal {
+    pointer-events: auto;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 22px 24px;
+    border-radius: 16px;
+    background: rgba(6, 9, 16, 0.96);
+    border: 1px solid rgba(127, 180, 255, 0.22);
+    box-shadow:
+        0 0 50px rgba(59, 130, 246, 0.14),
+        0 24px 60px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    text-align: left;
+}
+.terminal-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.45);
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.terminal-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.9);
+    animation: worldHint 2s ease-in-out infinite;
+}
+.terminal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.terminal-field span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #9cc4ff;
+}
+.terminal-field input,
+.terminal-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 9px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+.terminal-field input:focus-visible,
+.terminal-field textarea:focus-visible,
+.terminal-field input:focus,
+.terminal-field textarea:focus {
+    border-color: #7fb4ff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(99, 150, 255, 0.25);
+}
+.terminal-field input::placeholder,
+.terminal-field textarea::placeholder {
+    color: rgba(255, 255, 255, 0.38);
+}
+.terminal-btn:focus-visible,
+.world-classic-toggle:focus-visible,
+.world-fp-dot:focus-visible {
+    outline: 2px solid #7fb4ff;
+    outline-offset: 3px;
+}
+.terminal-error {
+    font-size: 11px;
+    color: #ffb4a8;
+    background: rgba(226, 85, 79, 0.08);
+    border: 1px solid rgba(226, 85, 79, 0.25);
+    border-radius: 8px;
+    padding: 7px 11px;
+}
+.terminal-btn {
+    pointer-events: auto;
+    margin-top: 2px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #fff;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 24px rgba(99, 102, 241, 0.35);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    font-family: inherit;
+}
+.terminal-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 36px rgba(99, 102, 241, 0.55);
+}
+.terminal-btn.ghost {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: none;
+}
+.terminal-log {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(160, 200, 255, 0.85);
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 11px 13px;
+    min-height: 56px;
+}
+.terminal-log .ok {
+    color: #6fe3b1;
+    font-weight: 700;
+}
+.terminal-log .err {
+    color: #ffb4a8;
+    font-weight: 700;
+}
+.terminal-caret {
+    display: inline-block;
+    width: 7px;
+    height: 12px;
+    background: rgba(160, 200, 255, 0.8);
+    animation: terminalBlink 0.9s steps(1) infinite;
+}
+@keyframes terminalBlink {
+    50% {
+        opacity: 0;
+    }
+}
+.terminal-verdict {
+    align-items: flex-start;
+}
+.terminal-result {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+.terminal-result.ok {
+    color: #6fe3b1;
+    text-shadow: 0 0 18px rgba(52, 211, 153, 0.5);
+}
+.terminal-result.err {
+    color: #ffb4a8;
+    text-shadow: 0 0 18px rgba(226, 85, 79, 0.4);
+}
+.terminal-note {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Short viewports: compact the terminal so headline + form fit together. */
+@media (max-height: 720px) {
+    .terminal {
+        gap: 9px;
+        padding: 16px 20px;
+        border-radius: 14px;
+    }
+    .terminal-field input,
+    .terminal-field textarea {
+        padding: 9px 12px;
+        font-size: 14px;
+    }
+    .terminal-field textarea {
+        min-height: 0;
+        height: 52px;
+    }
+    .terminal-btn {
+        padding: 10px 16px;
+    }
+}
+
+/* Flight-path navigator */
+.world-flightpath {
+    position: absolute;
+    right: clamp(14px, 2.4vw, 34px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    pointer-events: auto;
+    z-index: 12;
+}
+.world-fp-dot {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.world-fp-dot.active {
+    border-color: #7fb4ff;
+    background: #7fb4ff;
+    box-shadow: 0 0 14px rgba(127, 180, 255, 0.8);
+}
+.world-fp-dot:hover {
+    border-color: #fff;
+}
+.world-fp-label {
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(8, 10, 20, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+.world-fp-dot:hover .world-fp-label,
+.world-fp-dot.active .world-fp-label {
+    opacity: 1;
+}
+
+/* Boot veil */
+.world-boot {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    background: #05060a;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.world-boot.done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.world-boot-ring {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-top-color: #7fb4ff;
+    animation: worldSpin 0.9s linear infinite;
+}
+@keyframes worldSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.world-boot-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Enter-world button (shown in classic mode on capable devices) */
+.enter-world-btn {
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 80;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.enter-world-btn:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+}
+
+@media (max-width: 900px) {
+    .world-panel-left {
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 16%;
+        transform: none;
+        padding: 0 24px;
+        max-width: 100%;
+    }
+    .world-flightpath {
+        right: 12px;
+        gap: 14px;
+    }
+    .world-stats {
+        grid-template-columns: repeat(2, auto);
+    }
+}
+
+/* Cinematic film grain — fixed, ultra-subtle, above content but click-through. */
+.cinematic-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    animation: grainShift 0.6s steps(3) infinite;
+}
+
+@keyframes grainShift {
+    0% {
+        transform: translate(0, 0);
+    }
+    33% {
+        transform: translate(-3%, 2%);
+    }
+    66% {
+        transform: translate(2%, -2%);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Soft cinematic vignette to focus the eye toward the centre. */
+.cinematic-vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 9989;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse 100% 90% at 50% 45%,
+        transparent 55%,
+        rgba(3, 3, 8, 0.5) 100%
+    );
+}
+
+/* Arrival highlight — a soft halo that blooms behind a project when you jump
+   to it from the route map, so the destination registers. */
+.journey-focus {
+    position: relative;
+    isolation: isolate;
+}
+.journey-focus::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    z-index: -1;
+    border-radius: 2.75rem;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(99, 102, 241, 0.2) 0%,
+        rgba(139, 92, 246, 0.12) 40%,
+        transparent 72%
+    );
+    animation: journeyFocus 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes journeyFocus {
+    0% {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    25% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.01);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .journey-focus::before {
+        animation: none !important;
+        display: none !important;
+    }
+}
+
+/* Depth-tilt cards: snappy follow on move, smooth ease back on leave. */
+.tilt-card {
+    transform-style: preserve-3d;
+    transition:
+        transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* =============================================
    THEME TOKENS (Tailwind v4)
    ============================================= */
 @theme {
@@ -1214,12 +2225,19 @@ section {
     .wrapper,
     .marquee-box,
     .animate-gradient-text,
-    .scroll-indicator .chevron {
+    .scroll-indicator .chevron,
+    .atmosphere-css,
+    .cinematic-grain {
         animation: none !important;
     }
 
+    .cinematic-grain {
+        display: none !important;
+    }
+
     .card:hover,
-    .glass-card:hover {
+    .glass-card:hover,
+    .tilt-card {
         transform: none !important;
     }
 }

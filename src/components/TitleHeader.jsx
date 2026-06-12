@@ -1,8 +1,9 @@
 import React from "react";
+import Reveal from "./Reveal";
 
 const TitleHeader = ({ title, sub }) => {
     return (
-        <div className="flex flex-col items-center gap-4">
+        <Reveal className="flex flex-col items-center gap-4" amount={0.5}>
             {/* Shimmer badge */}
             <div className="hero-badge shimmer-badge flex items-center gap-2 px-4 py-2">
                 <p className="text-white/70 text-sm">{sub}</p>
@@ -23,7 +24,7 @@ const TitleHeader = ({ title, sub }) => {
                     }}
                 />
             </div>
-        </div>
+        </Reveal>
     );
 };
 

@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Montserrat, Mona_Sans } from "next/font/google";
-// import ClientCursor from "../src/components/ClientCursor";
+import ClientCursor from "../src/components/ClientCursor";
+import AtmosphereMount from "../src/components/Atmosphere/AtmosphereMount";
 import ScrollProgressBar from "../src/components/ScrollProgressBar";
 import SmoothScroll from "../src/components/SmoothScroll";
 import { Analytics } from "@vercel/analytics/next";
@@ -160,9 +161,12 @@ export default function RootLayout({ children }) {
                 />
             </head>
             <body className="antialiased">
+                <AtmosphereMount />
                 <SmoothScroll />
                 <ScrollProgressBar />
-                {/* <ClientCursor /> */}
+                <ClientCursor />
+                <div className="cinematic-grain" aria-hidden="true" />
+                <div className="cinematic-vignette" aria-hidden="true" />
                 {children}
                 <Analytics />
                 <SpeedInsights />
