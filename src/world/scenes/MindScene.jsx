@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import { Text, Billboard } from "@react-three/drei";
 import * as THREE from "three";
 import { REGION } from "../worldConfig";
+import { nearRange } from "../journeyStore";
 import Staged from "../Staged";
 
 /**
@@ -99,6 +100,7 @@ export default function MindScene() {
     );
 
     useFrame((state, delta) => {
+        if (!nearRange(0.62, 0.79)) return; // skip work when off-screen
         const t = state.clock.elapsedTime;
 
         // Breathing core

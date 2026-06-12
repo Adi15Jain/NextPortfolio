@@ -5,6 +5,11 @@ import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import Staged from "../Staged";
+import LogoIcon3D from "../assets/LogoIcon3D";
+import IconCluster from "../assets/IconCluster";
+import { nearRange } from "../journeyStore";
+
+const ECO_RANGE = [0.22, 0.44];
 
 /**
  * SCENE 03 — THE BUILDER'S ECOSYSTEM
@@ -189,6 +194,7 @@ function FastApiConduit({ position }) {
     const reqs = useRef([]);
     const ress = useRef([]);
     useFrame((state) => {
+        if (!nearRange(...ECO_RANGE)) return;
         const t = state.clock.elapsedTime;
         reqs.current.forEach((m, i) => {
             if (!m) return;
@@ -255,6 +261,7 @@ function TorchTrainingNet({ position }) {
     }, []);
 
     useFrame((state) => {
+        if (!nearRange(...ECO_RANGE)) return;
         const t = state.clock.elapsedTime;
         const phase = (t * 0.7) % 3;
         nodeRefs.current.forEach((m) => {
@@ -328,6 +335,7 @@ function DockerPipeline({ position }) {
     const boxes = useRef([]);
     const lamp = useRef();
     useFrame((state) => {
+        if (!nearRange(...ECO_RANGE)) return;
         const t = state.clock.elapsedTime;
         let landed = 0;
         boxes.current.forEach((m, i) => {
@@ -525,40 +533,76 @@ function TypeAssembly({ position }) {
     );
 }
 
-/* Each system gets a staged window along the scroll: it emerges from a dim
-   preview as its moment arrives, holds the stage (2–3 visible at once), and
-   clears the viewport once seen. The order matches the camera's travel. */
-const STAGE = [
-    { key: "react", el: ReactComponentTree, pos: [2.0, 2.1, -24] },
-    { key: "typescript", el: TypeAssembly, pos: [5.2, 0.4, -25.5] },
-    { key: "next", el: NextRoutingNetwork, pos: [1.4, -1.5, -27.5] },
-    { key: "fastapi", el: FastApiConduit, pos: [4.8, 2.5, -30] },
-    { key: "pytorch", el: TorchTrainingNet, pos: [2.0, 0.7, -32] },
-    { key: "docker", el: DockerPipeline, pos: [5.6, -1.3, -33.5] },
-    { key: "postgres", el: PostgresCore, pos: [2.0, -2.4, -36] },
-    { key: "git", el: GitGraph, pos: [4.6, 1.2, -37.5] },
+/* The stack leads with REAL 3D brand logos (the optimized GLBs already in
+   /public/models) for the techs that have one, then a few signature "machines"
+   for the rest. Each gets a staged window so 2–3 are visible at a time and
+   clear as you pass. The order matches the camera's travel. */
+const M = {
+    react: "/models/react_logo-transformed.glb",
+    python: "/models/python-transformed.glb",
+    node: "/models/node-opt.glb",
+    three: "/models/three.js-transformed.glb",
+    git: "/models/git-svg-transformed.glb",
+};
+
+/* The 8 stack items, rendered into a tidy 2×1 VERTICAL pair per stage (top +
+   bottom) so the stack occupies a narrow column instead of sprawling across
+   the viewport. */
+const ITEMS = [
+    { key: "react", render: (p) => <LogoIcon3D model={M.react} position={p} name="React" caption="Component-driven interfaces" captionColor="#61dafb" /> },
+    { key: "python", render: (p) => <LogoIcon3D model={M.python} position={p} name="Python" caption="AI / ML & backend" captionColor="#ffd54a" /> },
+    { key: "node", render: (p) => <LogoIcon3D model={M.node} position={p} name="Node.js" caption="Real-time backends" captionColor="#7cc66b" /> },
+    { key: "three", render: (p) => <LogoIcon3D model={M.three} position={p} name="Three.js" caption="Powers this very world" captionColor="#ffffff" /> },
+    { key: "git", render: (p) => <LogoIcon3D model={M.git} position={p} name="Git" caption="Version control" captionColor="#f05133" /> },
+    { key: "fastapi", render: (p) => <FastApiConduit position={p} /> },
+    { key: "pytorch", render: (p) => <TorchTrainingNet position={p} /> },
+    { key: "docker", render: (p) => <DockerPipeline position={p} /> },
 ];
 
-const FIRST = 0.225;
-const STEP = 0.024;
-const WIDTH = 0.06;
+// 4 vertical pairs + a final "wider stack" icon grid, each placed where the
+// camera is looking at that moment.
+const PAIR_Z = [-27, -31, -36, -41];
+const COL_X = 3.2;
+const TOP_Y = 1.5;
+const BOT_Y = -1.7;
+const PFIRST = 0.235;
+const PSTEP = 0.037;
+const PWIDTH = 0.06;
 
 export default function EcosystemScene() {
+    const pairs = [0, 1, 2, 3];
     return (
         <group>
-            <pointLight position={[3, 0, -30]} intensity={36} distance={42} color="#3ad6ff" />
-            {STAGE.map(({ key, el: System, pos }, i) => (
-                <Staged
-                    key={key}
-                    start={FIRST + i * STEP}
-                    end={FIRST + i * STEP + WIDTH}
-                    pre={0.022}
-                    post={0.028}
-                    preview={0.12}
-                >
-                    <System position={pos} />
-                </Staged>
-            ))}
+            <pointLight position={[3, 0, -34]} intensity={36} distance={48} color="#3ad6ff" />
+            {pairs.map((pi) => {
+                const z = PAIR_Z[pi];
+                const top = ITEMS[pi * 2];
+                const bottom = ITEMS[pi * 2 + 1];
+                return (
+                    <Staged
+                        key={pi}
+                        start={PFIRST + pi * PSTEP}
+                        end={PFIRST + pi * PSTEP + PWIDTH}
+                        pre={0.02}
+                        post={0.024}
+                        preview={0.1}
+                    >
+                        {top.render([COL_X, TOP_Y, z])}
+                        {bottom.render([COL_X, BOT_Y, z])}
+                    </Staged>
+                );
+            })}
+
+            {/* Final beat: the wider stack as flat icon chips */}
+            <Staged
+                start={PFIRST + 4 * PSTEP}
+                end={PFIRST + 4 * PSTEP + PWIDTH}
+                pre={0.02}
+                post={0.026}
+                preview={0.1}
+            >
+                <IconCluster position={[COL_X, 0.2, -45]} />
+            </Staged>
         </group>
     );
 }

@@ -5,6 +5,12 @@ import { useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
 import Staged from "../Staged";
+import ProjectPanel from "../assets/ProjectPanel";
+import PropFloat from "../assets/PropFloat";
+import { projectAssets } from "../projectAssets";
+import { nearRange } from "../journeyStore";
+
+const GAL_RANGE = [0.42, 0.63];
 
 /**
  * SCENE 04 — PROJECT GALAXY
@@ -323,6 +329,7 @@ function ArchLensObservatory({ position }) {
     );
     const pulse = useRef();
     useFrame((state) => {
+        if (!nearRange(...GAL_RANGE)) return;
         const t = (state.clock.elapsedTime * 0.4) % 1;
         if (pulse.current) {
             // One dependency traced top → bottom, always downward.
@@ -387,6 +394,7 @@ function WealthyMindsChart({ position }) {
         [],
     );
     useFrame((state) => {
+        if (!nearRange(...GAL_RANGE)) return;
         const t = (state.clock.elapsedTime * 0.4) % 1;
         if (pulse.current) pulse.current.position.copy(median.getPoint(t));
     });
@@ -522,6 +530,19 @@ function TeleChurnDashboard({ position }) {
    the camera reaches it, holds its moment, then clears the frame. The
    flagship (InterviewPilot) sits dead-center of the dwell with the longest
    window. */
+/* Name/tagline used by the real device-rig path (the procedural stations carry
+   their own labels). Keep in sync with each station's ProductLabel. */
+const LABELS = {
+    interviewpilot: { name: "InterviewPilot", tagline: "AI interview command center · <1s audio", color: "#f5a623", y: -1.5 },
+    pneumoai: { name: "PneumoAI", tagline: "X-ray triage · CNN reads the scan", color: "#5fd0e0", y: -1.35 },
+    coinpush: { name: "CoinPush", tagline: "Live WebSocket market terminal · 90% less latency", color: "#2ec27e", y: -1.3 },
+    exyst: { name: "Exyst", tagline: "Papers → knowledge graph → prediction", color: "#c9b48a", y: -1.4 },
+    archlens: { name: "ArchLens", tagline: "Layers enforced · dependencies only flow down", color: "#56b3a0", y: -1.6 },
+    wealthyminds: { name: "WealthyMinds", tagline: "10k Monte Carlo futures, one decision", color: "#7c6cf0", y: -1.35 },
+    vectrion: { name: "Vectrion", tagline: "One SDK · routed to real adapters", color: "#9aa7ff", y: -1.45 },
+    telechurn: { name: "TeleChurn", tagline: "Churn flagged before it costs · ₹7.7M saved", color: "#e08a5f", y: -1.25 },
+};
+
 const STAGE = [
     { key: "pneumoai", el: PneumoStation, pos: [1.7, 2.3, -49] },
     { key: "coinpush", el: CoinPushTerminal, pos: [6.3, 1.4, -51.5] },
@@ -541,22 +562,44 @@ export default function GalaxyScene() {
     return (
         <group>
             <pointLight position={[3, 0, -57]} intensity={46} distance={48} color="#cfe0ff" />
-            {STAGE.map(({ key, el: Product, pos }, i) => (
-                <Staged
-                    key={key}
-                    start={FIRST + i * STEP}
-                    end={
-                        FIRST +
-                        i * STEP +
-                        (key === "interviewpilot" ? WIDTH + 0.02 : WIDTH)
-                    }
-                    pre={0.02}
-                    post={0.026}
-                    preview={0.1}
-                >
-                    <Product position={pos} />
-                </Staged>
-            ))}
+            {STAGE.map(({ key, el: Product, pos }, i) => {
+                const asset = projectAssets[key];
+                return (
+                    <Staged
+                        key={key}
+                        start={FIRST + i * STEP}
+                        end={
+                            FIRST +
+                            i * STEP +
+                            (key === "interviewpilot" ? WIDTH + 0.02 : WIDTH)
+                        }
+                        pre={0.02}
+                        post={0.026}
+                        preview={0.1}
+                    >
+                        {/* Real screenshot panel once an asset exists, else the
+                            procedural station (graceful upgrade). */}
+                        {asset ? (
+                            <group position={asset.position || pos}>
+                                <ProjectPanel
+                                    screenshot={asset.screenshot}
+                                    width={asset.width || 3.4}
+                                    accent={asset.accent}
+                                />
+                                {asset.prop && <PropFloat {...asset.prop} />}
+                                <ProductLabel
+                                    name={LABELS[key].name}
+                                    tagline={LABELS[key].tagline}
+                                    color={LABELS[key].color}
+                                    y={-1.7}
+                                />
+                            </group>
+                        ) : (
+                            <Product position={pos} />
+                        )}
+                    </Staged>
+                );
+            })}
         </group>
     );
 }

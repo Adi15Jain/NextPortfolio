@@ -5,7 +5,11 @@ import Link from "next/link";
 import { SCENES, useActiveScene, useTimelineGate } from "./journeyStore";
 import { MILESTONES } from "./timelineData";
 import ContactTerminal from "./ContactTerminal";
+import { Github, Linkedin, FileText } from "lucide-react";
 import { counterItems, socialImgs } from "../constants";
+
+const SOCIAL_ICONS = { github: Github, linkedin: Linkedin };
+const SOCIAL_LABELS = { github: "GitHub", linkedin: "LinkedIn" };
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -151,19 +155,25 @@ function SceneContent({ scene }) {
                             rel="noopener noreferrer"
                             className="world-social"
                         >
-                            Résumé
+                            <FileText size={15} strokeWidth={2} />
+                            <span>Résumé</span>
                         </a>
-                        {socialImgs.map((s) => (
-                            <a
-                                key={s.url}
-                                href={s.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="world-social"
-                            >
-                                {s.name}
-                            </a>
-                        ))}
+                        {socialImgs.map((s) => {
+                            const Icon = SOCIAL_ICONS[s.name];
+                            return (
+                                <a
+                                    key={s.url}
+                                    href={s.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="world-social"
+                                    aria-label={SOCIAL_LABELS[s.name] || s.name}
+                                >
+                                    {Icon && <Icon size={15} strokeWidth={2} />}
+                                    <span>{SOCIAL_LABELS[s.name] || s.name}</span>
+                                </a>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className="world-finale-form">

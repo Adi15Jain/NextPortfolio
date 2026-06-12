@@ -546,21 +546,39 @@ section {
 }
 .world-socials {
     display: flex;
-    gap: 18px;
+    gap: 10px;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 4px;
+    margin-top: 6px;
 }
 .world-social {
     pointer-events: auto;
-    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
-    transition: color 0.3s ease;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.72);
+    padding: 8px 15px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+.world-social svg {
+    flex-shrink: 0;
 }
 .world-social:hover {
     color: #fff;
+    border-color: rgba(127, 180, 255, 0.5);
+    background: rgba(127, 180, 255, 0.1);
+    transform: translateY(-1px);
 }
 
 /* ── Finale layout (Scene 07): two columns that always FIT — copy + terminal,

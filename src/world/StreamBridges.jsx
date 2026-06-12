@@ -4,6 +4,7 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import Staged from "./Staged";
+import { nearRange } from "./journeyStore";
 
 /**
  * The connective narrative between regions. Three luminous streams carry
@@ -68,6 +69,7 @@ function Bridge({ from, mid, to, color }) {
     }, [curve]);
 
     useFrame((state) => {
+        if (!nearRange(0.4, 0.8)) return;
         const t = state.clock.elapsedTime;
         pulses.current.forEach((m, i) => {
             if (!m) return;

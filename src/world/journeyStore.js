@@ -57,6 +57,16 @@ export const bumpTerminalActivity = (amount = 0.4) => {
     terminal.activity = Math.min(1, terminal.activity + amount);
 };
 
+/**
+ * Frame-loop perf gate: true only when the camera is near a scene's progress
+ * window. Heavy per-scene animations early-return when false, so off-screen
+ * scenes cost almost nothing (they're already render-culled by <Staged>).
+ */
+export const nearRange = (start, end, buf = 0.05) => {
+    const p = journey.progress;
+    return p >= start - buf && p <= end + buf;
+};
+
 const listeners = new Set();
 let sceneSnapshot = 0;
 let gateSnapshot = 0;

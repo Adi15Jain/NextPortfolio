@@ -7,7 +7,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "asset:optimize": "npx -y @gltf-transform/cli@latest optimize"
     },
     "dependencies": {
         "@emailjs/browser": "^4.4.1",

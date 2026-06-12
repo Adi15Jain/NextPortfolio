@@ -4,7 +4,7 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF, useTexture, Text } from "@react-three/drei";
 import * as THREE from "three";
-import { journey, terminal } from "./journeyStore";
+import { journey, terminal, nearRange } from "./journeyStore";
 import { REGION } from "./worldConfig";
 import { MILESTONES, timelineGateAt } from "./timelineData";
 import Staged from "./Staged";
@@ -92,6 +92,7 @@ export function PortalGate() {
     const ringRef = useRef();
     const matRef = useRef();
     useFrame((state) => {
+        if (!nearRange(0.09, 0.24)) return;
         const p = journey.progress;
         const k = Math.max(0, 1 - Math.abs(p - 0.17) * 9);
         // Opacity is owned by the Staged wrapper; the crossing pulse is
@@ -171,7 +172,7 @@ function TimeGate({ z, date, title, org, color, index, logoTex }) {
     const collected = useRef(false);
 
     useFrame((state) => {
-        if (!ring.current) return;
+        if (!ring.current || !nearRange(0.76, 0.93)) return;
         ring.current.rotation.z = state.clock.elapsedTime * 0.08 + index;
 
         // Active milestone is decided by journey progress (same source the DOM
